@@ -110,3 +110,17 @@ def get_command_config():
 
     return config_dic_list
 
+
+def get_knowledge_prop_list():
+    conn = DBConnector.getDBConnection(conn_data)
+    cursor = conn.cursor()
+
+    command_query = """
+                select prop_name, prop_alias 
+                from knowledge_prop_list
+         """
+
+    cursor.execute(command_query)
+    prop_list = cursor.fetchall()
+
+    return prop_list

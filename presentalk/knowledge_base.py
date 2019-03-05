@@ -1,16 +1,15 @@
 import neo4j_client
+import PresenTALKUtil
 
 
 class KnowledgeBase:
 
     def __init__(self):
         self._neo4j_c = neo4j_client.Neo4jClient('bolt://192.168.219.102:7687', 'neo4j', 'presentalk')
-        # self._neo4j_c = neo4j_client.Neo4jClient('bolt://172.30.1.33:7687', 'neo4j', 'presentalk')
-        # self._neo4j_c = neo4j_client.Neo4jClient('bolt://localhost:7687', 'neo4j', 'presentalk')
         self._node_list = self._neo4j_c.execute_query('MATCH (n) RETURN n.name, n.alias', ['n.name', 'n.alias'])
         self._relation_list = self._neo4j_c.execute_query('MATCH (n)-[r]-() RETURN DISTINCT type(r), r.alias',
                                                           ['type(r)', 'r.alias'])
-        self._prop_list = [('age', '나이, 살'), ('locate', '주소')]
+        self._prop_list = PresenTALKUtil.get_knowledge_prop_list()
 
     def check_trait(self, ch):
         return int((ord(ch) - 0xAC00) % 28) != 0
@@ -104,4 +103,3 @@ class KnowledgeBase:
             result = self._neo4j_c.execute_query(query, select_list)
             response_message.append(answer_message + str(result[0][0]) + " 입니다.")
         return response_message
-
