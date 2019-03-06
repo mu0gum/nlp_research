@@ -195,4 +195,134 @@ def check_question(self, pos_result):
 등이 있습니다. 하지만 위의 로직만으로 의도 분류를 하는 것이 아니고, 조금이라도 정확도를 높여보고자 함께 사용되는 로직이기 때문에 일단 눈감고 넘어가도록 하겠습니다. ( 욕심이 많아 이것저것 벌려 놓기는 했는데, 각 기능에 구현은 기본적인 부분을 진행하고 개선시켜 나갈 계획입니다. ) 의도 분류는 제가 아는 내용이 많이 없어서 간단하게 쓰려고 했는데 조금 길어진 것 같습니다. 다음은 범용성을 위한 기능 중 하나인 **지식 그래프 탐색** 에 대해 작성하도록 하겠습니다.
 
 
+## 3. 지식 그래프 구축
+ 앞서 설명한대로 일반적으로도 사용할 수 있는 챗봇을 만들기 위해 했던 작업 중 하나가 지식 그래프 구축입니다. 지식 그래프를 구축하기 위한 지식이나 경험이 없었기 때문에, 지식 그래프 구축에 대한 컨셉을 카카오 지식 그래프(https://www.slideshare.net/ifkakao/ss-113145456) 와 NUGU Knowledge Base(https://www.slideshare.net/NUGU_developers/nugu-conference-2018-b31-1) 를 참고해서 간략하게 구축해 보았습니다. 당연하지만 매우 안타깝게도 저에게는 카카오나 SK처럼 지식 그래프를 만들 수 있는 자원과 역량이 부족했기 때문에 할 수 있는 것과 할 수 없는 것을 우선 구분했습니다.
+ 
+ 
+ 1. 광범위한 데이터를 수집해서 적재할 수 없다 => 특정 주제에 한해서 지식 그래프를 구축한다. ex) 연예인, 축구
+ 2. 똑같은 질문을 다양한 형태로 하더라도 이해하고 적절히 응답할 수 없다 => 질문에 대해 전혀 엉뚱한 대답을 하기보다는 확실히 할 수 있는 대답만 한다.
+ 
+ 
+ 일단 데이터를 수집하고 그래프의 형태로 구축하는 것은 굉장히 어려운 작업이고, 챗봇을 위한 하나의 모듈로 보기에는 전문적이고 광범위합니다. 지식 그래프를 어떻게 하느냐에 따라 질의를 하는 쿼리가 달라질 수도 있고 속도나 성능에 대해서도 고민해야 하는 부분 등 제가 모르는 곳에서 해야할 일이 많았습니다. 솔직히 그래프 DB를 써보고 싶은 가벼운 마음으로 시작했기 때문에, 지식 그래프도 그냥 가볍게 만들기로 했습니다. 지식 그래프를 구축하기 위해 그래프 DB를 선정해야 했는데, 처음에는 아파치 재단의 인큐베이팅 프로젝트로 선정된 자랑스러운 카카오의 [s2graph](https://s2graph.apache.org/)를 사용하려고 했으나 **s2graph 설치 실패, s2graph 시각화 방법을 찾지 못함** 두 가지의 이유로 neo4j를 사용하게 되었습니다.
+ 
+ 
+그래프 DB를 사용한 것도 이번이 처음이기 때문에 시각화는 저에게 중요한 문제였습니다. 상상력이 부족해서 그런지 눈에 보이지 않는건 잘 이해가 되지 않아서요. 그럼 일단 제가 현재까지 만들어놓은 neo4j의 일부분을 보여드리겠습니다.
 
+
+ <p align="center">
+    <image src="https://github.com/mu0gum/nlp_research/blob/master/images/knowledge_graph.PNG" width="800">
+
+
+간단히 설명하면 Company 라벨을 갖는 노드 2개(YG_Entertainment, 카카오M), PersonGroup 라벨을 갖는 노드 2개(빅뱅, 블랙핑크), Person 라벨을 갖는 노드 10개(지수,로제 등...)로 이루어진 그래프 DB입니다. 그리고 Compnay <-> PersonGroup 관계는 HAS_GROUP, PersonGroup <-> Person 관계는 HAS_MEMBER로 표현되어 있습니다. (아이유는 그룹이 아니지만 HAS_GROUP으로 일단 관계를 정의해두었습니다. 아직 초안이고 로직을 수정함에 따라 같이 변할 수 있습니다.)
+
+
+그래프 DB를 구성하고, 이제 남은 중요한 과제인 **"사용자의 질문을 이해하고 지식 그래프에 질의할 쿼리를 만드는 일"** 이 남았습니다. 솔직히 이 부분은 제 실력으로는 단순하게 밖에 구현을 할 수가 없었습니다. 이 부분은 앞으로도 서비스를 운영하면서 개인적인 과제로 계속 개선해 나갈 예정입니다. 아래는 소스코드입니다.
+
+
+```python
+def generate_query(self, graph_list):
+	# [('node', 'GD'), ('prop', 'age')]
+	match_query = " MATCH "
+	where_query = " WHERE "
+	return_query = " RETURN "
+	answer_message = ""
+	select_list = []
+
+	list_len = len(graph_list)
+	for i in range(0, list_len):
+		element = graph_list[i]
+
+		# 처음에는 node
+		if i == 0:
+			if element[0] == 'node':
+				match_query += " (n) "
+				where_query += " n.name = '" + element[1] + "'"
+				answer_message += element[1] + " "
+		else:
+			if element[0] == 'node':
+				pass
+			elif element[0] == 'rel':
+				match_query += " -[r:" + element[1] + "]-(n1) "
+				answer_message += element[2] + " "
+				# where_query += " AND r.alias contains '" + element[1] + "'"
+			elif element[0] == 'prop':
+				if "n1" in match_query:
+					return_query += "n1." + element[1]
+					select_list.append("n1." + element[1])
+				else:
+					return_query += "n." + element[1]
+					select_list.append("n." + element[1])
+
+				split_word = element[2].split(',')[0]
+				if self.check_trait(split_word[-1:]):
+					answer_message += split_word + "은 "
+				else:
+					answer_message += split_word + "는 "
+
+	query = match_query + where_query + return_query
+	return query, select_list, answer_message
+
+def response_question(self, mecab, message):
+	graph_list = []
+	pos_list = mecab.pos(message)
+	
+	# 질문 형식 형태소 제거
+	# todo : 개선 필요
+	while pos_list[len(pos_list) - 1][1] in ['JX', 'VCP+EF', 'VCP', 'EF', 'SF']:
+		pos_list = pos_list[:len(pos_list) - 1]
+
+	for pos in pos_list:
+		find_element = False
+		if pos[1].startswith('N'):
+			# find node
+			for node in self._node_list:
+				if pos[0] in node[1] or pos[0] in node[0]:
+					pos_tuple = ('node', node[0], node[1])
+					graph_list.append(pos_tuple)
+					find_element = True
+					break
+			if find_element:
+				continue
+			# find relation
+			for rel in self._relation_list:
+				if pos[0] in rel[1] or pos[0] in rel[0]:
+					pos_tuple = ('rel', rel[0], rel[1])
+					graph_list.append(pos_tuple)
+					find_element = True
+					break
+			if find_element:
+				continue
+			# find prop
+			for prop in self._prop_list:
+				if pos[0] in prop[1] or pos[0] in prop[0]:
+					pos_tuple = ('prop', prop[0], prop[1])
+					graph_list.append(pos_tuple)
+					break
+
+	# check has node
+	# TODO : 수정
+	response_message = []
+	if graph_list[0][0] != 'node':
+		response_message = []
+	else:
+		query, select_list, answer_message = self.generate_query(graph_list)
+		result = self._neo4j_c.execute_query(query, select_list)
+		response_message.append(answer_message + str(result[0][0]) + " 입니다.")
+	return response_message
+```
+
+
+로직의 순서를 간단히 설명하면,
+
+1. 사용자의 질문을 형태소 분석한 결과에서 뒷 부분부터 불필요한 성분을 제거
+2. 이후 형태소 분석 결과를 반복문을 돌리면서 형태소 분석의 결과가 'N'으로 시작하면(명사 관련 품사) 미리 초기화 시켜둔 node_list 에 있는지 확인
+3. node_list 에 있으면 graph_list 에 담고 없을 경우 relation_list > prop_list 순서로 탐색
+
+입니다. 정말 간단히 설명했습니다. 지금 이 글을 적으면서 봐도 헛점이 많아보이네요. 개발 시간이 충분치 않은  이것저것 모두 욕심내다 보니 퀄리티가 떨어지는 것 같습니다. 표현력이 부족해서 말로 설명하기 힘드네요. 아래 이미지와 [소스코드](https://github.com/mu0gum/nlp_research/blob/master/presentalk/knowledge_base.py) 로 지식 그래프 구축 설명을 마무리 하겠습니다.
+
+
+ <p align="center">
+    <image src="https://github.com/mu0gum/nlp_research/blob/master/images/knowledge_query.PNG" width="850">
+
+ 
+ 
