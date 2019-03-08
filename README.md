@@ -336,3 +336,98 @@ def response_question(self, mecab, message):
 
 
 지식 그래프에 대한 설명은 이정도로 마치겠습니다. 설명이라기보다는 "내가 이렇게 했다" 라는 소개에 가까운 것 같네요ㅎㅎ어쨌든 개발기이고 경험을 공유하는 차원의 글이기 때문에 앞으로의 내용도 이럴 것 같습니다~!그래도 누군가에게 조금이라도 도움이 되었으면 좋겠네요. 다음에는 명령을 수행하는 로직에 대해 설명하도록 하겠습니다.
+
+
+## 4. 명령 수행
+범용성을 갖춘 챗봇을 만들기 위한 두번째 과제인 명령 수행 기능입니다. 현재 시중에 많이 나와있는 인공지능 스피커는 주로 무엇을 물어보거나 또는 요청하거나 하는데 많이 사용되고 있습니다. 내일 알람을 맞춰달라고 하거나 음악을 틀어달라고 하거나 하는 등의 예가 있을 것 같습니다. 솔직히 "선물 추천 챗봇이게 선물만 추천하라고 명령하지 뭐 다른 명령할게 뭐가 있어?" 라고 생각하실 수도 있지만, 재미있고 도전해볼만한 주제라고 생각되서 간단하게나마 구현해 보았습니다.
+
+
+일단, 명령 수행 기능을 구현할 때 아래와 같은 내용을 고민했습니다.
+***
++ 어떤 것에 대한 명령인지를 어떻게 이해하고 수행할 것인가?
++ 어떤 기능을 제공할 것인가?
++ 앞으로 어떻게 발전시켜 나갈 것인가?
+***
+명령 수행 기능을 구현하기 위해서 가장 중요한 부분은 역시 "어떻게 명령을 이해할 것인가" 였습니다. 제가 선택한 방법을 본론부터 말하자면 **"단어 점수 / 어미 점수를 합산하여 가장 높은 점수를 얻는 기능을 수행한다"** 입니다. 이 방법을 결정한 이유는
+
+1. 기능 구현에 드는 시간/노력에 대비 결과물이 나쁘지 않다. => 딥러닝을 위한 데이터 생성이나 모델 개발에 드는 노력이 크다.
+2. 많은 기능을 제공하지 않기 때문에 잘 짜여진 로직이 오히려 성능이 높을 수 있다. 
+
+입니다. 저는 사용자가 챗봇이나 인공지능 스피커를 사용할 때, 무엇인가를 장황하게 요구하지 않을 것이라고 생각했습니다.(특히 챗봇은 말로 하는게 아니고 직접 손으로 타이핑을 해야하기 때문에 그런 현상이 더욱 두드러질 것으로 판단했습니다.) 물론 아직 챗봇이나 인공지능 스피커가 복잡한 문장을 정확히 이해하는 수준이 아니기 때문 이기도 하지만, 원하는 바를 간단하게 요구하는 경향이 많다고 생각했습니다. 예를 들자면
+***
+ + 지금 몇 시야? 
+ + 영화 추천 해줘
+ + 신나는 노래 틀어줘
+***
+등 입니다. 저는 위와 같은 식으로 사용자가 요구했을 때는 문장 전체에서 단어와 / 어미 만으로도 어느정도 명령을 분류할 수 있겠다고 판단했습니다. 그 컨셉으로 작성한 코드는 아래와 같습니다.
+
+```python
+def __init__(self):
+	self.end_post_list = ['VX+EC', 'XSV+EC', 'VX', 'EP+EF', 'VX+EF', 'VV+EC', 'VV', 'EC']
+	self.command_config_list = PresenTALKUtil.get_command_config()
+
+def __analyze_command__(self, mecab, message):
+	ending_of_word = ''
+	noun_list = []
+
+	# 어미 불필요 요소 제거
+	pos_list = mecab.pos(message)
+	while pos_list[len(pos_list) - 1][1] in ['IC', 'SY']:
+		pos_list = pos_list[:len(pos_list) - 1]
+
+	list_len = len(pos_list)
+	for i in range(list_len):
+		# 명사 list 가 있는 경우 break
+		if len(noun_list) > 0:
+			break
+
+		pos = pos_list[list_len - 1 - i]
+
+		if pos[1] in self.end_post_list:
+			ending_of_word = pos[0] + ending_of_word
+		else:
+			j_len = list_len - i
+			for j in range(j_len):
+				pos = pos_list[j_len -1 - j]
+				if pos[1].startswith('N'):
+					noun_list.append(pos[0])
+
+	# calc socre
+	max_count_score = 0
+	max_count_command = ''
+	for command_config in self.command_config_list:
+		count_score = 0
+
+		# calc word count
+		word_list = command_config['command_word'].split(',')
+		for word in word_list:
+			for noun in noun_list:
+				if word == noun:
+					count_score += 1
+
+		# calc eow count
+		eow_list = command_config['command_eow'].split(',')
+		for eow in eow_list:
+			if ending_of_word == eow:
+				count_score += 1
+				break
+
+		if count_score > 1:
+			if count_score > max_count_score:
+				max_count_score = count_score
+				max_count_command = command_config['command']
+
+	return max_count_command
+```
+
+코드를 간략히 설명하자면
+
+1. 입력 받은 문장 형태소 분석 후 전처리한다.(어미 불필요 요소 제거 => IC: 감탄사, SY: 기타기호)
+2. 전처리된 형태소 분석 결과를 뒤에서부터 탐색하여 end_post_list에 해당하는 품사가 있으면 ending_of_word에 더해준다.
+3. end_post_list에 해당하는 품사가 없으면 명사관련 품사인지 확인 -> 맞으면 noun_list에 담는다.
+4. noun_list와 endinig_of_word를 가지고 socer를 계산한다.(현재는 단순 counting)
+5. count_socre가 1 초과인 경우, 결과를 return 한다.
+
+입니다. [전체 코드](https://github.com/mu0gum/nlp_research/blob/master/presentalk/command_processor.py) 참고하시기 바랍니다. 이제 제가 직접 만든 PresenTALKBot 에 대한 기본적인 설명은 어느정도 진행이 된 것 같습니다. 최대한 자세히 기록하고 싶었는데, 도움이 되었을지는 잘 모르겠습니다. 처음에는 챗봇 기능에 대한 설명보다는 어떤 라이브러리를 사용했고, 어떤 기술을 참고하였으며, 어떻게 서비스를 구성했나 등을 위주로 작성하려고 했는데, 쓰다보니 정반대로 챗봇 기능 구현에 대한 설명이 주가 되었네요ㅎㅎ물론 방금 말한 내용도 이 글 말미에 작성할 예정입니다~! 실제 서비스를 목표로 하고 시작했기 때문에 서버 호스팅도 하고, 시스템 구성도 하고 많은 작업을 해보았기 때문입니다.(~많이 해봤지만 잘하진 못했다고 한다.~) 실없는 소리는 이제 그만하고 다음에는 제가 맡은 범위는 아니지만, 선물 추천 기능에 대해서 간단히 이야기 해보도록 하겠습니다~!
+
+
