@@ -353,10 +353,13 @@ class PresentTALKBot:
             if response_message_dict['command'] == 'recommand':
                 bot_message_type = 'BF'
                 self.find_feature_candidate(message)
-                response_message.append = self.print_gambit_message(message, intent_index, bot_message_type, '')
+                response_message = self.print_gambit_message(message, intent_index, bot_message_type, '')
             else:
                 bot_message_type = 'BA'
                 response_message = response_message_dict['message']
+                if not response_message:
+                    response_message = self.response_quibble_message(message)
+
                 self.save_conversation_list(response_message, bot_message_type, '')
 
         return response_message
