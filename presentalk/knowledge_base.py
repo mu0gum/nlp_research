@@ -5,7 +5,7 @@ import PresenTALKUtil
 class KnowledgeBase:
 
     def __init__(self):
-        self._neo4j_c = neo4j_client.Neo4jClient('bolt://192.168.219.102:7687', 'neo4j', 'presentalk')
+        self._neo4j_c = neo4j_client.Neo4jClient('your db host', 'your db name', 'your db password')
         self._node_list = self._neo4j_c.execute_query('MATCH (n) RETURN n.name, n.alias', ['n.name', 'n.alias'])
         self._relation_list = self._neo4j_c.execute_query('MATCH (n)-[r]-() RETURN DISTINCT type(r), r.alias',
                                                           ['type(r)', 'r.alias'])
@@ -56,14 +56,27 @@ class KnowledgeBase:
         query = match_query + where_query + return_query
         return query, select_list, answer_message
 
+    # TODO : 수정
+    def check_valid_graph(self, graph_list):
+        print(graph_list)
+        if len(graph_list) < 2:
+            return False
+        if graph_list[0][0] != 'node':
+            return False
+
+        return True
+
     def response_question(self, mecab, message):
         graph_list = []
         pos_list = mecab.pos(message)
-        
+
         # 질문 형식 형태소 제거
         # todo : 개선 필요
         while pos_list[len(pos_list) - 1][1] in ['JX', 'VCP+EF', 'VCP', 'EF', 'SF']:
             pos_list = pos_list[:len(pos_list) - 1]
+
+        print('pos_list(형태소 제거) : ' + str(pos_list))
+        print('\n')
 
         for pos in pos_list:
             find_element = False
@@ -94,12 +107,10 @@ class KnowledgeBase:
                         break
 
         # check has node
-        # TODO : 수정
         response_message = []
-        if graph_list[0][0] != 'node':
-            response_message = []
-        else:
+        if self.check_valid_graph(graph_list):
             query, select_list, answer_message = self.generate_query(graph_list)
             result = self._neo4j_c.execute_query(query, select_list)
+            print(str(result))
             response_message.append(answer_message + str(result[0][0]) + " 입니다.")
         return response_message

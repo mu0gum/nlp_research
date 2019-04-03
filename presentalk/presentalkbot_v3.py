@@ -7,13 +7,14 @@
 #   - 기능 추가
 
 import re
+import recommend_present
 import PresenTALKUtil
 import BayesClassifier
-import recommand_present
 import intent_analyzer
 import knowledge_base
 import command_processor
 import text_util
+import recommend_data2
 
 from konlpy.tag import Mecab
 
@@ -28,7 +29,10 @@ class User:
 class PresentTALKBot:
     
     def __init__(self):
-        
+
+        # 챗봇 종료
+        self.isFinish = False
+
         # 형태소 분석기
         self.mecab = Mecab()
 
@@ -112,6 +116,7 @@ class PresentTALKBot:
         response_text = []
         for rule in matching_rule_list:
             matching_rule = rule['matching_rule']
+            print(matching_rule)
             compiled_rule = re.compile(matching_rule)
 
             if compiled_rule.match(message):
@@ -209,6 +214,7 @@ class PresentTALKBot:
             else:
                 # 사용자가 원하는 걸 직접 질문
                 response_text.append(PresenTALKUtil.get_random_message('reject'))
+                response_message_type = 'BJ'
 
         elif message_type == 'BF':
             is_find = False
@@ -221,39 +227,63 @@ class PresentTALKBot:
 
             # feature 추출이 모두 끝난 경우
             if feature_key == '':
-                rec = recommand_present.Recommandation()
-                response_text.append(rec.get_recommand_message(self.feature_dict))
+                # rec = recommand_present.Recommandation()
+                # response_text.append(rec.get_recommand_message(self.feature_dict))
+                # who, age, price, why
+                recommend_list = recommend_data2.recommend_in_DB(self.feature_dict['object'], self.feature_dict['age'],
+                                                                 '10', self.feature_dict['purpose'])
+
+                present_list = ''
+                for present in recommend_list:
+                    if present_list == '':
+                        present_list = present
+                    else:
+                        present_list = present_list + ', ' + present
+
+                recommend_text = '선물 추천 결과입니다. ' + str(present_list) + ' 어떠신가요?'
+                response_text.append(recommend_text)
+
                 response_message_type = 'BR'
             else:
                 response_text.append(temp_dic['feature_message'])
                 response_message_type = 'BF'
 
-        elif message_type == 'BI':
-            # feature 추출 응용
-            self.find_feature(message, pre_feature_key)
+        # TODO : 추후 추가 ( 로직의 복잡도 증가 )
+        # elif message_type == 'BI':
+        #     if BayesClassifier.get_message_class(message) == 'POS':
+        #         pass
+        #     else:
+        #         pass
 
         elif message_type == 'BN':
             response_text = self.find_matching_rule(message)
-            
-            # 매칭하는 룰을 찾지 못했을 경우 특정 토픽으로 이야기하기
-            if len(response_text) == 0:
-                user_info_text = self.get_user_info_message()
 
-                if user_info_text == '':
-                    response_message_type = 'BN'
-                    response_text.append('잘 이해를 못했어요ㅠㅠ좀 더 공부할게요.')
-                else:
-                    response_text.append(' 제가 공부한 분야로 이야기해 보시겠어요?')
-                    response_text.append(user_info_text)
-                    response_message_type = 'BI'
+            if len(response_text) == 0:
+                response_message_type = 'BN'
+                response_text = self.response_quibble_message(message)
+
+            # TODO : 추후 추가 ( 로직의 복잡도 증가 )
+            # 매칭하는 룰을 찾지 못했을 경우 특정 토픽으로 이야기하기
+            # if len(response_text) == 0:
+            #     user_info_text = self.get_user_info_message()
+            #
+            #     if user_info_text == '':
+            #         response_message_type = 'BN'
+            #         response_text = self.response_quibble_message(message)
+            #     else:
+            #         response_text.append('제가 공부한 분야로 이야기해 보시겠어요?')
+            #         response_text.append(user_info_text)
+            #         response_message_type = 'BI'
 
         elif message_type == 'BR':
             # TODO : 로직 정리 필요
             if BayesClassifier.get_message_class(message) == 'POS':
+                response_message_type = 'BE'
                 response_text.append(PresenTALKUtil.get_random_message('bot_ending'))
             else:
                 # 사용자가 원하는 걸 직접 질문
                 response_text.append(PresenTALKUtil.get_random_message('reject'))
+                response_message_type = 'BJ'
 
         # TODO : 대답 하고 나서의 로직 추가
         elif message_type == 'BA':
@@ -264,10 +294,27 @@ class PresentTALKBot:
                 response_text = self.response_quibble_message(message)
             response_message_type = 'BN'
 
+        elif message_type == 'BJ':
+            if BayesClassifier.get_message_class(message) == 'POS':
+                response_message_type = 'BE'
+                response_text.append(PresenTALKUtil.get_random_message('bot_ending'))
+            else:
+                response_message_type = 'BN'
+                response_text.append(PresenTALKUtil.get_random_message('bot_restart'))
+
+        elif message_type == 'BE':
+            if BayesClassifier.get_message_class(message) == 'POS':
+                self.isFinish = True
+                response_text.append(PresenTALKUtil.get_random_message('bot_bye'))
+        
+        # TODO : 시나리오 구성
         else:
-            # Bot Feature
-            response_text.append(self.print_feature_message())
-            response_message_type = 'BF'
+            return_message = self.find_matching_rule(message)
+            if len(return_message) != 0:
+                response_text = return_message
+            else:
+                response_text = self.response_quibble_message(message)
+            response_message_type = 'BN'
 
         self.save_conversation_list(response_text, response_message_type, feature_key)
 
@@ -330,12 +377,12 @@ class PresentTALKBot:
             response_message = know_base.response_question(self.mecab, message)
 
             # knowledgebase 에서 검색 실패 하는 경우 정규식 매칭 진행
-            if response_message == '':
+            if len(response_message) == 0:
                 bot_message_type = 'BA'
                 response_message = self.find_matching_rule(message)
                 
                 # 정규식 매칭도 진행되지 않는 경우는 얼버무리기 로직
-                if response_message == '':
+                if len(response_message) == 0:
                     bot_message_type = 'BQ'
                     response_message = self.response_quibble_message(message)
             else:
@@ -350,7 +397,7 @@ class PresentTALKBot:
 
             # response_message 를 dict 으로 받아서 적절한 처리를 하는 방향으로 수정
             # recoomand 의 경우 봇과 함께 동작해야 함 ( 다른 항목들처럼 독립적이지 않음 )
-            if response_message_dict['command'] == 'recommand':
+            if response_message_dict['command'] == 'recommend':
                 bot_message_type = 'BF'
                 self.find_feature_candidate(message)
                 response_message = self.print_gambit_message(message, intent_index, bot_message_type, '')
