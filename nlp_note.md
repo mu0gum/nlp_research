@@ -18,23 +18,27 @@
 조건부 확률은 어떤 사건 B가 발생했을 때, 사건 A가 발생할 확률을 의미합니다. ( <img src="https://latex.codecogs.com/gif.latex?P%28B%29%20%3E%200" /> 으로 가정 )
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28A%7CB%29%3D%5Cfrac%7BP%28A%5Ccap%20B%29%7D%7BP%28B%29%7D" />
 
 마찬가지로, 사건 A가 발생했을 때, 사건 B가 발생할 확률은 ( <img src="https://latex.codecogs.com/gif.latex?P%28A%29%20%3E%200" /> 으로 가정 )
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28B%7CA%29%3D%5Cfrac%7BP%28B%5Ccap%20A%29%7D%7BP%28A%29%7D" />
 
 
 이고, 두 식을 정리해서 아래와 같이 표현할 수 있습니다.
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccap%20B%29%3DP%28A%7CB%29P%28B%29%3DP%28B%7CA%29P%28A%29" />
 
 
 위의 식을 가지고, 사건 B가 발생했을 때 사건 A가 발생할 확률에 대해 정리해보면
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28A%7CB%29%3D%5Cfrac%7BP%28B%7CA%29P%28A%29%7D%7BP%28B%29%7D" />
 
 
@@ -50,24 +54,28 @@
 언뜻 생각해보면 문장이 주어졌을 때, 이 문장이 긍정일 확률을 구하라고 하면 굉장히 막연하게 느껴집니다. 하지만 위의 식을 베이즈 정리를 이용해서 표현해보면 아래와 같습니다.
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%3D%5Cfrac%7BP%28S%7Cp%29P%28p%29%7D%7BP%28S%29%7D" />
 
 
 위 식에서 <img src="https://latex.codecogs.com/gif.latex?P%28p%29" /> 는 긍정인 문장의 개수를 전체 문장의 개수로 나눈 값입니다. <img src="https://latex.codecogs.com/gif.latex?P%28S%7Cp%29" /> 는 우도(likehood) 입니다. 앞서 설명한대로 베이즈 모델은 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29P%28p%29/P%28S%29" /> 와 <img src="https://latex.codecogs.com/gif.latex?P%28n%7CS%29P%28n%29/P%28S%29" /> 를 비교해 큰 쪽으로 범주를 할당합니다. <img src="https://latex.codecogs.com/gif.latex?P%28S%29" /> 는 공통이기 때문에 계산을 생략할 수 있습니다. 생략한 식은 아래와 같습니다. ( 참고로 ∝ 는 proportionality sign 이라고 부르고, A ∝ B 는 'A는 B에 비례한다' 는 뜻입니다. )
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%20%5Cpropto%20P%28S%7Cp%29P%28p%29" />
 
 
 위의 식에서 문장 S가 단어 w1, w2 로 이루어졌다고 생각하고 식을 정리해보면
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%5Cpropto%20P%28w_1%2Cw_2%7Cp%29P%28p%29" />
 
 
 위의 식이 됩니다. 나이브 베이즈 분류는 각 단어가 **독립(independent)** 임을 가정합니다. 그리고 naive(순진한) 라는 말이 이유가 붙은 이유기도 합니다. (참고2) 독립임을 가정 <img src="https://latex.codecogs.com/gif.latex?P%28w_1%2Cw_2%29%3DP%28w_1%29%5Ccdot%20P%28w_2%29" /> 하고 다시 식을 정리해보면
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%5Cpropto%20P%28w_1%7Cp%29%5Ccdot%20P%28w_2%7Cp%29%5Ccdot%20P%28p%29" />
 
 
@@ -104,28 +112,34 @@
 에 대한 긍정, 부정 분류를 해보겠습니다. 문장 S "응ㅋㅋ"를 토크나이징 하여 w1 = 응, w2 = ㅋㅋ 을 얻었습니다.
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%5Cpropto%20P%28w_1%7Cp%29%5Ccdot%20P%28w_2%7Cp%29%5Ccdot%20P%28p%29" />
+
 
 일단 문장이 긍정일 확률은 전체 6개의 문장 중에서 4개가 긍정이므로, <img src="https://latex.codecogs.com/gif.latex?P%28p%29%3D%5Cfrac%7B4%7D%7B6%7D%3D%5Cfrac%7B2%7D%7B3%7D" /> 입니다. 
 
 그리고 긍정인 문장에서 w1 = 응 이라는 단어가 있을 확률은 <img src="https://latex.codecogs.com/gif.latex?P%28w_1%7Cp%29%3D%5Cfrac%7B1%7D%7B7%7D" /> , 긍정인 문장에서 w2 = ㅋㅋ 라는 단어가 있을 확률도 <img src="https://latex.codecogs.com/gif.latex?P%28w_2%7Cp%29%3D%5Cfrac%7B1%7D%7B7%7D" /> 입니다. 이제 구한 확률을 가지고 위의 식에 대입해 보면
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%5Cpropto%20%5Cfrac%7B1%7D%7B7%7D%5Ccdot%20%5Cfrac%7B1%7D%7B7%7D%5Ccdot%20%5Cfrac%7B2%7D%7B3%7D%20%3D%20%5Cfrac%7B2%7D%7B147%7D" />
 
 
 위의 결과가 나옵니다. "응ㅋㅋ"라는 문장이 긍정일 확률은 2/147 입니다. 같은 방법으로 "응ㅋㅋ"라는 문장이 부정일 확률을 구해보겠습니다.
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28n%29%3D%5Cfrac%7B2%7D%7B6%7D%3D%5Cfrac%7B1%7D%7B3%7D%2C%20p%28w_1%7Cn%29%3D%5Cfrac%7B0%7D%7B3%7D%2C%20P%28w_2%7Cn%29%3D%5Cfrac%7B1%7D%7B3%7D" />
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28n%7CS%29%3D%5Cfrac%7B1%7D%7B3%7D%5Ccdot%20%5Cfrac%7B0%7D%7B3%7D%5Ccdot%20%5Cfrac%7B1%7D%7B3%7D%3D0" />
 
 
 문장 S가 주어졌을 때, 긍정일 확률과 부정일 확률을 나이브 베이즈 정리를 이용해 구했습니다. 
 
 
+<p align="center">
 <img src="https://latex.codecogs.com/gif.latex?P%28p%7CS%29%3D%5Cfrac%7B2%7D%7B147%7D%2C%20p%28n%7CS%29%3D0" />
 
 
@@ -139,10 +153,11 @@
 -> 이 경우에는 적절히 작은 수 k 를 더해서 분자가 0 이 되는 것을 피하게(smoothing) 합니다. k = 1 이라고 하고 다시 계산해 보면
  
  
+ <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?p%28p%7CS%29%3D%5Cfrac%7B1&plus;k%7D%7B7%7D%5Ccdot%20%5Cfrac%7B1&plus;k%7D%7B7%7D%5Ccdot%20%5Cfrac%7B2%7D%7B3%7D%3D%5Cfrac%7B6%7D%7B147%7D%28%5Cbecause%20k%3D1%29" />
  
  
- 
+ <p align="center">
 <img src="https://latex.codecogs.com/gif.latex?p%28n%7CS%29%3D%5Cfrac%7B1&plus;k%7D%7B3%7D%5Ccdot%20%5Cfrac%7B0&plus;k%7D%7B3%7D%5Ccdot%20%5Cfrac%7B1%7D%7B3%7D%3D%5Cfrac%7B2%7D%7B27%7D%28%5Cbecause%20k%3D1%29" />
 
 
