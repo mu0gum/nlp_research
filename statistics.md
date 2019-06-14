@@ -104,9 +104,76 @@
 * 일반적으로 수치자료는 다양한 값으로 구성되어 있기 때문에 숫자와 일치하는 자료가 많지 않을 수 있으며 그 표가 아주 길어져 자료를 정리하고자 하는 목적에 맞지 않을 수 있음
  => 그래서 수치자료에 대한 도수분포표를 만들 때, **관측된 값들을 몇 개의 구간으로 범주화하여 해당 그룹에 속한 관측개체의 빈도**로 도수분포표를 만듬
 * 수치자료를 범주화할 때는 몇 개의 범주로 나눌 것인지와 범주의 경계값을 얼마로 할 것인지 정해야 함
-* 이 때 각각의 범주를 **계급(class)**이라고 함
+ => 이 때 각각의 범주를 **계급(class)** 이라고 함
 * 계급의 수는 자료의 수에 비례하여 결정하는데 일반적으로 제곱근 방법, Sturges 공식, Rice 공식 등을 활용
 
 ### 분할표(contingency table), 교차표(cross table)
  - 2개 이상의 변수에 대해 교차시켜 빈도를 표시한 표
  - 행과 열에 범주수를 함께 포함
+
+
+## 03. 기술통계(02)
+* 어떤 현상을 숫자나 수식으로 설명하는 것보다 그림과 같은 시각적인 방법을 이용하여 설명하면 이해를 잘 하는 경향이 있음
+
+### 파이차트(pie chart)
+ - 원을 먼저 그리고 원점을 기준으로 각 범주에 해당되는 비율만큼 각도를 분할하여 표시한 그래프
+ - 각도 = 비율 X 360º
+ - 파이차트는 범주별로 비교할 때 약점이 있음
+ 
+ 
+ <p align="center">
+ <img width="320" height="320" src="https://cdn.pixabay.com/photo/2016/09/03/14/35/algorithms-1641857_960_720.png"/>
+ 
+
+### 막대그래프(bar chart)
+ - 각 범주의 도수나 상대도수를 막대의 길이로 표현
+ - 파이차트보다 범주간의 비교에 용이
+ 
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Bar_Chart_of_Race_%26_Ethnicity_in_Texas_%282015%29.svg/800px-Bar_Chart_of_Race_%26_Ethnicity_in_Texas_%282015%29.svg.png"/>
+ 
+ 
+### 히스토그램(histogram)
+ - 통계학에서는 막대그래프와 히스토그램을 엄격히 구분
+ - 히스토그램은 수치자료 특히 연속자료가 어떤 형태로 분포되어 있는지를 알아보기 위해 사용
+ - 해당 구간의 상대도수, 즉 비율을 직사각형의 면적으로 표시 => **전체 직사각형의 면적은 1**
+ - 높이 = 상대도수 / 계급폭
+ - 높이는 해당 구간에 자료들이 얼마나 모여 있는지를 나타내는 측도. 즉 밀도
+ 
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Symmetric-histogram.png"/>
+
+
+### 줄기-잎 그림(stem-and-leaf)
+ - 관측값의 정보를 그대로 간직하면서 자료가 어떻게 분포되어 있는지를 알려주는 그림
+```
+20 23 32 40 41 41 43 46 50 52 53 54 59 62 66 77 81 88 89 90
+```
+
+2 | 23
+
+3 | 2
+
+4 | 01136
+
+5 | 02349
+
+6 | 26
+
+7 | 7
+
+8 | 189
+
+9 | 0
+
+
+### 산점도(scatter plot)
+ - 각각의 관측개체에 대해 두 변수의 값을 순서쌍 (x1, y1), (x2, y2) ... (xn, yn) 으로 표시할 수 있음
+ - 산점도는 순서쌍 자료를 2차원 평면상에 점으로 표시하여 **두 변수들 간의 관계를 시각적으로 나타냄**
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Scatter_diagram_for_quality_characteristic_XXX.svg/1026px-Scatter_diagram_for_quality_characteristic_XXX.svg.png"/>
+ 
+ 
