@@ -177,3 +177,61 @@
  <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Scatter_diagram_for_quality_characteristic_XXX.svg/1026px-Scatter_diagram_for_quality_characteristic_XXX.svg.png"/>
  
  
+## 04. 수치적해석
+ - 그래프 같은 시각적 기법은 자료의 특성을 파악하는 데 있어 중요한 정보를 제공하지만 보는 사람에 따라 주관적으로 해석될 수 있음
+ - 일반적으로 자료의 특성은 자료를 대표할 수 있는 중심 위치(central location) 산포(dispersion)로 표시
+ 
+### 중심 위치
+ - 조사, 실험, 관측 등을 ㅌ통해 n개의 수치자료를 얻었고 그 값들을 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2Cx_%7B2%7D%2C...%2Cx_%7Bn%7D"/> 이라고 표시할 때,
+ - 표본의 개수 n을 표본 크기(sample size)라고 한다
+ - 이들 자료에 대한 중심위치로 가장 많이 사용되는 통계값은 표본평균이며 대체 통계값으로 중앙값, 절사평균, 최빈값 등이 있음
+ 
+### 표본평균(sample mean)
+ - 표본평균은 표본의 합을 표본크기로 나눈 값
+ - x bar 라고 읽음 => bar 표시는 해당 자료의 평균을 의미
+ - 표본평균이 중심위치 중 적절한 이유 중 하나는 무게중심이기 때문
+ - <img src="https://latex.codecogs.com/gif.latex?x_%7Bi%7D-%5Cbar%7Bx%7D"/> 를 i번째 표본의 편차(deviation)라고 함
+ 
+<p align="center">
+<img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D%3D%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20x_%7Bi%7D"/>
+ 
+ - 표본평균은 자료 중에 일부 관측값이 대부분의 나머지 관측값들에서 멀리 떨어져 있는 경우인 이상점(outlier)에 유의해야 함
+  => 표본평균은 이상점(outlier)에 robust 하지 않음
+ 
+### 표본중앙값(median)
+ - 자료를 크기순서대로(오름차순) 나열했을 때 가운데 위치에 있는 값(표본중위수 라고도 함)
+ - 순서통계량임
+ - 이상점에 로버스트(robust)하지만 중앙에 있는 하나 또는 두 개의 관측값만 직접 사용하므로 자료가 가진 정보를 다 활용하지 못함(평균과 반대)
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?x_%7B%281%29%7D%5Cleq%20x_%7B%282%29%7D%5Cleq%5Ccdots%20%5Cleq%20x_%7B%28n%29%7D"/>
+ 
+### 표본절사평균(sample trimmed mean)
+ - 표본평균과 표본중앙값 두 통계가 가지고 있는 장점을 사릴면서 단점을 줄여주는 통계값
+ - 표본중앙값을 계산할 때처럼 순서통계량을 구하고 순서통계량의 하위 a%에서 상위 a% 까지의 자료를 이용하여 표본평균을 계산한 것
+
+### 최빈값(mode)
+ - 자료 중 빈도가 가장 많은 값을 의미
+
+### 퍼짐의 측도
+ - 통계학에서 중심위치만큼 중요한 통계값이 산포(dispersion)
+ - 산포는 자료들이 얼마나 퍼져 있는가를 나타낼뿐만 아니라 구한 중심위치가 얼마나 안정적이고 신뢰할 수 있는지에 대한 중요한 정보를 제공
+ 
+### 범위(range)
+ - 자료 중 가장 큰 값과 가장 작은 값의 차이
+ - 자료 중 이상점이 있으면 전체 형태와 관계없이 범위가 클 수 있어 범위를 통해 퍼진 정도를 평가하기에는 무리가 있을 수 있음
+ 
+### 사분위범위(interquartile range)
+ - 사분위수(quartile)는 자료를 동일한 비율로 4등분 할 때의 세 위치
+ - 자료를 오름차순으로 정렬했을 때, 25% 지점을 제1사분위수(Q1), 50% 지점을 제2사분위수(Q2), 75% 지점을 제3사분위수(Q3)라고 함
+ - 제2사분위수(Q2) 는 표본중앙값과 같음
+ - **제3사분위수과 제1사분위수의 간격**
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?IQR%3DQ_%7B3%7D-Q_%7B1%7D"/>
+ 
+ - 사분위수와 사분위범위는 상자그림(box plot)을 그릴 때 사용
+
+ <p align="center">
+ <img height="320" src="https://cdn-images-1.medium.com/max/1600/1*2c21SkzJMf3frPXPAR_gZA.png"/>
+
