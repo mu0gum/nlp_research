@@ -182,7 +182,7 @@
  - 일반적으로 자료의 특성은 자료를 대표할 수 있는 중심 위치(central location) 산포(dispersion)로 표시
  
 ### 중심 위치
- - 조사, 실험, 관측 등을 ㅌ통해 n개의 수치자료를 얻었고 그 값들을 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2Cx_%7B2%7D%2C...%2Cx_%7Bn%7D"/> 이라고 표시할 때,
+ - 조사, 실험, 관측 등을 통해 n개의 수치자료를 얻었고 그 값들을 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2Cx_%7B2%7D%2C...%2Cx_%7Bn%7D"/> 이라고 표시할 때,
  - 표본의 개수 n을 표본 크기(sample size)라고 한다
  - 이들 자료에 대한 중심위치로 가장 많이 사용되는 통계값은 표본평균이며 대체 통계값으로 중앙값, 절사평균, 최빈값 등이 있음
  
@@ -235,3 +235,56 @@
  <p align="center">
  <img height="320" src="https://cdn-images-1.medium.com/max/1600/1*2c21SkzJMf3frPXPAR_gZA.png"/>
 
+### 표본분산과 표본표준편차
+ - 범위나 사분위수 같은 경우 특정 위치의 두 값을 사용하기 때문에 표본의 정보를 많이 활용하지 못함
+ - 이 때 생각해볼 수 있는 통계값은 모든 자료들 사이 거리의 합을 이용
+ - 특히 <img src="https://latex.codecogs.com/gif.latex?D%28a%2Cb%29%3D%7Ca-b%7C%2C%20D%28a%2Cb%29%3D%28a-b%29%5E2"/> 에 대해 관심을 가짐
+ - 위 식은 아래와 같이 표현이 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Csum_%7Bj%3D1%7D%5E%7Bn%7D%7Cx_%7Bi%7D-x_%7Bj%7D%7C%2C%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Csum_%7Bj%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-x_%7Bj%7D%29%5E2"/>
+ 
+ - 위의 측도를 사용하기 위해서는 **n의 제곱개의 거리 합을 이용해야 하므로 계산에 부담이 있음** => 중심위치 a에서 자료들이 떨어져 있는 거리의 합을 이용
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?L_%7B1%7D%28a%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7Cx_%7Bi%7D-a%7C%2C%20L_%7B2%7D%28a%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-a%29%5E2"/>
+ 
+ - 위 식은 자료들의 모든 정보를 사용하면서 자료들이 a를 중심으로 얼마나 퍼져 있는지를 나타냄
+ - a를 중심으로 모여 있으면 위의 값은 작아지고, 퍼져 있으면 커짐
+ - 중심위치 a를 어떻게 선택하는지가 관건 => 자료들과의 거리가 가능한 짧아야 하며 결국 모든 자료들과의 거리 합을 최소로 만드는 값 필요
+ - L2의 경우 L2'(a)=0 이 되는 값을 찾아야 함
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7BdL_%7B2%7D%28a%29%7D%7Bda%7D%3D-2%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-a%29%3D-2%5Cleft%20%5C%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D-na%20%5Cright%20%5C%7D%3D0"/>
+ 
+ - 결론적으로 <img src="https://latex.codecogs.com/gif.latex?a%3D%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D%3D%5Cbar%7Bx%7D"/> 가 되는데 이는 **L2(a)에서는 중심위치로 표본평균이 적절**하다는 의미
+ 
+### 표본분산(sample variance)
+
+<p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?s%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2"/>
+
+ - 표본크기 n이 아닌 n-1로 나눈 이유는 표본분산은 n개의 편차를 사용하는 것 같지만 **표본평균의 편차의 합이 0** 이라는 제약조건 대문에 n-1개의 편차만 자유롭게 값을 가질 수 있고 마지막 편차는 합이 0이 되게 하는 역할만 하기 때문
+ - 이 n-1을 자유롭게 가질 수 있는 편차의 개수라고 해서 **자유도(degree of freedom)** 라고 함
+ - 위 식을 정리하면 아래와 같다
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?s%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Cleft%20%5C%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D%5E2%20-%5Cfrac%7B1%7D%7Bn%7D%5Cleft%20%28%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D%5E2%20%5Cright%20%29%20%5Cright%20%5C%7D"/>
+ 
+### 표본표준편차(sample standard deviation)
+ - 표본분산은 편차의 제곱합을 이용하기 때문에 관측값 단위의 제곱이 되어 직관적으로 파악하기 어려움
+ - 우리가 눈으로 이해하는 산포와 일치시키려면 제곱근을 취함
+ - **표본분산의 제곱근은 관측값과 동일한 단위로 퍼짐의 측도가 되며 이를 표본표준편차**라 함 
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?s%3D%5Csqrt%7Bs%5E2%7D%3D%5Csqrt%7B%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2%7D"/>
+ 
+### 표준화
+ - 수능시험은 과목별로 난이도가 다를 수 있기 때문에 원점수로 과목 간 성적을 비교하면 문제가 있을 수 있음
+ - 이런 경우 아래와 같이 원점수에 평균을 빼고 표준편차를 나누어 점수를 표준화하여 상대 비교를 함
+ 
+  <p align="center">
+  <img src="https://latex.codecogs.com/gif.latex?z_%7Bi%7D%3D%5Cfrac%7Bx_%7Bi%7D-%5Cbar%7Bx%7D%7D%7Bs%7D"/>
+
+ - **표준화는 평균이 0, 표준편차가 1이 되도록 만듬**
+ - 측정 단위에 영향을 받지 않게 중심위치와 척도를 조정하고 상대적 비교를 가능하게 함
