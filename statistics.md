@@ -48,7 +48,7 @@
 ### 관측개체(observation)
  - 선택된 각각의 대상
 
-* 아래의 표는 8개의 변수로 이루어진 3개의 관측개체로 이루어진 다변량 자료
+* 아래의 표는 7개의 변수로 이루어진 3개의 관측개체로 이루어진 다변량 자료
 
 |번호|성별|연령|신장|체중|비만도|혈액형|멤버수|
 |--|--|--|--|--|--|--|--|
@@ -207,7 +207,7 @@
  <img src="https://latex.codecogs.com/gif.latex?x_%7B%281%29%7D%5Cleq%20x_%7B%282%29%7D%5Cleq%5Ccdots%20%5Cleq%20x_%7B%28n%29%7D"/>
  
 ### 표본절사평균(sample trimmed mean)
- - 표본평균과 표본중앙값 두 통계가 가지고 있는 장점을 사릴면서 단점을 줄여주는 통계값
+ - 표본평균과 표본중앙값 두 통계가 가지고 있는 장점을 살리면서 단점을 줄여주는 통계값
  - 표본중앙값을 계산할 때처럼 순서통계량을 구하고 순서통계량의 하위 a%에서 상위 a% 까지의 자료를 이용하여 표본평균을 계산한 것
 
 ### 최빈값(mode)
@@ -283,8 +283,63 @@
  - 수능시험은 과목별로 난이도가 다를 수 있기 때문에 원점수로 과목 간 성적을 비교하면 문제가 있을 수 있음
  - 이런 경우 아래와 같이 원점수에 평균을 빼고 표준편차를 나누어 점수를 표준화하여 상대 비교를 함
  
-  <p align="center">
-  <img src="https://latex.codecogs.com/gif.latex?z_%7Bi%7D%3D%5Cfrac%7Bx_%7Bi%7D-%5Cbar%7Bx%7D%7D%7Bs%7D"/>
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?z_%7Bi%7D%3D%5Cfrac%7Bx_%7Bi%7D-%5Cbar%7Bx%7D%7D%7Bs%7D"/>
 
  - **표준화는 평균이 0, 표준편차가 1이 되도록 만듬**
  - 측정 단위에 영향을 받지 않게 중심위치와 척도를 조정하고 상대적 비교를 가능하게 함
+ 
+ 
+### 변동계수(coefficient of variation)
+ - 일반적으로 선진국 소득의 표준편차가 후진국의 표준편차보다 훨씬 큼 => 비교 그룹 간의 평균이 큰 차이가 있고 평균이 커지면 산포 또한 커지는 경향이 있는 자료이기 때문
+ - 이런 경우 표준편차 자체만 이용하여 산포를 비교하는 것은 적절치 않을 수 있어 평균으로 표본표준편차를 보정한 변동계수를 사용할 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?CV%3D%5Cfrac%7Bs%7D%7B%5Cbar%7Bx%7D%7D"/>
+ 
+### 상관 정도
+ - 두 수치변수 간에 직선관계가 어느 정도인지를 나타내는 통계값
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Scatter_diagram_for_quality_characteristic_XXX.svg"/>
+ 
+ - 위 그림에서 두 변수 가로축을 x, 세로축을 y로 볼 때, x와 y의 자료가 음의 기울기를 가지고 있음(2사분면과 4사분면에 자료들이 많이 분포)
+ - 그림의 형태가 반대라면 x와 y가 양의 기울기를 가짐(1사분면과 3사분면에 자료들이 많이 분포)
+ - 이러한 성질을 반영할 수 있는 값 => 각 변수의 편차를 곱한 <img src="https://latex.codecogs.com/gif.latex?%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29" /> : 1과 3사분면의 값은 양수, 2와 4사분면의 값은 음수
+
+### 표본공분산(sample convariance)
+ - 위의 식에서 양의 기울기를 갖는 값이라면 각 변수의 편차의 합인 <img src="https://latex.codecogs.com/gif.latex?%5Csum%20%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29"/> 는 양의 값을 가질 것이고 반대로 음의 기울기를 갖는 값이라면 편차의 합은 음의 값을 가짐
+ - 위 식에 표본분산을 계산할 때처럼 자유도를 적용
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?C_%7Bxy%7D%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29"/>
+
+ - 두 변수 x와 y의 분산형태를 가진다고 하여 통계값 <img src="https://latex.codecogs.com/gif.latex?C_%7Bxy%7D">를 표본공분산이라 함
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?C_%7Bxy%7D%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29%5C%5C%20%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Cleft%20%5C%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7Dy_%7Bi%7D-n%5Cbar%7Bx%7D%5Cbar%7By%7D%20%5Cright%20%5C%7D%5C%5C%20%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Cleft%20%5C%7B%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7Dy_%7Bi%7D-%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dy_%7Bi%7D%20%5Cright%20%5C%7D"/>
+
+### 표본상관계수(coefficient of correlation)
+ - 공분산을 사용하는데 있어 문제점은 **측정 단위에 영향을 받기 때문에 그 값 자체로 선형관계의 정도를 알 수 없다**는 점
+ - 해결방법은 측정단위에 영향을 받지 않게 자료를 표준화하여 표본분산을 구하는 것
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?R_%7Bxy%7D%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%20%28%20%5Cfrac%7Bx_%7Bi%7D-%5Cbar%7Bx%7D%7D%7Bs_%7Bx%7D%7D%20%5Cright%20%29%5Cleft%20%28%20%5Cfrac%7By_%7Bi%7D-%5Cbar%7By%7D%7D%7Bs_%7By%7D%7D%20%5Cright%20%29"/>
+ 
+ - 표본상관계수 간편식
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?S_%7Bxy%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7Dy_%7Bi%7D-n%5Cbar%7Bx%7D%5Cbar%7By%7D%5C%5C%20S_%7Bxx%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dx_%7Bi%7D%5E2-n%5Cbar%7Bx%7D%5E2%5C%5C%20S_%7Byy%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28y_%7Bi%7D-%5Cbar%7By%7D%29%5E2%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7Dy_%7Bi%7D%5E2-n%5Cbar%7By%7D%5E2"/>
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?R_%7Bxy%7D%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28y_%7Bi%7D-%5Cbar%7By%7D%29%5E2%7D%7D%3D%5Cfrac%7BS_%7Bxy%7D%7D%7B%5Csqrt%7BS_%7Bxx%7D%7D%5Csqrt%7BS_%7Byy%7D%7D%7D"/>
+ 
+ - 여기서 <img src="https://latex.codecogs.com/gif.latex?S_%7Bxx%7D%2C%20S_%7Byy%7D"/>는 편차의 제곱합으로 수정제곱합(corrected sum of squares) 라고 함
+
+### 표본상관계수의 성질
+ - <img src="https://latex.codecogs.com/gif.latex?-1%20%5Cleq%20R_%7Bxy%7D%20%5Cleq%201"/>
+ - 자료들이 어떤 기울기를 가지는 직선에 조밀하게 모일수록 <img src="https://latex.codecogs.com/gif.latex?%7CR_%7Bxy%7D%7C"/> 는 1에 근접
+ - 음의 기울기를 가지는 직선 주위에 자료가 분포되어 있는 경우 <img src="https://latex.codecogs.com/gif.latex?R_%7Bxy%7D"/> 는 음수이며, 음의 상관관계가 있음(양의 기울기 -> 양의 상관관계)
+ - 모든 관측값이 직선 위에 위치하면 <img src="https://latex.codecogs.com/gif.latex?%7CR_%7Bxy%7D%7C%3D1"/>
+ 
+ 
