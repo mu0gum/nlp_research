@@ -342,4 +342,58 @@
  - 음의 기울기를 가지는 직선 주위에 자료가 분포되어 있는 경우 <img src="https://latex.codecogs.com/gif.latex?R_%7Bxy%7D"/> 는 음수이며, 음의 상관관계가 있음(양의 기울기 -> 양의 상관관계)
  - 모든 관측값이 직선 위에 위치하면 <img src="https://latex.codecogs.com/gif.latex?%7CR_%7Bxy%7D%7C%3D1"/>
  
+
+## 05. 확률(1) 기본개념
+
+### 확률실험(random experiment)
+ - 아래 두 특징을 가지는 실험
+  1. 실험을 시행하기 전에도 발생할 수 있는 모든 결과를 알 수 있음
+  2. 실험 전까지 결과 중 무엇이 발생할 것인지 정확하게 예측할 수 없음
+
+### 표본공간(sample space : Ω)
+ - 확률실험에서 발생 가능한 모든 결과들을 모아놓은 집함
+ - 표본공간 내에서 우리가 관심을 가지는 부분집합 => **사건(event)**
+ - 확률(probability)은 이러한 사건이 발생할 가능성이 얼마나 되는지를 나타내는 수치적 측도
  
+### 서로배반사건(disjoint, mutually exclusive)
+ - 임의의 두 사건 A와 B가 동시에 일어날 수 없는 경우
+ - <img src="https://latex.codecogs.com/gif.latex?A%5Ccap%20B%3D%5Co"/>
+ 
+### 집합의 정의와 연산
+ - 분배법칙 : <img src="https://latex.codecogs.com/gif.latex?%28A%5Ccup%20B%29%5Ccap%20C%20%3D%20%28A%5Ccap%20C%29%5Ccup%20%28B%5Ccap%20C%29"/>
+ - 드모르간의 법칙 : <img src="https://latex.codecogs.com/gif.latex?%28A%5Ccap%20B%29%5Ec%3DA%5Ec%5Ccup%20B%5EC%2C%20%28A%5Ccup%20B%29%5Ec%3DA%5Ec%5Ccap%20B%5EC%2C"/>
+ 
+### 경우의 수(number of cases)
+ - 어떤 실험을 했을 때 발생할 수 있는 결과의 개수, 즉 원소의 개수
+ - 경우의 수를 계산하는데 있어 기본 법칙은 곱의 법칙
+
+|  | 비복원 | 복원 |
+| - | - | - |
+| 순서고려 | 순열 | 중복순열 |
+| 순서무시 | 조합 | 중복조합 |
+
+### 순열(permutatioin)
+ - 순서를 고려하면서 n개 중에서 k개를 비복원추출하여 얻어진 순서열
+ - 순열은 각 단계에서 선택할 수 있는 개체의 수가 하나씩 줄어듬
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?n%20%5Ctimes%20%28n-1%29%20%5Ctimes%20%5Ccdots%20%5Ctimes%20%28n-k&plus;1%29%3D%5Cfrac%7Bn%21%7D%7B%28n-k%29%21%7D"/>
+ 
+### 중복순열
+ - 순서를 고려하면서 n개 중에서 k개를 복원추출하여 얻어진 순서열
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?n%20%5Ctimes%20%5Ccdots%20%5Ctimes%20n%20%3D%20n%5Ek"/>
+ 
+### 조합(combination)
+ - 순서를 고려하지 않고 n개 중에서 k개를 비복원추출
+ - 비복원추출에서 순서를 고려하지 않는다면 k개의 순서조합 k!을 나누어주어야 함
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7Bn%20%5Ctimes%20%28n-1%29%20%5Ctimes%20%5Ccdots%20%5Ctimes%20%28n-k&plus;1%29%7D%7B1%20%5Ctimes%202%20%5Ctimes%20%5Ccdots%20%5Ctimes%20k%7D%3D%5Cfrac%7Bn%21%7D%7Bk%21%28n-k%29%21%7D%3D%5Cbinom%7Bn%7D%7Bk%7D"/>
+
+### 중복조합
+ - 순서를 고려하지 않고 n개 중에서 k개를 복원추출
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7Bn%28n&plus;1%29%5Ctimes%20%5Ccdots%20%5Ctimes%20%28n&plus;k-1%29%7D%7Bk%21%7D%3D%5Cfrac%7B%28n&plus;k-1%29%21%7D%7Bk%21%28n-1%29%21%7D%3D%5Cbinom%7Bn&plus;k-1%7D%7Bk%7D"/>
