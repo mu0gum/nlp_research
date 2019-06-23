@@ -397,3 +397,67 @@
 
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7Bn%28n&plus;1%29%5Ctimes%20%5Ccdots%20%5Ctimes%20%28n&plus;k-1%29%7D%7Bk%21%7D%3D%5Cfrac%7B%28n&plus;k-1%29%21%7D%7Bk%21%28n-1%29%21%7D%3D%5Cbinom%7Bn&plus;k-1%7D%7Bk%7D"/>
+
+## 06. 확률(2) -기본정리,조건부확률
+
+### 상대도수의 극한(통계적 확률)
+ - 동전을 던질 때 앞면이 나올 사건을 A라고 하면 P(A)=1/2
+ - 고전적 확률에서는 앞면과 뒷면의 발생가능성이 동일하고 Ω={H,T} 이고 A={H} 이므로 P(A)=1/2라고 해석
+ 
+ | 실험자 | 던진 회수 | 앞면 | 상대도수 |
+ | - | - | - | - |
+ | Buffon | 4040 | 2048 | 0.5080 |
+ | Pearson | 12000 | 6019 | 0.5016 |
+ | Pearson | 24000 | 12012 | 0.5005 |
+ 
+ - 위 표는 과거 통계학자들이 실시했던 동전 던지기 실험결과
+ - 실험횟수가 어느정도 큰 경우 상대도수가 직관적 값인 0.5 근처
+ - 표본공간의 각 원소가 발생가능성이 동일하지 않은 경우에도 확률을 구할 수 있어야함
+  ex) 윳을 던졌을 때 젖혀질 확률
+ - 한 가지 방법은 계속해서 윷을 던져 "던진 횟수"에서 "뒤집힌 횟수"의 비율을 구하여 젖혀질 확률의 근사값으로 사용하는 것
+ - 젖혀질 사건을 A라고 하고 n(A)를 윷을 n번 던졌을 때 윷이 젖혀진 횟수라고 하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%29%5Capprox%20%5Cfrac%7Bn%28A%29%7D%7Bn%7D"/>
+ 
+  - 만약 **실험을 무한히 반복한다면 n(A)/n 은 어떤 값으로 수렴하는데 이 극한값을 사건 A가 일어날 확률**로 해석하자는 것
+  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%29%3D%5Clim_%7Bn%20%5Cto%20%5Cinfty%20%7D%5Cfrac%7Bn%28A%29%7D%7Bn%7D"/>
+ 
+ - 확률은 표본이 아니라 모집단이 어떤 형태로 이루어져 있는지를 표시(표본이 무한히 많아짐)
+ - 상대도수의 극한은 많은 표본을 통해 모집단의 특성을 파악한다고 해서 **통계적 확률(statistical probability)**이라고도 함
+ 
+### 확률의 공리
+```
+공리 1. P(Ω) = 1
+공리 2. 사건 A ⊂ Ω 에 대해, 0 ≤ P(A) ≤ 1
+공리 3. 서로배반인 사건 A와 B에 대해, P(A∪B) = P(A) + P(B)
+```
+
+ - 공리(axiom)란 증명할 수 없으나 옳다고 판단되는 명제
+
+### 확률의 기본 성질
+ - <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ec%29%3D1-P%28A%29"/>
+ - <img src="https://latex.codecogs.com/gif.latex?A%20%5Csubset%20B"/> 이면, <img src="https://latex.codecogs.com/gif.latex?P%28A%29%5Cleq%20P%28B%29"/>
+ - <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccup%20B%29%3DP%28A%29&plus;P%28B%29-P%28A%5Ccap%20B%29"/>
+ - <img src="https://latex.codecogs.com/gif.latex?P%28A%20%5Ccup%20B%29%20%5Cleq%20P%28A%29%20&plus;%20P%28B%29"/>
+ 
+### 조건부확률(conditional probability)
+ - 동전 두 개를 던지는 실험에서 어떤 한 동전이 앞면이라는 것을 알았을 때, 두 동전이 모두 앞면일 사건의 확률을 구한다고 가정
+ - 두 동전을 던질 경우 표본 공간 Ω = {HH, TH, HT, TT}
+ - 여기서 어떤 한 동전이 앞면이라는 정보가 추가로 주어지면 표본공간에서 {TT}가 발생할 수 없음
+ - 때문에 **표본공간은 {HH, TH, HT} 로 축소** -> 이 표본공간에서 두 동전 모두 앞면일 사건의 확률은 1/3
+ - **확률실험을 하는 과정에서 새로운 정보 또는 조건이 추가되었을 때 사건의 확률을 조건부확률**이라고 함
+ - 사건 A가 주어졌을 때 사건 B의 조건부확률은 P(B|A)로 표시하고 다음과 같이 수식으로 정의 ( P(A) > 0 )
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28B%7CA%29%3D%5Cfrac%7BP%28A%20%5Ccap%20B%29%7D%7BP%28A%29%7D"/>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
