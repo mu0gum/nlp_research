@@ -454,9 +454,29 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?P%28B%7CA%29%3D%5Cfrac%7BP%28A%20%5Ccap%20B%29%7D%7BP%28A%29%7D"/>
  
+### 조건부확률의 응용
+ - <img src="https://latex.codecogs.com/gif.latex?P%28A%29%3E0%2CP%28B%29%3E0"/> 이면 <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccap%20B%29%3DP%28A%29P%28B%7CA%29%3DP%28B%29P%28A%7CB%29"/>
+ - <img src="https://latex.codecogs.com/gif.latex?P%28A_%7B1%7D%5Ccap%20%5Ccdots%20%5Ccap%20A_%7Bn-1%7D%29%3E0"/> 이면
+ <img src="https://latex.codecogs.com/gif.latex?P%28A_%7B1%7D%5Ccap%20%5Ccdots%20%5Ccap%20A_%7Bn%7D%29%3DP%28A_%7B1%7D%29P%28A_%7B2%7D%7CA_%7B1%7D%29P%28A_%7B3%7D%7CA_%7B1%7D%5Ccap%20A_%7B2%7D%29%5Ccdots%20P%28A_%7Bn%7D%7CA_%7B1%7D%5Ccap%5Ccdots%5Ccap%20A_%7Bn-1%7D%29"/>
+
+### 표본공간의 분할(partition)
+ 1. 서로배반사건, 즉 모든 <img src="https://latex.codecogs.com/gif.latex?i%5Cneq%20j"/> 에 대해 <img src="https://latex.codecogs.com/gif.latex?A_%7Bi%7D%5Ccap%20A_%7Bj%7D%3D%5Cvarnothing"/>
+ 2. 전체를 이루는 사건(exhaustive), 즉 <img src="https://latex.codecogs.com/gif.latex?A_%7B1%7D%5Ccup%20%5Ccdots%20%5Ccup%20A_%7Bn%7D%3D%5COmega"/>
+ 
+ - 위 두 조건을 만족하면 사건 <img src="https://latex.codecogs.com/gif.latex?A_%7B1%7D%2C%5Ccdots%20A_%7Bn%7D"/> 을 **표본공간의 분할(partition)** 이라고 함
+ - 사건 <img src="https://latex.codecogs.com/gif.latex?A_%7B1%7D%2C%5Ccdots%20A_%7Bn%7D"/> 이 표본공간의 분할일 때 <img src="https://latex.codecogs.com/gif.latex?B%5Ccap%20A_%7B1%7D%2CB%5Ccap%20A_%7B2%7D%2C%5Ccdots%20%2C%20B%5Ccap%20A_%7Bn%7D"/> 은 서로배반인 사건이므로 다음 등식이 성립(벤다이어그램 그려서 해볼 것)
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28B%29%3DP%28B%7C%5COmega%20%29%3DP%28B%5Ccap%20A_%7B1%7D%29%5Ccup%20%5Ccdots%20%5Ccup%20P%28B%5Ccap%20A_%7Bn%7D%29%5C%5C%20%3D%20P%28B%5Ccap%20A_%7B1%7D%29&plus;%5Ccdots%20&plus;%20P%28B%5Ccap%20A_%7Bn%7D%29%3DP%28A_%7B1%7D%29P%28B%7CA_%7B1%7D%29%5Ccdots%20P%28A_%7Bn%7D%29P%28B%7CA_%7Bn%7D%29"/>
+ 
+ - 위 내용을 바탕으로
  
  
- 
+ 3. <img src="https://latex.codecogs.com/gif.latex?P%28A%29%3E0%2C%20P%28A%5Ec%29%3E0"/> 이면 <img src="https://latex.codecogs.com/gif.latex?P%28B%29%3DP%28A%29P%28B%7CA%29&plus;P%28A%5Ec%29P%28B%7CA%5Ec%29"/>
+ 4. 사건 <img src="https://latex.codecogs.com/gif.latex?A_%7B1%7D%2C%5Ccdots%20A_%7Bn%7D"/> 가 표본공간의 분할이고 각 <img src="https://latex.codecogs.com/gif.latex?i"/> 에 대해 <img src="https://latex.codecogs.com/gif.latex?P%28A_%7Bi%7D%29%3E0"/> 이면 임의의 사건 B에 대해
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28B%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28B%5Ccap%20A_%7Bi%7D%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28A_%7Bi%7D%29P%28B%7CA_%7Bi%7D%29"/>
  
  
  
