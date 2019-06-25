@@ -398,7 +398,7 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7Bn%28n&plus;1%29%5Ctimes%20%5Ccdots%20%5Ctimes%20%28n&plus;k-1%29%7D%7Bk%21%7D%3D%5Cfrac%7B%28n&plus;k-1%29%21%7D%7Bk%21%28n-1%29%21%7D%3D%5Cbinom%7Bn&plus;k-1%7D%7Bk%7D"/>
 
-## 06. 확률(2) -기본정리,조건부확률
+## 06. 확률(2) 기본정리,조건부확률
 
 ### 상대도수의 극한(통계적 확률)
  - 동전을 던질 때 앞면이 나올 사건을 A라고 하면 P(A)=1/2
@@ -479,5 +479,41 @@
  <img src="https://latex.codecogs.com/gif.latex?P%28B%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28B%5Ccap%20A_%7Bi%7D%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28A_%7Bi%7D%29P%28B%7CA_%7Bi%7D%29"/>
  
  
+## 07. 확률(2) 베이즈정리
+ - 조건부확률 P(B|A) 은 순서적으로 볼 때, 대부분 사건 A가 먼저 발생하고 B가 이어 발생하는 상황으로 A는 원인, B는 결과의 형태를 가짐
+ - 이 같은 상황에서 원인의 가능성을 나타내는 P(A) 또는 P(A^c)를 사건 B가 관측되기 이전의 확률이라고 해서 사전확률(prior probability)라고 함
+ - P(B) > 0 이면 조건부확률 정의에 의해
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%7CB%29%3D%5Cfrac%7BP%28A%5Ccap%20B%29%7D%7BP%28B%29%7D"/>
  
+ - 여기에 <img src="https://latex.codecogs.com/gif.latex?P%28A%29%3E0%2C%20P%28A%5Ec%29%3E0"/> 라는 추가조건이 주어지면, 조건부확률의 응용 1,3을 분모와 분자에 각각 적용하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%7CB%29%3D%5Cfrac%7BP%28A%5Ccap%20B%29%7D%7BP%28B%29%7D%3D%5Cfrac%7BP%28A%29P%28B%7CA%29%7D%7BP%28A%29P%28B%7CA%29&plus;P%28A%5Ec%29P%28B%7CA%5Ec%29%7D"/>
+ 
+ - 위 식을 일반적으로 베이즈정리(Bayes' theorem) 라고 함
+ - 이 식에 의하면 결과 B가 주어졌을 때 원인 A의 확률을 사전확률 <img src="https://latex.codecogs.com/gif.latex?P%28A%29%2CP%28A%5Ec%29"/> 와 일반적인 순서의 조건부확률을 이용하여 계산할 수 있음
+ - 베이즈 정리를 조건부확률 응용 4를 이용하여 일반식으로 확장 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A_%7Bk%7D%7CB%29%3D%5Cfrac%7BP%28A_%7Bk%7D%29P%28B%7CA_%7Bk%7D%29%7D%7BP%28B%29%7D%3D%5Cfrac%7BP%28A_%7Bk%7D%29P%28B%7CA_%7Bk%7D%29%7D%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28A_%7Bi%7D%29P%28B%7CA_%7Bi%7D%29%7D"/>
+ 
+### 독립사건(independent events)
+ - 앞서 조건부확률을 이용하여 교사건을 연속적인 조건부확률의 곱으로 계산할 수 있음을 보임. P(A) > 0 , P(B) > 0 이면, 아래가 항상 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccap%20B%29%3DP%28A%29P%28B%7CA%29%3DP%28B%29P%28A%7CB%29"/>
+ 
+ - 만약 사건 A가 사건 B의 발생에 영향을 주지 않는다면 P(B|A) = P(B) 로 쓸 수 있음. 마찬가지로 P(A|B) = P(A)
+ - 이와 같이 **사건 A와 B가 서로 영향을 주고받지 않는 경우 "사건 A와 B는 독립사건 또는 독립적"** 이다 라고 함 ( 아래 수식으로 표현 )
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccap%20B%29%3DP%28A%29P%28B%29"/>
+ 
+ - 위 식이 성립하면 "A와 B는 독립사건이다" 성립하지 않는 경우에는 "A와 B는 종속사건(dependent events) 또는 종속적이다"
+ - 표본공간 Ω와 Φ는 다른 모든 사건과 독립 ( 위 식에 대입해볼 것 )
+ - 일반적인 n개의 사건 <img src="https://latex.codecogs.com/gif.latex?A_%7B1%7D%2CA_%7B2%7D%2C%5Ccdots%20%2CA_%7Bn%7D"/> 이 서로 독립적이면 n개로 이루어진 조합의 곱사건 확률이 해당 사건들의 확률의 곱으로 표시됨
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A_%7B1%7D%5Ccap%20A_%7B2%7D%5Ccap%20%5Ccdots%20%5Ccap%20A_%7Bn%7D%29%3DP%28A_%7B1%7D%29P%28A_%7B2%7D%29%5Ccdots%20P%28A_%7Bn%7D%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bn%7DP%28A_%7Bi%7D%29"/>
