@@ -517,3 +517,53 @@
  
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?P%28A_%7B1%7D%5Ccap%20A_%7B2%7D%5Ccap%20%5Ccdots%20%5Ccap%20A_%7Bn%7D%29%3DP%28A_%7B1%7D%29P%28A_%7B2%7D%29%5Ccdots%20P%28A_%7Bn%7D%29%3D%5Cprod_%7Bi%3D1%7D%5E%7Bn%7DP%28A_%7Bi%7D%29"/>
+
+## 08. 확률변수와 확률분포 (1)
+
+### 확률변수(random variable)
+ - 표본공간의 원소를 숫자로 대응시키는 함수
+ - 동전의 앞면을 H, 뒷면을 T라고 할 때 동전을 세 번 던지는 확률실험의 표본공간은 다음과 같음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5COmega%20%3D%5Cleft%20%5C%7B%20HHH%2C%20HHT%2C%20HTH%2C%20THH%2C%20HTT%2C%20THT%2C%20TTH%2C%20TTT%20%5Cright%20%5C%7D"/>
+ 
+ - 이 확률실험에서 앞면의 수(X)나 앞면과 뒷면의 수의 차이(Y)에 관심이 있다고 하면 아래와 같이 표현 가능
+ 
+ | Ω | HHH | HHT | HTH | THH | HTT | THT | TTH | TTT |
+ | - | - | - | - | - | - | - | - | - |
+ | X | 3 | 2 | 2 | 2 | 1 | 1 | 1 | 0 |
+ | Y | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 3 |
+ 
+ - 여기서 X와 Y는 표본공간의 원소를 숫자로 바꾸어 주는 역할을 함
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Random_Variable_as_a_Function-en.svg"/>
+ 
+### 이산확률변수(countable random variable)
+ - 확률변수 X가 가질 수 있는 값들이 가산(countable)이거나 셀 수 있는 경우
+ 
+### 연속확률변수(countinuous random variable) 
+ - 확률변수 X가 가질 수 있는 값들이 셀 수 없을 정도로 많은 경우
+
+### 확률분포(probability distribution)
+ - 확률변수의 값에 대해 확률을 표시한 것
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D0%29%3DP%28%5Cleft%20%5C%7B%20TTT%20%5Cright%20%5C%7D%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3DP%28%5Cleft%20%5C%7B%20HTT%2CTHT%2C%20TTH%20%5Cright%20%5C%7D%29%3D%5Cfrac%7B3%7D%7B8%7D"/>
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3DP%28%5Cleft%20%5C%7B%20HHT%2CHTH%2C%20THH%20%5Cright%20%5C%7D%29%3D%5Cfrac%7B3%7D%7B8%7D"/>
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3DP%28%5Cleft%20%5C%7B%20HHH%20%5Cright%20%5C%7D%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
+  
+## 확률분포표(probability distribution table)
+ - 확률분포를 표로 표시한 것
+
+| x | 0 | 1 | 2 | 3 |
+| - | - | - | - | - |
+| P(X=x) | 1/8 | 3/8 | 3/8 | 1/8 |
+ 
+ 
+ 
+
