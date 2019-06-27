@@ -557,7 +557,7 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3DP%28%5Cleft%20%5C%7B%20HHH%20%5Cright%20%5C%7D%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
   
-## 확률분포표(probability distribution table)
+### 확률분포표(probability distribution table)
  - 확률분포를 표로 표시한 것
 
 | x | 0 | 1 | 2 | 3 |
