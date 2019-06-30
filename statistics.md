@@ -565,5 +565,59 @@
 | P(X=x) | 1/8 | 3/8 | 3/8 | 1/8 |
  
  
- 
+## 09. 확률변수와 확률분포 (2)
 
+### 확률질량함수(probability mass function)
+ - 이산확률변수 X가 임의의 값 x일 확률 P(X=x)를 x에 대한 함수로 생각하면 아래와 같이 표현 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3DP%28X%3Dx%29"/>
+ 
+ - 이 때, f(x)를 확률변수 X의 확률질량함수라고 함
+ - 동전을 세 번 던졌을 때 앞면의 수를 X라고 하면 X가 가질 수 있는 값은 x=0,1,2,3 이고 이에 대한 확률질량함수는 위에서 보인 것처럼
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f_%7BX%7D%280%29%3D%5Cfrac%7B1%7D%7B8%7D%2Cf_%7BX%7D%281%29%3D%5Cfrac%7B3%7D%7B8%7D%2Cf_%7BX%7D%282%29%3D%5Cfrac%7B2%7D%7B8%7D%2Cf_%7BX%7D%283%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
+ 
+ - x=0,1,2,3 외의 값의 확률은 이들 값에 대응하는 표본공간의 원소가 없기 때문에 0
+ - X가 가질 수 있는 값이 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2Cx_%7B2%7D%2Cx_%7B3%7D%2C%5Ccdots"/> 이면
+ 
+ 
+ 1. 모든 <img src="https://latex.codecogs.com/gif.latex?i%3D1%2C2%2C%5Ccdots"/> 에 대해 <img src="https://latex.codecogs.com/gif.latex?0%5Cleq%20f%28x_%7Bi%7D%29%5Cleq%201"/>
+ 2. <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%3D1%7D%5E%7B%5Cinfty%20%7Df%28x_%7Bi%7D%29%3D1"/>
+ 3. <img src="https://latex.codecogs.com/gif.latex?P%28a%5Cleq%20X%5Cleq%20b%29%3D%5Csum_%7Bx_%7Bi%7D%5Cin%20%5Cleft%20%5B%20a%2Cb%20%5Cright%20%5D%7Df%28x_%7Bi%7D%29"/>
+ 
+### 확률밀도함수(probability density function)
+- 히스토그램의 자료를 계속 추가하면서 계급의 폭을 줄이면 점점 세밀한 형태를 가지게 되고 아래와 같이 모집단의 형태를 나타내는 밀도를 얻음
+
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Logistic2.png"/>
+
+- 임의의 지점 x에서의 밀도를 f(x)라고 표시하면 f(x)를 확률밀도함수라고 함
+- 히스토그램에서 어떤 계급의 면적이 해당 계급의 비율(상대도수)였던 것처럼 어떤 구간에서 확률밀도함수의 면적은 해당 구간에서의 확률이 됨
+
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Tinnitusmodel_input_soundPDF_cumulative.png"/>
+
+ - X가 구간 a, b에 속할 확률은
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28a%5Cleq%20X%5Cleq%20b%29%3D%5Cint_%7Ba%7D%5E%7Bb%7Df%28x%29dx"/>
+ 
+ - 연속확률변수에 대한 확률은 확률밀도함수에서 해당 **면적** => 확률질량함수와 다르게 해당 점에서의 확률이 아님
+ - X=3 일 확률은 3에서의 면적은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D3%29%3D%5Cint_%7B3%7D%5E%7B3%7Df%28x%29dx%3D0"/>
+ 
+ - 그러므로 X가 연속확률변수이면 아래가 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28a%3CX%3Cb%29%3DP%28a%3CX%5Cleq%20b%29%3DP%28a%5Cleq%20X%3Cb%29%3DP%28a%5Cleq%20X%20%5Cleq%20b%29"/>
+ 
+ - 확률밀도함수 f(x)는 다음과 같은 성질을 만족
+ 
+ 1. 모든 x에 대해 <img src="https://latex.codecogs.com/gif.latex?f%28x%29%5Cgeq%200"/>
+ 2. <img src="https://latex.codecogs.com/gif.latex?%5Cint_%7B-%5Cinfty%20%7D%5E%7B%5Cinfty%20%7Df%28x%29dx%3D1"/>
+ 3. <img src="https://latex.codecogs.com/gif.latex?P%28a%5Cleq%20X%5Cleq%20b%29%3D%5Cint_%7Ba%7D%5E%7Bb%7Df%28x%29dx"/>
+ 
+ 
