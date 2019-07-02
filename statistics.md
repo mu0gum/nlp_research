@@ -563,9 +563,6 @@
 | x | 0 | 1 | 2 | 3 |
 | - | - | - | - | - |
 | P(X=x) | 1/8 | 3/8 | 3/8 | 1/8 |
- 
- 
-## 09. 확률변수와 확률분포 (2)
 
 ### 확률질량함수(probability mass function)
  - 이산확률변수 X가 임의의 값 x일 확률 P(X=x)를 x에 대한 함수로 생각하면 아래와 같이 표현 가능
@@ -620,4 +617,43 @@
  2. <img src="https://latex.codecogs.com/gif.latex?%5Cint_%7B-%5Cinfty%20%7D%5E%7B%5Cinfty%20%7Df%28x%29dx%3D1"/>
  3. <img src="https://latex.codecogs.com/gif.latex?P%28a%5Cleq%20X%5Cleq%20b%29%3D%5Cint_%7Ba%7D%5E%7Bb%7Df%28x%29dx"/>
  
+## 09. 확률변수와 확률분포 (2)
+
+### 모평균(population mean)
+ - 이산모집단으로부터 임의로 5개의 표본을 선택하였는데 그 값이 각각 1, 1, 2, 5, 6 이라고 가정
+ - 이 표본들의 표본 평균은 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D%3D%5Cfrac%7B1&plus;1&plus;2&plus;5&plus;6%7D%7B5%7D%3D1%5Ctimes%20%5Cfrac%7B2%7D%7B5%7D&plus;2%5Ctimes%20%5Cfrac%7B1%7D%7B5%7D&plus;5%5Ctimes%20%5Cfrac%7B1%7D%7B5%7D&plus;6%5Ctimes%20%5Cfrac%7B1%7D%7B5%7D"/>
+ - 위 식을 보면 표본평균은 **관측된 값에 그 값이 차지하는 표본비율을 곱하여 더한 것** 으로 표시
+ - 표본크기가 n이고 자료 중 서로 다른 값이 k개가 있어 이들 값을 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2C%5Ccdots%20%2Cx_%7Bk%7D"/>, 표본 중 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D"/> 의 값을 가지는 자료의 개수를 <img src="https://latex.codecogs.com/gif.latex?n_%7B1%7D"/> 라고 하면, <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%3D1%7D%5E%7Bk%7Dn_%7Bi%7D%3Dn"/> 이고 표본평균은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D%3D%5Cfrac%7Bx_%7B1%7Dn_%7B1%7D&plus;%5Ccdots%7B%7D&plus;%20x_%7Bk%7Dn_%7Bk%7D%7D%7Bn%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bk%7Dx_%7Bi%7D%5Cfrac%7Bn_%7Bi%7D%7D%7Bn%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bk%7Dx_%7Bi%7Dp_%7Bi%7D"/>
+ 
+ - 표본크기 n을 계속 크게 하면 통계적 확률의 관점에서 볼 때 표본들은 모집단으로, 표본비율 <img src="https://latex.codecogs.com/gif.latex?p_%7Bi%7D"/>는 확률질량함수 <img src="https://latex.codecogs.com/gif.latex?f%28x_%7Bi%7D%29"/>로, 표본평균은 모평균으로 수렴
+ 
+ - 통계학에서는 확률변수 X의 모평균을 아래와 같이 정의
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cmu%20%3D%20%5Csum_%7Bx%7Dxf%28x%29"/>
+ 
+ - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7D"/>는 X가 가질 수 있는 모든 x값에 대해 더한다는 의미
+ - **기대값(expected value)** 은 확률변수에 대해 평균적으로 기대하는 값이라는 의미를 갖는 용어로 평균과 같은 개념
+ 
+ 
+ - 확률변수 X의 기대값(평균)
+ - 이산확률변수
+ - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7Dxf%28x%29"/>
+ - 연속확률변수
+ - <img src="https://latex.codecogs.com/gif.latex?%5Cint%20xf%28x%29dx"/>
+ 
+ 
+ - 확률변수 X의 함수 g(X)의 기대값
+ - 이산확률변수 
+ - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7Dg%28x%29f%28x%29"/>
+ - 연속확률변수
+ - <img src="https://latex.codecogs.com/gif.latex?%5Cint%20g%28x%29f%28x%29dx"/>
+ 
+ 
+### 기대값의 성질
+ 1. 임의의 상수 a에 대해, <img src="https://latex.codecogs.com/gif.latex?E%28a%29%3Da"/>
+ 2. <img src="https://latex.codecogs.com/gif.latex?E%28aX&plus;b%29%3DaE%28X%29&plus;b"/>
+ 3. <img src="https://latex.codecogs.com/gif.latex?E%28g_%7B1%7D%28X%29&plus;g_%7B2%7D%28X%29%29%3DE%28g_%7B1%7D%28X%29%29&plus;E%28g_%7B2%7D%28X%29%29"/>
  
