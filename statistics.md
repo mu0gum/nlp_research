@@ -638,14 +638,14 @@
  - **기대값(expected value)** 은 확률변수에 대해 평균적으로 기대하는 값이라는 의미를 갖는 용어로 평균과 같은 개념
  
  
- - 확률변수 X의 기대값(평균)
+### 확률변수 X의 기대값(평균)
  - 이산확률변수
  - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7Dxf%28x%29"/>
  - 연속확률변수
  - <img src="https://latex.codecogs.com/gif.latex?%5Cint%20xf%28x%29dx"/>
  
  
- - 확률변수 X의 함수 g(X)의 기대값
+### 확률변수 X의 함수 g(X)의 기대값
  - 이산확률변수 
  - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7Dg%28x%29f%28x%29"/>
  - 연속확률변수
