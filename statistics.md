@@ -636,6 +636,7 @@
  
  - <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bx%7D"/>는 X가 가질 수 있는 모든 x값에 대해 더한다는 의미
  - **기대값(expected value)** 은 확률변수에 대해 평균적으로 기대하는 값이라는 의미를 갖는 용어로 평균과 같은 개념
+ - 연속확률변수에서의 기대값은 이산형의 기대값에서 <img src="https://latex.codecogs.com/gif.latex?%5Csum"/>를 <img src="https://latex.codecogs.com/gif.latex?%5Cint"/>으로 바꾸고 확률질량함수 <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3DP%28X%3Dx%29"/>를 확률밀도함수에서 단위길이를 곱한 <img src="https://latex.codecogs.com/gif.latex?f%28x%29dx"/>로 바꾸어 계산
  
  
 ### 확률변수 X의 기대값(평균)
@@ -653,7 +654,48 @@
  
  
 ### 기대값의 성질
- 1. 임의의 상수 a에 대해, <img src="https://latex.codecogs.com/gif.latex?E%28a%29%3Da"/>
+ 1. 임의의 상수 a에 대해, <img src="https://latex.codecogs.com/gif.latex?E%28a%29%3D%5Csum_%7Bx%7Daf%28x%29%3Da%5Csum_%7Bx%7Df%28x%29%3Da"/>
  2. <img src="https://latex.codecogs.com/gif.latex?E%28aX&plus;b%29%3DaE%28X%29&plus;b"/>
  3. <img src="https://latex.codecogs.com/gif.latex?E%28g_%7B1%7D%28X%29&plus;g_%7B2%7D%28X%29%29%3DE%28g_%7B1%7D%28X%29%29&plus;E%28g_%7B2%7D%28X%29%29"/>
+ 
+
+### 모분산과 모표준편차
+ - 모평균을 유도할 때와 같이 전체 표본이 n개 있고 서로 다른 값이 k개가 있어 이들 값을 <img src="https://latex.codecogs.com/gif.latex?x_%7B1%7D%2C%5Ccdots%20%2Cx_%7Bk%7D"/> 라고 가정했을 때, 표본분산은 아래와 같음
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?s%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bk%7Dn_%7Bi%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2%3D%5Cfrac%7Bn%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bk%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%5E2p_%7Bi%7D"/>
+
+ - 통계적 확률의 관점에서 볼 때 n을 계속 크게 하면 표본분산은 모분산(population variance)이 됨
+ - n을 계속 크게 하는 경우,
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5Cp_%7Bi%7D%5Crightarrow%20f%28x_%7Bi%7D%29%2C%5C%5C%20%5Cbar%7Bx%7D%5Crightarrow%20%5Cmu%20%2C%20%5C%5Cn/%28n-1%29%5Crightarrow%201"/>
+ 
+ - 위의 식을 활용하여 정리하면 아래와 같음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Csigma%20%5E2%3D%5Csum_%7Bi%3D1%7D%5E%7Bk%7D%28x-%5Cmu%20%29%5E2f%28x_%7Bi%7D%29"/>
+ 
+ - 확률변수 X의 분산을 Var(X)로도 표시하는데 위에서 언급한 기댓값의 표시방법에 의해 아래와 같이 표현 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Var%28x%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bk%7D%28x-%5Cmu%20%29%5E2f%28x_%7Bi%7D%29%3DE%28%28X-%5Cmu%29%5E2%29"/>
+ 
+ - 즉 분산은 <img src="https://latex.codecogs.com/gif.latex?g%28X%29%3D%28X-%5Cmu%29%5E2"/>의 기대값으로 표현 가능
+ - 모분산을 간이식으로 정리하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28%28X-%5Cmu%29%5E2%29%5C%5C%20%3DE%28X%5E2%29-2%5Cmu%20E%28X%29&plus;%5Cmu%5E2%5C%5C%20%3DE%28X%5E2%29-2%5Cmu%5E2%20&plus;%20%5Cmu%5E2%5C%5C%20%3DE%28X%5E2%29-%5Cmu%5E2"/>
+ 
+ - 표준편차는 <img src="https://latex.codecogs.com/gif.latex?SD%28X%29%3D%5Csigma%20%3D%5Csqrt%7B%5Csigma%20%5E2%7D"/>
+ - (정리) 확률변수 X의 분산 -> 위는 이산확률변수, 아래는 연속확률변수
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Var%28X%29%3D%5Csigma%20%5E2%3DE%28%28X-%5Cmu%29%5E2%29%3D%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20%5Csum_%7Bx%7D%28x-%5Cmu%29%5E2%20f%28x%29%5C%5C%20%5Cint%20%28x-%5Cmu%29%5E2f%28x%29dx%20%5Cend%7Bmatrix%7D%5Cright."/>
+
+ 
+ 
+ 
+ 
+ 
  
