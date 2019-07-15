@@ -694,6 +694,84 @@
  <img src="https://latex.codecogs.com/gif.latex?Var%28X%29%3D%5Csigma%20%5E2%3DE%28%28X-%5Cmu%29%5E2%29%3D%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20%5Csum_%7Bx%7D%28x-%5Cmu%29%5E2%20f%28x%29%5C%5C%20%5Cint%20%28x-%5Cmu%29%5E2f%28x%29dx%20%5Cend%7Bmatrix%7D%5Cright."/>
 
  
+### 기대값의 성질
+4. <img src="https://latex.codecogs.com/gif.latex?Var%28aX&plus;b%29%3Da%5E2Var%28x%29"/>
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CVar%28aX&plus;b%29%20%5C%5C%3DVar%28aX%29%20%5C%5C%3DE%28%28aX%29%5E2%29-E%28aX%29%5E2%20%5C%5C%3Da%5E2E%28X%5E2%29-a%5E2E%28X%29%5E2%20%5C%5C%3Da%5E2%28E%28X%5E2%29-E%28X%29%5E2%29%20%5C%5C%3Da%5E2Var%28X%29"/>
+ - Var(aX+b) 가 Var(aX)인 이유 : 분산은 퍼짐의 정도 -> b는 위치를 이동시키는 개념(퍼지는 정도에 영향을 미치지 않음)
+
+5. <img src="https://latex.codecogs.com/gif.latex?SD%28aX&plus;b%29%3D%7Ca%7CSD%28X%29"/>
+ 
+  <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?SD%28aX&plus;b%29%3D%5Csqrt%7BVar%28aX&plus;b%29%7D%3D%5Csqrt%7Ba%5E2Var%28X%29%7D%3D%7Ca%7CSD%28X%29"/>
+ 
+## 10. 이항분포와 관련된 분포들 (1)
+ - 자료를 수집할 때 특정 변수 하나만 관심을 가질 수 있으나 여러 가지 변수의 자료를 얻고 이들 변수들 간에 어떤 관계가 있는지에 관심을 가질수도 있음
+ - 이렇게 여러가지 확률변수를 순서열 <img src="https://latex.codecogs.com/gif.latex?%28X_%7B1%7D%2C%20X_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D%29"/>으로 표시한 것을 **확률벡터(random vector)** 라고 함
+ 
+### 이변량 분포(bivariate distribution)
+ - 두 확률변수의 결합분포
+ 
+### 다변량 분포(p-dimensional multivariate distribution)
+ - p-개의 확률변수로 이루어진 확률벡터의 결합분포
+ 
+### 결합확률질량함수(joint probability mass function)
+ - 두 이산확률변수 X와 Y에 대해, X=x 이고 Y=y 일 확률을 다음과 같은 함수 f(x,y) 로 정의하면,
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%2Cy%29%3DP%28X%3Dx%2C%20Y%3Dy%29"/>
+ 
+ - f(x,y)를 확률변수 X와 Y의 결합확률질량함수라고 함
+ - 위에서 ,는 집합에서 ∩을 의미
+ - 동전을 3번 던진 실험에서 앞면의 수 X와 앞면과 뒷면의 차이 Y를 확률변수로 할 때, 결합된 확률은 아래와 같음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%3D0%2C%20Y%3D3%29%3DP%28%5C%7BTTT%5C%7D%29%3D%5Cfrac%7B1%7D%7B8%7D%5C%5C%5C%5C%20P%28X%3D1%2C%20Y%3D1%29%3DP%28%5C%7BHTT%2CTHT%2CTTH%5C%7D%29%3D%5Cfrac%7B3%7D%7B8%7D%5C%5C%5C%5C%20P%28X%3D2%2C%20Y%3D1%29%3DP%28%5C%7BHHT%2CHTH%2CTHH%5C%7D%29%3D%5Cfrac%7B3%7D%7B8%7D%5C%5C%5C%5C%20P%28X%3D0%2C%20Y%3D3%29%3DP%28%5C%7BHHH%5C%7D%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
+ 
+ - 이를 결합확률질량함수로 표시하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%280%2C3%29%3D%5Cfrac%7B1%7D%7B8%7D%2Cf%281%2C1%29%3D%5Cfrac%7B3%7D%7B8%7D%2Cf%282%2C1%29%3D%5Cfrac%7B3%7D%7B8%7D%2Cf%283%2C3%29%3D%5Cfrac%7B1%7D%7B8%7D"/>
+
+
+### 주변확률질량함수(marginal probability mass function)
+ - 앞서 표본공간이 사건 <img src="https://latex.codecogs.com/gif.latex?B_%7B1%7D%2C%5Ccdots%20%2CB_%7Bn%7D"/> 로 분할될 때 사건 A의 확률은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28A%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28A%5Ccap%20B_%7Bi%7D%29"/>
+ 
+ - 위와 같음. 만약 Y가 가질 수 있는 값이 <img src="https://latex.codecogs.com/gif.latex?y_%7B1%7D%2C%5Ccdots%20%2Cy_%7Bn%7D"/> 이라고 할 때, <img src="https://latex.codecogs.com/gif.latex?X%3Dx"/> 를 사건 <img src="https://latex.codecogs.com/gif.latex?A%2C%20Y%3Dy_%7Bi%7D"/> 를 사건 <img src="https://latex.codecogs.com/gif.latex?B_%7Bi%7D"/>라고 하면 <img src="https://latex.codecogs.com/gif.latex?P%28A%5Ccap%20B_%7Bi%7D%29%3DP%28X%3Dx%2C%20Y%3Dy_%7Bi%7D%29"/> 이고 다음과 같은 관계가 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3Dx%29%3DP%28A%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28A%5Ccap%20B_%7Bi%7D%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DP%28X%3Dx%2C%20Y%3Dy_%7Bi%7D%29"/>
+ 
+ - 이것은 두 이산확률변수 X와 Y의 결합확률질량함수가 f(x,y)일 때, X의 확률질량함수는 다음과 같이 모든 y의 결합확률질량함수를 더해 구할 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f_%7BX%7D%28x%29%3D%5Csum_%7By%7Df%28x%2Cy%29"/>
+ 
+ - 이 경우 <img src="https://latex.codecogs.com/gif.latex?f_%7BX%7D%28x%29"/>를 주변확률질량함수라고 함
+ - Y의 주변확률질량함수는
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f_%7BY%7D%28y%29%3D%5Csum_%7Bx%7Df%28x%2Cy%29"/>
+ 
+### 두 확률변수 X,Y에 대해 X+Y 혹은 XY 의 기대값
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X&plus;Y%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7D%28x&plus;y%29f%28x%2Cy%29%5C%5C%20E%28XY%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7Dxyf%28x%2Cy%29"/>
+ 
+ - 두 확률변수의 합이나 차의 기댓값은 다음과 같이 각 확률변수의 기댓값의 합이나 차로 표시 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X%5Cpm%20Y%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7D%28x&plus;y%29f%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7D%5Csum_%7By%7Dxf%28x%2Cy%29%5Cpm%5Csum_%7Bx%7D%5Csum_%7By%7Dyf%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7Dx%5Csum_%7By%7Df%28x%2Cy%29%5Cpm%5Csum_%7By%7Dy%5Csum_%7Bx%7Df%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7Dxf_%7BX%7D%28x%29%5Cpm%5Csum_%7Bx%7Dyf_%7BY%7D%28y%29%20%5C%5C%5C%5C%3DE%28X%29%5Cpm%20E%28Y%29"/>
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
