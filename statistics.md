@@ -767,10 +767,51 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X%5Cpm%20Y%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7D%28x&plus;y%29f%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7D%5Csum_%7By%7Dxf%28x%2Cy%29%5Cpm%5Csum_%7Bx%7D%5Csum_%7By%7Dyf%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7Dx%5Csum_%7By%7Df%28x%2Cy%29%5Cpm%5Csum_%7By%7Dy%5Csum_%7Bx%7Df%28x%2Cy%29%20%5C%5C%5C%5C%3D%5Csum_%7Bx%7Dxf_%7BX%7D%28x%29%5Cpm%5Csum_%7Bx%7Dyf_%7BY%7D%28y%29%20%5C%5C%5C%5C%3DE%28X%29%5Cpm%20E%28Y%29"/>
  
+ - 두 확률변수 X와 Y가 모든 x,y에 대하여 결합확률질량(밀도)함수가 주변확률질량(밀도)함수의 곱으로, 즉 <img src="https://latex.codecogs.com/gif.latex?f%28x%2Cy%29%3Df_%7BX%7D%28x%29f_%7BY%7D%28y%29"/> 로 표시할 수 있으면 이런 경우 **확률변수 X와 Y는 독립** 이라 함
+ 
+ - 두 확률 변수가 독립인 경우 아래의 내용이 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28XY%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7Dxyf%28x%2Cy%29%5C%5C%20%3D%20%5Csum_%7Bx%7D%5Csum_%7By%7Dxyf_%7BX%7D%28x%29f_%7BY%7D%28y%29%3D%5Csum_%7Bx%7Dxf_%7BX%7D%28x%29%5Csum_%7By%7Dyf_%7BY%7D%28y%29%3DE%28X%29E%28Y%29"/>
  
  
+## 11. 이항분포와 관련된 분포들 (2)
+
+### 공분산
+ - 두 확률변수가 독립이 아니라면 서로 관련성이 있다는 것을 의미
+ - 앞서 표본공분산은 아래와 같이 구함
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CC_%7Bxy%7D%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29%20%5C%5C%3D%5Cfrac%7Bn%7D%7Bn-1%7D%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%28x_%7Bi%7D-%5Cbar%7Bx%7D%29%28y_%7Bi%7D-%5Cbar%7By%7D%29"/>
  
+ - n을 계속 크게 하는 경우를 가정하여, 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Cbar%7Bx%7D%5Crightarrow%20%5Cmu_%7BX%7D%20%5C%5C%5Cbar%7By%7D%5Crightarrow%20%5Cmu_%7BY%7D"/>
+ 
+ - 두 확률변수 X와 Y의 공분산은 다음과 같이 표현
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Cov%28X%2CY%29%3DE%28%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%29%3D%5Csum_%7Bx%7D%5Csum_%7By%7D%28x-%5Cmu_%7BX%7D%29%28y-%5Cmu_%7BY%7D%29f%28x%2Cy%29"/>
+ 
+ - 공분산을 계산할 때는 아래와 같이 간편계산식을 사용
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CCov%28X%2CY%29%3DE%28%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%29%5C%5C%20%3DE%28XY-X%5Cmu_%7BY%7D-Y%5Cmu_%7BX%7D&plus;%5Cmu_%7BX%7D%5Cmu_%7BY%7D%29%5C%5C%20%3DE%28XY%29-%5Cmu_%7BY%7DE%28X%29-%5Cmu_%7BX%7DE%28Y%29&plus;%5Cmu_%7BX%7D%5Cmu_%7BY%7D%5C%5C%20%3DE%28XY%29-%5Cmu_%7BY%7D%5Cmu_%7BX%7D-%5Cmu_%7BX%7D%5Cmu_%7BY%7D&plus;%5Cmu_%7BX%7D%5Cmu_%7BY%7D%5C%5C%20%3DE%28XY%29-E%28X%29E%28Y%29"/>
+ 
+ - 앞서 두 확률변수 X와 Y가 독립이면 E(XY) = E(X)E(Y)라는 것을 보임 -> X와 Y가 독립이면 공분산은 0
+ - **공분산이 0이라고 해서 X와 Y가 독립은 아님**
+ 
+### 분산
+ - 확률변수의 합이나 차에 대한 분산
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CVar%28X&plus;Y%29%3DE%28%28X&plus;Y-%28%5Cmu_%7BX%7D&plus;%5Cmu_%7BY%7D%29%29%5E2%29%5C%5C%20%3DE%28%28%28X-%5Cmu_%7BX%7D%29&plus;%28Y-%5Cmu_%7BY%7D%29%29%5E2%29%5C%5C%20%3DE%28%28X-%5Cmu_%7BX%7D%29%5E2%29&plus;E%28%28Y-%5Cmu_%7BY%7D%29%5E2%29-2E%28%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%29%5C%5C%20%3DVar%28X%29&plus;Var%28Y%29-2Cov%28X%2CY%29"/>
+ 
+ - 만약 두 확률변수가 독립일 경우 공분산은 0이 되고, 아래 식이 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Var%28X%5Cpm%20Y%29%3DVar%28X%29&plus;Var%28Y%29"/>
  
  
  
