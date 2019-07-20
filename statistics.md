@@ -699,6 +699,7 @@
 
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CVar%28aX&plus;b%29%20%5C%5C%3DVar%28aX%29%20%5C%5C%3DE%28%28aX%29%5E2%29-E%28aX%29%5E2%20%5C%5C%3Da%5E2E%28X%5E2%29-a%5E2E%28X%29%5E2%20%5C%5C%3Da%5E2%28E%28X%5E2%29-E%28X%29%5E2%29%20%5C%5C%3Da%5E2Var%28X%29"/>
+ 
  - Var(aX+b) 가 Var(aX)인 이유 : 분산은 퍼짐의 정도 -> b는 위치를 이동시키는 개념(퍼지는 정도에 영향을 미치지 않음)
 
 5. <img src="https://latex.codecogs.com/gif.latex?SD%28aX&plus;b%29%3D%7Ca%7CSD%28X%29"/>
@@ -812,6 +813,59 @@
  
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?Var%28X%5Cpm%20Y%29%3DVar%28X%29&plus;Var%28Y%29"/>
+ 
+## 12. 이항분포와 관련된 분포들 (3) 
+
+### 베르누이(Bernoulli) 시행
+```
+1. 각 실험에서 발생 가능한 결과는 단 2가지
+ ex) (성공, 실패) , (앞면, 뒷면)
+2. 각 실험이 독립적으로 수행
+3. 모든 실험에서 결과의 확률은 항상 동일
+ P(S) = p, P(F) = 1-p = q
+ ```
+
+ - 위의 내용을 정리하면 **두 가지의 결과가 발생하는 실험을 독립적으로 시행하는데 매 시행에서 성공할 확률이 동일하면 이를 베르누이시행이라고 함**
+ - 상자에 10개의 제품이 있는데 이 중 8개가 정상, 2개가 불량일 때, 정상품이 뽑히면 성공(S) 이라고 가정. 복원추출과 비복원추출로 각각 제품을 뽑았을 때, 2개 모두 정상품일 확률은
+ - 복원추출 : <img src="https://latex.codecogs.com/gif.latex?P%28S_%7B1%7D%2CS_%7B2%7D%29%3DP%28S_%7B1%7D%29P%28S_%7B2%7D%7CS_%7B1%7D%29%3D%5Cfrac%7B8%7D%7B10%7D%5Ctimes%20%5Cfrac%7B8%7D%7B10%7D"/>
+ - 비복원추출 : <img src="https://latex.codecogs.com/gif.latex?P%28S_%7B1%7D%2CS_%7B2%7D%29%3DP%28S_%7B1%7D%29P%28S_%7B2%7D%7CS_%7B1%7D%29%3D%5Cfrac%7B8%7D%7B10%7D%5Ctimes%20%5Cfrac%7B7%7D%7B9%7D"/>
+ - 복원추출은 앞에 뽑힌 제품에 영향을 받지 않기 때문에 <img src="https://latex.codecogs.com/gif.latex?P%28S_%7B2%7D%7CS_%7B1%7D%29%3DP%28S_%7B2%7D%29"/> 가 되고, 정삼품이 뽑힐 확률이 항상 0.8이기 때문에 베르누이시행이라고 할 수 있음
+ - 비복원추출은 두 번째 추출은 첫 번째 추출에 영향을 받기 때문에(독립이 아님) 베르누이시행이라고 할 수 없음
+ - 만약 상자에 10000개의 제품이 있고 이중 8000개가 정상 2000개가 불량일 때 2개의 제품을 비복원추출 한다면,
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28S_%7B1%7D%2CS_%7B2%7D%29%3DP%28S_%7B1%7D%29P%28S_%7B2%7D%7CS_%7B1%7D%29%3D%5Cfrac%7B8000%7D%7B10000%7D%5Ctimes%20%5Cfrac%7B7999%7D%7B9999%7D"/>
+ 
+ - 위 결과는 엄밀히 따지면 베르누이시행이 아님. 하지만 상자에 10개의 제품이 있을 때와 다르게 <img src="https://latex.codecogs.com/gif.latex?P%28S_%7B2%7D%29%3D0.8%5Csimeq%207999/9999%3DP%28S_%7B2%7D%7CS_%7B1%7D%29"/> 인 것을 볼 수 있음
+ - 이와 같이 **모집단의 크기가 매우 크고 이에 비해 표본의 크기가 상대적으로 작아 비복원추출의 결과와 복원추출의 결과가 차이가 거의 없는 경우 비복원추출도 베르누이시행을 근사모형으로 사용**하고 있음
+ - 베르누이시행에서 만약 '성공' 확률을 p라고 하면, '실패' 확률은 1-p가 됨
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28S%29%3Dp%2C%20P%28F%29%3D1-P%28S%29%3D1-p"/>
+ 
+ - 실험결과가 실패이면 0, 성공이면 1의 값을 갖는 확률변수 X의 확률분포는
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%3D1%29%3DP%28S%29%3Dp%5C%5C%20P%28X%3D0%29%3DP%28F%29%3D1-p"/>
+ 
+ - 이러한 확률분포를 따르는 확률변수를 베르누이확률변수(Bernoulli random variable)라고 하고 베르누이분포(Bernoulli distribution)을 따른다고 함
+ - 성공확률이 p인 베르누이 확률질량함수를 다음과 같이 쓸 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5Cf%28x%29%3Dp%5Ex%281-p%29%5E1%5E-%5Ex%2C%20%5C%5Cx%3D0%2C%201%2C%20%5C%5C0%3Cp%3C1"/>
+ 
+ - 또한 베르누이분포의 기대값은 아래와 같음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X%29%3D0%5Ctimes%20%281-p%29&plus;1%5Ctimes%20p%3Dp%5C%5C%5C%5C%20E%28X%5E2%29%3D0%5E2%5Ctimes%20%281-p%29&plus;1%5E2%5Ctimes%20p%5C%5C%5C%5C%20Var%28X%29%3Dp-p%5E2%3Dp%281-p%29"/>
+ 
+ - 확률 p가 0또는 1에 가까울수록 분산은 작아지며 p가 1/2일 때 분산은 1/4로 가장큰 값을 가짐-> p(1-p) 를 그래프로 그려서 생각해보자
+ - 베르누이확률분포는 성공확률인 p에 의해 확률과 기대값이 결정
+ - 이와 같이 분포의 특성을 결정하는 상수를 모수(parameter)라고 하며, '성공확률이 p인' 대신에 '모수가 p인' 베르누이분포라고도 함
+ - X가 성공확률이 p인 베르누이확률분포를 따를 때 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%28p%29"/> 라고 표시
+
+
+ 
  
  
  
