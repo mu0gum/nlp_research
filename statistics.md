@@ -857,18 +857,51 @@
  - 또한 베르누이분포의 기대값은 아래와 같음
  
  <p align="center">
- <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X%29%3D0%5Ctimes%20%281-p%29&plus;1%5Ctimes%20p%3Dp%5C%5C%5C%5C%20E%28X%5E2%29%3D0%5E2%5Ctimes%20%281-p%29&plus;1%5E2%5Ctimes%20p%5C%5C%5C%5C%20Var%28X%29%3Dp-p%5E2%3Dp%281-p%29"/>
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28X%29%3D0%5Ctimes%20%281-p%29&plus;1%20%5Ctimes%20p%3Dp%5C%5C%5C%5C%20E%28X%5E2%29%3D0%5E2%5Ctimes%20%281-p%29&plus;1%5E2%20%5Ctimes%20p%3Dp%5C%5C%5C%5C%20Var%28X%29%3DE%28X%5E2%29-E%28X%29%5E2%3Dp-p%5E2%3Dp%281-p%29"/>
  
  - 확률 p가 0또는 1에 가까울수록 분산은 작아지며 p가 1/2일 때 분산은 1/4로 가장큰 값을 가짐-> p(1-p) 를 그래프로 그려서 생각해보자
  - 베르누이확률분포는 성공확률인 p에 의해 확률과 기대값이 결정
  - 이와 같이 분포의 특성을 결정하는 상수를 모수(parameter)라고 하며, '성공확률이 p인' 대신에 '모수가 p인' 베르누이분포라고도 함
  - X가 성공확률이 p인 베르누이확률분포를 따를 때 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%28p%29"/> 라고 표시
 
+### 이항분포(binomial distribution)
+ - 성공확률이 p인 베르누이시행을 n번 반복했을 때 성공 횟수의 분포
+ - 확률변수 X는 n개의 베르누이 확률변수의 합으로, X의 기대값은 기대값은 베르누이확률변수의 기대값의 합으로 표시
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?E%28X%29%3DE%28X_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%29%3DE%28X_%7B1%7D%29&plus;%5Ccdots&plus;%20E%28X_%7Bn%7D%29%3Dnp"/>
+ 
+ - 베르누이확률변수는 서로 독립이기 때문에 X의 분산도 다음과 같이 각각의 베르누이 분산의 합으로 표시
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Var%28X%29%3DVar%28X_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%29%3DVar%28X_%7B1%7D%29&plus;%5Ccdots&plus;%20Var%28X_%7Bn%7D%29%3Dnp%281-p%29"/>
+ 
+### 주사위 세 번 던지기
+ - X : 1이 나온 횟수 ( 1이면 S, 아니면 F )
 
+| 0 | 1 | 2 | 3 |
+| - | - | - | - |
+| FFF | SFF, FSF, FFS | SSF, SFS, FSS | SSS |
+| <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B3%7D%7B0%7D%5Cbinom%7B1%7D%7B6%7D%5E0%5Cbinom%7B3%7D%7B0%7D%5E3"/> | <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B3%7D%7B1%7D%5Cbinom%7B1%7D%7B6%7D%5E1%5Cbinom%7B3%7D%7B0%7D%5E2"/> | <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B3%7D%7B2%7D%5Cbinom%7B1%7D%7B6%7D%5E2%5Cbinom%7B3%7D%7B0%7D%5E1"/> | <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B3%7D%7B3%7D%5Cbinom%7B1%7D%7B6%7D%5E3%5Cbinom%7B3%7D%7B0%7D%5E0"/> |
+
+ - P(X=x)를 구하기 위해서는 해당되는 원소의 개수를 계산하여 위의 확률에 곱함
+ - 실행횟수가 n인 상황으로 일반화했을 때 x개의 성공한 원소의 수는 n개 중 x개를 선택하는 조합으로
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7Bn%7D%7Bx%7D%3D%5Cfrac%7Bn%21%7D%7Bx%21%28n-x%29%21%7D"/>
  
+ - 각 원소의 확률은 x번 성공하고 n-x 번 실패하기 때문에
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?p%5Ex%281-p%29%5En%5E-%5Ex"/>
+
+ - 따라서 성공확률이 p인 베르누이시행을 n번 반복했을 때 이항분포의 확률질량함수는 아래와 같음
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cbinom%7Bn%7D%7Bx%7Dp%5Ex%281-p%29%5En%5E-%5Ex%2C%20x%3D0%2C1%2C%5Ccdots%20%2Cn"/>
+ 
+ - 확률변수 X가 모수 n,p를 갖는 이항분포를 따른다는 것을 일반적으로 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%28n%2Cp%29"/> 로 표시
+ - 베르누이확률변수의 경우 n이 1이므로 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%281%2Cp%29"/> 로 표시 가능
  
  
  
