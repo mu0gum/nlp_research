@@ -903,5 +903,45 @@
  - 확률변수 X가 모수 n,p를 갖는 이항분포를 따른다는 것을 일반적으로 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%28n%2Cp%29"/> 로 표시
  - 베르누이확률변수의 경우 n이 1이므로 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%281%2Cp%29"/> 로 표시 가능
  
+## 13. 이항분포와 관련된 분포들 (4)  
+
+### 초기하분포(hypergeometric distribution)
+ - 어떤 제품을 계속 만들어내는 생산공정에서 무작위로 제품을 선택하여 품질검사를 한다고 가정
+ - 각 검사에서 불량률이 공정과정의 불량률 p와 같고 각각의 검사는 서로 독립이라고 한다면 이 검사는 베르누이시행
+ - 그러나 N개의 제품이 있는 상자에서 n개를 비복원으로 추출하여 품질검사를 시행하는 경우는 모형이 다름
+ - ex) 7개의 정상품과 3개의 불량품이 있는 상자에서 임의로 3개의 제품을 비복원추출한 경우에 3개중 1개가 불량품일 확률? 정상 : A, 불량 : D
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28D%2CA%2CA%29&plus;P%28A%2CD%2CA%29&plus;P%28A%2CA%2CD%29%5C%5C%5C%5C%20%3D%5Cfrac%7B3%7D%7B10%7D%5Ctimes%5Cfrac%7B7%7D%7B9%7D%5Ctimes%5Cfrac%7B7%7D%7B9%7D&plus;%5Cfrac%7B7%7D%7B10%7D%5Ctimes%5Cfrac%7B3%7D%7B9%7D%5Ctimes%5Cfrac%7B6%7D%7B8%7D&plus;%5Cfrac%7B7%7D%7B10%7D%5Ctimes%5Cfrac%7B6%7D%7B9%7D%5Ctimes%5Cfrac%7B3%7D%7B8%7D%5C%5C%5C%5C%20%3D3%5Ctimes%5Cfrac%7B3%5Ctimes7%5Ctimes6%7D%7B10%5Ctimes9%5Ctimes8%7D%3D%5Cfrac%7B21%7D%7B40%7D"/>
+ 
+ - 세 원소의 확률이 모두 동일, 앞에 있는 3은 3개의 위치 중 1개의 불량 위치를 선택하는 방법의 수
+ - X를 불량품의 수라고 하면 위의 식은 아래와 같이 정리 가능
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3D%5Cbinom%7B3%7D%7B1%7D%5Cfrac%7B%5Cfrac%7B3%21%7D%7B%283-1%29%21%7D%5Cfrac%7B7%21%7D%7B%287-2%29%21%7D%7D%7B%5Cfrac%7B10%21%7D%7B%2810-3%29%21%7D%7D"/>
+ 
+ - 이를 불량품이 M개, 정상품이 N-M개가 들어있는 상자에서 n개를 비복원으로 추출했을 때 n개 중 불량품의 개수에 대한 분포로 일반화 가능
+ - n개 중 불량품의 개수를 X라고 하면 X의 확률분포는 아래와 같이 구할 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%3Dx%29%3D%5Cbinom%7Bn%7D%7Bx%7D%5Cfrac%7B%5Cfrac%7BM%21%7D%7B%28M-x%29%21%7D%5Cfrac%7B%28N-M%29%21%7D%7B%28N-M-n&plus;x%29%21%7D%7D%7B%5Cfrac%7BN%21%7D%7B%28N-n%29%21%7D%7D%5C%5C%5C%5C%20%3D%5Cfrac%7B%5Cfrac%7BM%21%7D%7Bx%21%28M-x%29%21%7D%5Cfrac%7B%28N-M%29%21%7D%7B%28n-x%29%21%28N-M-n&plus;x%29%21%7D%7D%7B%5Cfrac%7BN%21%7D%7Bn%21%28N-n%29%21%7D%7D%5C%5C%5C%5C%20%3D%5Cfrac%7B%5Cbinom%7BM%7D%7Bx%7D%5Cbinom%7BN-M%7D%7Bn-x%7D%7D%7B%5Cbinom%7BN%7D%7Bn%7D%7D"/>
+ 
+ - 위와 같은 확률질량함수를 가지는 분포를 **초기하분포** 라고 함
+ - 보통의 경우 X가 가질 수 있는 값은 {0,1,2,...,n} 로 표시할 수 있으나  n이 불량품의 수 M보다 클 수 없기 때문에 X의 최대값은 n과 M 중 작은 값인 min(n, M)가 됨
+ - 또한 n이 정상품의 수 N-M보다 크면 최소한 n-N+M개의 불량품이 반드시 선택되기 때문에 X의 최소값은 max(0, n-N+M)가 됨
+ - 위의 내용을 다시 정리하면 확률변수 X의 확률질량 함수는 아래와 같음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cfrac%7B%5Cbinom%7BM%7D%7Bx%7D%5Cbinom%7BN-M%7D%7Bn-x%7D%7D%7B%5Cbinom%7BN%7D%7Bn%7D%7D%2C%20x%3Dmax%280%2Cn-N&plus;M%29%2C%5Ccdots%20%2Cmin%28n%2CM%29"/>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
