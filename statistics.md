@@ -934,8 +934,59 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cfrac%7B%5Cbinom%7BM%7D%7Bx%7D%5Cbinom%7BN-M%7D%7Bn-x%7D%7D%7B%5Cbinom%7BN%7D%7Bn%7D%7D%2C%20x%3Dmax%280%2Cn-N&plus;M%29%2C%5Ccdots%20%2Cmin%28n%2CM%29"/>
  
+ - 확률질량함수가 위의 모양일 때, X는 모수가 (M,M,n)인 초기하분포를 따른다고 하고 X~H(N,M,n) 으로 표시
+ - 모집단의 크기가 매우 크고 이에 비해 표본의 크기가 상대적으로 작은 경우, 비복원추출의 경우에도 베르누이시행으로 봐도 큰 문제가 없다고 하기도 함
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%3D1%29%3D%5Cbinom%7B3%7D%7B1%7D%5Cfrac%7B3000%5Ctimes7000%5Ctimes6999%7D%7B10000%5Ctimes9999%5Ctimes9998%7D%5Capprox%20%5Cbinom%7B3%7D%7B1%7D%5Cfrac%7B3%7D%7B10%7D%28%5Cfrac%7B7%7D%7B10%7D%29%5E2"/>
  
+ - 초기하분포에서 평균과 분산은 정의를 이용하여 직접 구할 수 있으나 계산 과정이 복잡 ( 이항분포의 평균과 분산을 계산할 때처럼 각 실험의 결과의 합으로 생각하여 유도 )
+ 
+ - 확률변수 <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/> 는 i번째 추출에서 불량품이면 1, 아니면 0의 값을 가진다고 하면 초기하확률변수 X는 아래와 같이 쓸 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X%3DX_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D"/>
+
+ - 위에서 X가 이항확률변수와 다른 점은 <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/> 들이 서로 독립이 아님
+ - 하지만 모든 <img src="https://latex.codecogs.com/gif.latex?i%3D1%2C%5Ccdots%20%2Cn"/> 에 대해, <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/> 의 확률분포는
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X_%7Bi%7D%3D0%29%3D%5Cfrac%7BN-M%7D%7BN%7D%2C%20P%28X_%7Bi%7D%3D1%29%3D%5Cfrac%7BM%7D%7BN%7D"/>
+ 
+ - <img src="https://latex.codecogs.com/gif.latex?p%3DM/N"/> 이라고 하면 <img src="https://latex.codecogs.com/gif.latex?E%28X_%7Bi%7D%29%3DM/N%3Dp%2CVar%28X_%7Bi%7D%29%3Dp%281-p%29"/> 이 성립하고 X의 평균은 다음과 같이 계산
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?E%28X%29%3DE%28X_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%29%3DE%28X_%7B1%7D%29&plus;%5Ccdots%20E%28X_%7Bn%7D%29%3Dn%5Cfrac%7BM%7D%7BN%7D%3Dnp"/>
+ 
+ - 확률변수 <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D%2CX_%7Bj%7D"/>는 독립이 아니기 때문에
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CVar%28X%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7DVar%28X_%7Bi%7D%29&plus;2%5Csum_%7Bi%3Cj%7DCov%28X_%7Bi%7D%2CX_%7Bj%7D%29%5C%5C%5C%5C%20Var%28X%29%3Dn%5Cfrac%7BM%7D%7BN%7D%5Cfrac%7BN-M%7D%7BN%7D%5Cfrac%7BN-n%7D%7BN-1%7D%3Dnp%281-p%29%5Cfrac%7BN-n%7D%7BN-1%7D"/>
+
+
+### 포아송분포(Poisson distribution)
+ - 어느 생명보험회사의 조사 결과, 유전이나 전염되지 않는 어떤 희귀병으로 인해 일 년 동안 인구 10만명당 1명꼴로 사망한다고 가정
+ - 이 보험회사에서는 가입된 15만명 가운데 이 희귀병으로 일 년 동안에 3명 이상 사망할 확률을 구하려 함
+ - **유전이나 전염되지 않는다는 것은 발병이 독립적이라는 것을 유추**
+ - 발병에 의한 사망확률은 0.00001로 이 희귀병에 의한 사망자수는 이항분포를 따른다고 볼 수 있음
+ - 즉, 15만명 가운데 일 년 동안 이 병으로 인해 사망한 사람의 수를 X라고 하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20B%28150000%2C0.00001%29"/>
+ 
+ - 이고 3명 이상 사망할 확률은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28X%5Cgeq%203%29%3D1-P%28X%5Cleq%202%29%3D1-%5Csum_%7Bx%3D0%7D%5E%7B2%7D%5Cbinom%7B150000%7D%7Bx%7D0.00001%5Ex0.99999%5En%5E-%5Ex"/>
+ 
+ - 문제는 x가 어느 정도 큰 값에 대해 <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B150000%7D%7Bx%7D"/>의 계산이 어렵고 <img src="https://latex.codecogs.com/gif.latex?0.00001%5Ex"/>은 거의 0이 되어 정밀한 프로그램을 사용하지 않는 이상 실제로 확률 계산이 어려움
+ - 이 예제와 같이 시행횟수 n이 이 크고 성공확률 p가 작은 상황에서 이항분포의 근삿값을 구할 때 사용할 수 있는 것이 **포아송분포**
+ - 이항분포 B(n,p)에서 평균을 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>라고 하면, <img src="https://latex.codecogs.com/gif.latex?%5Clambda%3Dnp"/> 가 되는데 이항분포의 확률질량함수에서 <img src="https://latex.codecogs.com/gif.latex?p%3D%5Cfrac%7B%5Clambda%7D%7Bn%7D"/> 로 대채하고 n이 계속 커지는 경우
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cbinom%7Bn%7D%7Bp%7Dp%5Ex%281-p%29%5En%5E-%5Ex"/>
+
+ - 위의 확률질량함수를 아래와 근사하다고 볼 수 있음
  
  
  
