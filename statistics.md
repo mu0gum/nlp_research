@@ -981,16 +981,29 @@
  
  - 문제는 x가 어느 정도 큰 값에 대해 <img src="https://latex.codecogs.com/gif.latex?%5Cbinom%7B150000%7D%7Bx%7D"/>의 계산이 어렵고 <img src="https://latex.codecogs.com/gif.latex?0.00001%5Ex"/>은 거의 0이 되어 정밀한 프로그램을 사용하지 않는 이상 실제로 확률 계산이 어려움
  - 이 예제와 같이 시행횟수 n이 이 크고 성공확률 p가 작은 상황에서 이항분포의 근삿값을 구할 때 사용할 수 있는 것이 **포아송분포**
- - 이항분포 B(n,p)에서 평균을 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>라고 하면, <img src="https://latex.codecogs.com/gif.latex?%5Clambda%3Dnp"/> 가 되는데 이항분포의 확률질량함수에서 <img src="https://latex.codecogs.com/gif.latex?p%3D%5Cfrac%7B%5Clambda%7D%7Bn%7D"/> 로 대채하고 n이 계속 커지는 경우
+ - 이항분포 B(n,p)에서 평균을 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>라고 하면, <img src="https://latex.codecogs.com/gif.latex?%5Clambda%3Dnp"/> 가 되는데 이항분포의 확률질량함수에서 <img src="https://latex.codecogs.com/gif.latex?p%3D%5Cfrac%7B%5Clambda%7D%7Bn%7D"/> 로 대채하면 다음과 같은 식을 유도 가능
  
  <p align="center">
- <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cbinom%7Bn%7D%7Bp%7Dp%5Ex%281-p%29%5En%5E-%5Ex"/>
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5Cf%28x%29%3D%5Cbinom%7Bn%7D%7Bx%7Dp%5E%7Bx%7D%281-p%29%5E%7Bn-x%7D%5C%5C%5C%5C%20%3D%20%5Cfrac%7Bn%28n-1%29%5Ccdots%20%28n-x&plus;1%29%7D%7Bx%21%7D%5Cleft%20%28%20%5Cfrac%7B%5Clambda%7D%7Bn%7D%20%5Cright%20%29%5E%7Bx%7D%5Cleft%20%28%201-%20%5Cfrac%7B%5Clambda%7D%7Bn%7D%20%5Cright%20%29%5E%7Bn-x%7D%5C%5C%5C%5C%20%3D%5Cfrac%7Bn%28n-1%29%5Ccdots%20%28n-x&plus;1%29%7D%7Bnn%5Ccdots%20n%7D%5Cfrac%7B%5Clambda%5E%7Bx%7D%7D%7Bx%21%7D%5Cleft%20%28%201-%20%5Cfrac%7B%5Clambda%7D%7Bn%7D%20%5Cright%20%29%5E%7Bn-x%7D"/>
 
- - 위의 확률질량함수를 아래와 근사하다고 볼 수 있음
+ - 위 마지막 식에서 n이 계속 커지면, 
  
+ <p align="center"> 
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Cfrac%7Bn%28n-1%29%5Ccdots%20%28n-x&plus;1%29%7D%7Bnn%5Ccdots%20n%7D%5Crightarrow%201%20%5C%5C%5C%5C%5Cfrac%7B%5Clambda%5E%7Bx%7D%7D%7Bx%21%7D%5Crightarrow%20e%5E%7B-%5Clambda%7D%20%5C%5C%5C%5C%5Cleft%20%28%201-%20%5Cfrac%7B%5Clambda%7D%7Bn%7D%20%5Cright%20%29%5E%7Bn-x%7D%5Crightarrow%201"/>
  
+ - 아래와 같은 결과를 얻을 수 있음
  
+  <p align="center">
+  <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cbinom%7Bn%7D%7Bx%7Dp%5E%7Bx%7D%281-p%29%5E%7Bn-x%7D%5Csimeq%20%5Cfrac%7B%5Clambda%5Exe%5E%7B-%5Clambda%7D%7D%7Bx%21%7D"/>
  
+ - 일반적으로 **단위시간이나 단위공간에서 발생가능성이 희박한 사건의 발생한 횟수에 대한 모형으로 포아송분포를 많이 사용**
+ - 확률변수 X의 확률질량함수가
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cfrac%7Be%5E%7B-%5Clambda%7D%5Clambda%5E%7Bx%7D%7D%7Bx%21%7D%2Cx%3D0%2C1%2C2%2C%5Ccdots"/>
+ 
+ - 로 주어질 때, X는 모수 또는 평균이 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>인 포아송분포를 따른다고 하고 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20P%28%5Clambda%29"> 라고 표시
+ - 포아송분포의 평균과 분산이 같음
  
  
  
