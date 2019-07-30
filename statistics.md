@@ -1003,9 +1003,51 @@
  <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cfrac%7Be%5E%7B-%5Clambda%7D%5Clambda%5E%7Bx%7D%7D%7Bx%21%7D%2Cx%3D0%2C1%2C2%2C%5Ccdots"/>
  
  - 로 주어질 때, X는 모수 또는 평균이 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>인 포아송분포를 따른다고 하고 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20P%28%5Clambda%29"> 라고 표시
- - 포아송분포의 평균과 분산이 같음
+ - 포아송분포는 평균과 분산이 같음
  
  
+## 14. 정규분포와 기타 연속형분포 (1)
+
+### 정규분포(normal distribution)의 성질
+ - 이항분포가 대표적인 이산확률분포라고 하면 정규분포는 대표적인 연속확률분포
+ - 정규분포는 Gauss가 각종 물리실험을 수행할 때 발생하는 측정오차를 설명하기 위해 적용한 분포
+ - 모든 학문 분야에서 확률모형 또는 근사모형으로 활용
+ - 평균은 중심위치를 종모양의 대칭형태를 가짐
+ - 평균이 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/> 이고, 분산이 <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2"/> 인 정규분포의 확률밀도함수
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?f%28x%29%3D%5Cfrac%7B1%7D%7B%5Csigma%5Csqrt%7B2%5Cpi%7D%7De%5E%7B-%5Cfrac%7B%28x-%5Cmu%29%5E2%7D%7B2%5Csigma%5E2%7D%7D"/>
+ 
+ - <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/> : 분포의 중심 ( 아래 표 참고 )
+ - <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2"/> : 퍼짐의 정도 ( 아래 표 참고 )
+ - 표시 : <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29"/>
+ 
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Normal_Distribution_PDF.svg"/>
+ 
+ - X가 평균이 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/> 이고 분산이 <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2"/> 인 정규분포를 따를 때, X가 임의의 구간 [a,b] 에 있을 확률은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28a%5Cleq%20X%20%5Cleq%20b%29%3D%5Cint_%7Ba%7D%5E%7Bb%7Df%28x%29dx%3D%5Cint_%7Ba%7D%5E%7Bb%7D%5Cfrac%7B1%7D%7B%5Csigma%5Csqrt%7B2%5Cpi%7D%7De%5E%7B-%5Cfrac%7B%28x-%5Cmu%29%5E2%7D%7B2%5Csigma%7D%7Ddx"/>
+ 
+ - 위와 같음. 하지만 이 적분식은 직접 계산할 수 없으며 수치해석학으로 근사값을 구해야함
+ - 정규분포표를 이용할 때 문제는 다양한 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/> 와 <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2"/> 에 대해 모든 표를 제공하기 어려움
+ - 따라서 통계학에서는 **특별한 정규분포에 대한 확률표 하나만 제공** 하고 다른 경우에는 표준화를 통해 확률을 구할 수 있도록 함
+
+
+### 표준정규분포(standard normal distribution)
+ - 평균이 0이고, 분산이 1인 정규분포 N(0,1)
+ - 일반적으로 표준정규분포를 따르는 확률변수를 Z로 표시
+ - 표준정규분포는 0을 중심으로 대칭이기 때문에
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28Z%5Cleq%200%29%3DP%28Z%5Cgeq%200%29%3D0.5"/>
+ 
+ - 0을 제외한 수 z에 대한 <img src="https://latex.codecogs.com/gif.latex?P%28Z%5Cleq%20z%29%2CP%28Z%5Cgeq%20z%29"/> 등은 표준정규분포표를 이용하여 계산해야 함 (https://en.wikipedia.org/wiki/Standard_normal_table)
+ - 통계학에서 중요한 z
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28Z%5Cleq%20-1.645%29%3DP%28Z%5Cgeq%201.645%29%3D0.05%5C%5C%5C%5C%20P%28Z%5Cleq%201.645%29%3DP%28Z%5Cgeq%20-1.645%29%3D0.95%5C%5C%5C%5C%20P%28Z%5Cleq%20-1.96%29%3DP%28Z%5Cgeq%201.96%29%3D0.025%5C%5C%5C%5C%20P%28Z%5Cleq%201.96%29%3DP%28Z%5Cgeq%20-1.96%29%3D0.975"/>
  
  
  
