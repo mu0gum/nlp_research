@@ -174,4 +174,14 @@
 현재 만들고 있는 챗봇에 적용할 수 있도록 개선하면, 참고 코드는 그 때 올리도록 하겠습니다. 나이브 베이즈 정리에 대한 내용은 일단 이정도로 마치겠습니다. 
 
 
+## 01. CNN을 활용한 의도 분석
+### 출처 및 참고
+1. 딥러닝 - 초보자를 위한 컨볼루셔널 네트워크를 이용한 이미지 인식의 이해 (https://bcho.tistory.com/1149)
+2. CNN, Convolutional Neural Network 요약 (http://taewan.kim/post/cnn/)
+3. CNN으로 문장 분류하기 (https://ratsgo.github.io/natural%20language%20processing/2017/03/19/CNN/)
+4. Day-by-day Line-by-line Keras-based Korean NLP (https://github.com/warnikchow/dlk2nlp)
+5. 밑바닥부터 시작하는 딥러닝 : 파이썬으로 익히는 딥러닝 이론과 구현
+
+- CNN을 활용한 의도 분석은 챗봇이 사용자가 원하는 요구사항에 대응하기 위해 공부하고 적용한 내용입니다.
+- 학습을 위한 데이터와 소스코드는 출처 및 참고 4를 참고 하였습니다. ( 참고4에는 의도분류라는 목적을 실행하기 위해 단계별로 진행하는 과정이 설명되어 있습니다. 꼭 한 번 방문에 보시기를 추천 드립니다.)
 
