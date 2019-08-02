@@ -1050,4 +1050,49 @@
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28Z%5Cleq%20-1.645%29%3DP%28Z%5Cgeq%201.645%29%3D0.05%5C%5C%5C%5C%20P%28Z%5Cleq%201.645%29%3DP%28Z%5Cgeq%20-1.645%29%3D0.95%5C%5C%5C%5C%20P%28Z%5Cleq%20-1.96%29%3DP%28Z%5Cgeq%201.96%29%3D0.025%5C%5C%5C%5C%20P%28Z%5Cleq%201.96%29%3DP%28Z%5Cgeq%20-1.96%29%3D0.975"/>
  
  
+## 14. 정규분포와 기타 연속형분포 (2)
+
+### 정규분포의 계산
+ - 확률변수 X가 정규분포를 따르면 이 확률변수의 선형변환 aX+b도 정규분포를 따름 ( 일단 외울 것 )
+ - 정규분포의 모수는 평균과 분산이므로 <img src="https://latex.codecogs.com/gif.latex?E%28X%29%3D%5Cmu%2CVar%28X%29%3D%5Csigma%5E2"/>라고 하면 aX+b의 평균은 <img src="https://latex.codecogs.com/gif.latex?E%28aX&plus;b%29%3Da%5Cmu&plus;b%2CVar%28aX&plus;b%29%3Da%5E2%5Csigma%5E2"/>
+ - 앞서 표준화에 대한 내용을 정규분포 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29"/>에 적용해 표준화한 값을 Z라고 하면
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Z%3D%5Cfrac%7BX-%5Cmu%7D%7B%5Csigma%7D%3D%5Cfrac%7B1%7D%7B%5Csigma%7DX-%5Cfrac%7B%5Cmu%7D%7B%5Csigma%7D"/>
+ 
+ - 가 되고 위에서 <img src="https://latex.codecogs.com/gif.latex?a%3D1/%5Csigma%2Cb%3D-%5Cmu/%5Csigma"/>로 생각할 수 있고, Z의 평균과 분산은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CE%28Z%29%3D%5Cfrac%7BE%28X%29%7D%7B%5Csigma%7D-%5Cfrac%7B%5Cmu%7D%7B%5Csigma%7D%3D%5Cfrac%7B%5Cmu%7D%7B%5Csigma%7D-%5Cfrac%7B%5Cmu%7D%7B%5Csigma%7D%3D0%5C%5C%5C%5C%20Var%28Z%29%3D%5Cfrac%7BVar%28X%29%7D%7B%5Csigma%5E2%7D%3D%5Cfrac%7B%5Csigma%5E2%7D%7B%5Csigma%5E2%7D%3D1"/>
+ 
+ - 가 됨. 위 내용을 이용하면 다음과 같은 결과를 얻음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CX%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29%5Crightarrow%20Z%3D%5Cfrac%7BX-%5Cmu%7D%7B%5Csigma%7D%5Csim%20N%280%2C1%29%5C%5C%5C%5C%20Z%5Csim%20N%280%2C1%29%5Crightarrow%20X%3D%5Csigma%20Z&plus;%5Cmu%20%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29"/>
+ 
+ - 그러므로 <img src="https://latex.codecogs.com/gif.latex?%5C%5CX%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29"/>일 때, X가 임의의 구간 <img src="https://latex.codecogs.com/gif.latex?%28x_%7B1%7D%2Cx_%7B2%7D%5D"/>에 있을 확률은 다음과 같이 표준정규분포표를 이용하여 구할 수 있음
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28x_%7B1%7D%3CX%5Cleq%20x_%7B2%7D%29%5C%5C%5C%20%3D%20P%5Cleft%20%28%20%5Cfrac%7Bx_%7B1%7D-%5Cmu%7D%7B%5Csigma%7D%20%3C%20%5Cfrac%7BX-%5Cmu%7D%7B%5Csigma%7D%20%5Cleq%20%5Cfrac%7Bx_%7B2%7D-%5Cmu%7D%7B%5Csigma%7D%20%5Cright%20%29%5C%5C%5C%5C%20%3D%20P%5Cleft%20%28%20Z%20%5Cleq%20%5Cfrac%7Bx_%7B2%7D-%5Cmu%7D%7B%5Csigma%7D%20%5Cright%20%29-P%5Cleft%20%28%20Z%20%5Cleq%20%5Cfrac%7Bx_%7B1%7D-%5Cmu%7D%7B%5Csigma%7D%20%5Cright%20%29"/>
+ 
+### 예제
+ - 시험 점수의 평균이 490이고 표준편차가 50인 정규분포를 따른다면
+ 
+ 1. 600점 이상 받을 확률은?
+ 
+ 
+  => 정규분포 <img src="https://latex.codecogs.com/gif.latex?X%5Csim%20N%28490%2C50%5E2%29"/>을 따르고 <img src="https://latex.codecogs.com/gif.latex?P%28X%5Cgeq%20600%29"/>을 구하는 문제
+  
+  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%5Cgeq%20600%29%5C%5C%5C%5C%20%3D%201-P%28X%5Cleq%20600%29%5C%5C%5C%5C%20%3D%201-P%5Cleft%20%28%20%5Cfrac%7BX-490%7D%7B50%7D%20%5Cleq%20%5Cfrac%7B600-490%7D%7B50%7D%20%5Cright%20%29%5C%5C%5C%5C%20%3D%201-P%5Cleft%20%28%20Z%20%5Cleq%202.2%20%5Cright%20%29%5C%5C%5C%5C%20%3D%201-0.9861%5C%5C%5C%5C%20%3D%200.0139"/>
+ 
+ 2. 상위 5%인 사람의 점수는?
+ 
+ 
+  => 상위 5%가 되려면 위에 표준정규분포의 중요한 Z값에서 <img src="https://latex.codecogs.com/gif.latex?P%28Z%5Cgeq%201.645%29%3D0.05"/> 을 활용
+  
+  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%20%5Cfrac%7BX-490%7D%7B50%7D%20%3D%201.645%5C%5C%5C%5C%20%3DX%3D490&plus;50%5Ctimes%201.645%20%5C%5C%5C%5C%20%3DX%3D572.25"/>
+
