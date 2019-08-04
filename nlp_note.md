@@ -238,7 +238,7 @@
 
 
 <p align="center">
-<img src="http://1.bp.blogspot.com/-O60db3qXQws/WYJw8NMcTzI/AAAAAAAALOI/7oF6RD68VV08XcOSHdd1vyzfuwTwRiZtwCK4BGAYYCw/s1600/o13.PNG"/>
+<img height="300px" src="http://1.bp.blogspot.com/-O60db3qXQws/WYJw8NMcTzI/AAAAAAAALOI/7oF6RD68VV08XcOSHdd1vyzfuwTwRiZtwCK4BGAYYCw/s1600/o13.PNG"/>
 
 
 ## 풀링 계층
@@ -257,3 +257,23 @@
 3. 입력의 변화에 영향을 적게 받는다.(강건하다) 
 
 CNN에 대한 기본적인 내용 정리는 이쯤하도록 하고 다음은 자연어처리 분야에서 CNN을 어떻게 사용하는지 정리해보도록 하겠습니다.
+
+
+### 의도 분류에 CNN 적용
+- 자연 언어는 단어나 표현의 등장 순서가 중요한 sequential data입니다. 앞서 완전연결 계층의 문제점은 데이터의 형상을 무시한다는 데 있었습니다. 반면에 합성곱 계층은 데이터의 형상을 유지한다고 설명했습니다. 이를 응용하여 CNN을 텍스트 처리에 응용한 연구가 바로 Yoon Kim(2014) (http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf) 입니다. 이미지 처리를 위한 CNN의 필터가 이미지의 지역적인 정보를 추출하는 역할을 한다면, 텍스트 CNN의 필터는 텍스트의 지역적인 정보, 즉 단어 등장순서/문맥 정보를 보존한다는 아이디어 입니다. 이를 도식화하면 아래와 같습니다. (출처3)
+
+
+<p align="center">
+<img height="300px" src=https://i.imgur.com/1Flo6TK.gif"/>
+
+ 위 이미지를 자세히 보면 한 문장당 단어 수는 총 n개(변수명 : sequence_length) 입니다. 이 단어들 각각은 p차원(변수명 : embedding_size)의 벡터이고, 붉은색 박스는 필터를 의미합니다. 위 움짤의 경우 필터의 크기는 2로써 한번에 단어 2개씩을 보게 됩니다. 이 필터는 문장에 등장한 단어 순서대로 슬라이딩해가면서 문장의 지역적인 정보를 보존하게 됩니다. 필터의 크기가 1이라면 Unigram, 2라면 Bigram, 3이면 Trigram.. 이런 식으로 필터의 크기를 조절함으로써 다양한 N-gram 모델을 만들어낼 수 있습니다. CNN은 문장의 지역 정보를 보존함으로써 단어/표현의 등장순서를 학습에 반영하는 아키텍처라 할 수 있겠습니다. RNN과 CNN이 자연언어처리 분야에서도 각광받고 있는 이유이기도 합니다. Yoon Kim(2014)의 아키텍처는 아래와 같습니다. (출처3)
+ 
+<p align="center">
+<img height="300px" src="https://i.imgur.com/JN72JHW.png"/>
+
+ 다음으로는 필터의 차원수를 살펴보겠습니다. 필터의 너비는 embedding_size입니다. 높이는 filter_size인데, 만약 2라면 Bigram, 3이라면 Trigram 모델이 될 겁니다. 채널수는 1로 고정했습니다. (앞전 설명에서 이미지 같은 경우는 채널수가 3이었습니다.)
+ 
+<p align="center">
+<img height="300px" src="http://i.imgur.com/WlGbDJfm.png"/>
+ 
+
