@@ -1096,3 +1096,61 @@
  <p align="center">
  <img src="https://latex.codecogs.com/gif.latex?%5C%5C%20%5Cfrac%7BX-490%7D%7B50%7D%20%3D%201.645%5C%5C%5C%5C%20%3DX%3D490&plus;50%5Ctimes%201.645%20%5C%5C%5C%5C%20%3DX%3D572.25"/>
 
+### 확률표본(random sample)과 통계량
+ - 확률분포는 모집단이 어떻게 구성되어 있는지를 나태는 것으로 이산인 경우 확률질량함수로 연속일 경우에는 확률밀도함수로 표시
+ - 따라서 모집단과 분포는 같은 의미로 사용되기도 함
+ - 모집단에 대해 알아보기 위해 모집단 전체를 관측하거나 조사하는 경우는 드뭄
+ - 보통은 모집단에서 일부의 표본을 뽑아 이들을 기초로 전체 모집단에 대해 추론
+ - 만일 모집단이 <img src="https://latex.codecogs.com/gif.latex?N%28%5Cmu%2C%5Csigma%5E2%29"/>이고 여기서 n개의 표본을 무작위로 뽑는다고 할 때, i번째의 값을 <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/>라고 하면 앞으로 아래와 같이 표시
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X_%7B1%7D%2CX_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D%5Csim%20N%28%5Cmu%2C%5Csigma%5E2%29"/>
+ 
+ - 이 경우, <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/>들은 <img src="https://latex.codecogs.com/gif.latex?N%28%5Cmu%2C%5Csigma%5E2%29"/>인 분포를 따른다고 함
+ - 여기서 각각의 표본을 추출할 때 모집단이 같으면 **동일한 분포를 따른다(identically distributed)** 고 함
+ - 여기에 추가적으로 각각의 표본이 서로 독립이라고 할 수 있으면, <img src="https://latex.codecogs.com/gif.latex?X_%7B1%7D%2CX_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D"/>을 표본크기 n인 **확률포본** 또는 **임의표본** 이라고 하고 아래와 같이 표시
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X_%7B1%7D%2CX_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D%5Csim%20idd%20%5C%3A%20%5C%3A%20N%28%5Cmu%2C%5Csigma%5E2%29"/>
+ 
+ - 여기서 iid는 **independent and identically distributed의 약자**로 서로 독립이고 동일한 분포를 따른다는 표시
+ 
+### 표집분포(sampling distribution)
+ - 모집단의 평균 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/>를 알아보기 위해 모집단에서 n개의 확률표본 <img src="https://latex.codecogs.com/gif.latex?X_%7B1%7D%2CX_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D"/>을 얻고 이들의 표본평균 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D%3D%28X_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%29/n"/>에 관심이 있다고 가정
+ - 이 때 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>가 평균 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/>를 얼마나 잘 설명하는지를 알기 위해서는 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>에 대한 통계적 성질을 유도할 필요가 있음
+ - 이와 같이 우리가 관심을 가지는 임의의 통계량에 대한 확률분포를 **표집분포** 또는 **샘플링분포**라고 함
+ - 표집분포를 표본의 분포로 오해하는 경우가 있는데, <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>의 표집분포라는 것은 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>의 모집단 분포를 의미
+ 
+ 
+### 예제
+ - 어떤 모집단의 확률분포는 다음과 같음
+ 
+ | x | 0 | 1 | 2 |
+ | - | - | - | - | 
+ | P(X=x) | 1/3 | 1/3 | 1/3 |
+ 
+  - 위를 바탕으로 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>의 표집 분포를 구할 때,
+  - 세 확률표본이 가질 수 있는 경우의 수는 27가지 이고, 표본평균은 0, 1/3, 2/3, 1, 4/3, 2 임
+  
+| <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D"/> | 0 | 1/3 | 2/3 | 1 | 4/3 | 5/3 | 2 |
+| - | - | - | - | - | - | - | - |
+| <img src="https://latex.codecogs.com/gif.latex?P%28%5Cbar%7BX%7D%3D%5Cbar%7Bx%7D%29"/> | 1/27 | 1/9 | 2/9 | 7/27 | 2/9 | 1/9 | 1/27 |
+ 
+ - 앞으로 다룰 주요 통계량은 표본평균 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/> 표본분산 <img src="https://latex.codecogs.com/gif.latex?S%5E2"/>
+ - 확률표본의 표본평균의 평균은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?E%28%5Cbar%7BX%7D%29%3DE%28%5Cfrac%7BX_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%7D%7Bn%7D%29%3D%5Cfrac%7B1%7D%7Bn%7D%5Cleft%20%5C%7B%20E%28X_%7B1%7D%29&plus;%5Ccdots%20&plus;%20E%28X_%7Bn%7D%29%20%5Cright%20%5C%7D%3D%5Cmu"/>
+ 
+ - 확률표본의 표본평균의 분산은
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Var%28%5Cbar%7BX%7D%29%3DVar%28%5Cfrac%7BX_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%7D%7Bn%7D%29%3D%5Cfrac%7B1%7D%7Bn%5E2%7D%5Cleft%20%5C%7B%20Var%28X_%7B1%7D%29&plus;%5Ccdots%20&plus;%20Var%28X_%7Bn%7D%29%20%5Cright%20%5C%7D%3D%5Cfrac%7B%5Csigma%5E2%7D%7Bn%7D"/>
+ 
+ - 표준편차는
+  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?SD%28%5Cbar%7BX%7D%29%3D%5Cfrac%7B%5Csigma%7D%7B%5Csqrt%7Bn%7D%7D"/>
+ 
+ - 이와 같이 임의의 통계량의 표준편차를 **표준오차(standard error)**라고 함
+
