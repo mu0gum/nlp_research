@@ -1154,3 +1154,43 @@
  
  - 이와 같이 임의의 통계량의 표준편차를 **표준오차(standard error)**라고 함
 
+
+## 15. 표집분포 (1)
+
+### 표본평균의 분포와 중심극한정리
+ - 일반적으로 표본평균의 기대값은 위의 방법으로 구할 수 있지만 일부 분포를 제외하고 대부분의 경우 표본평균의 확률분포를 유도하는 것은 쉽지 않음
+ - 앞서 언급한 바와 같이 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">의 표집분포라는 것은 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D"/>의 모집단 분포
+ - 통계적 확률 관점에서 볼 때, 모집단으로부터 n개의 표본을 얻어 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D"/>를 계산하는 과정을 수없이 반복하여 만들어진 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7Bx%7D"/>들의 분포
+ - 그러므로 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">의 표집분포를 구하기 어려운 경우 이와 같이 모의실험을 통해 표집분포의 근사형태를 유도할 수 있음
+ - 일반적으로 모집단 또는 X의 분포가 정규분포가 아닐 때에도 표본크기 n이 커지면 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">의 분포는 정규분포에 가까워지는데 이러한 성질을 **중심극한정리(central limit theorem)** 라고 함
+ - 즉, <img src="https://latex.codecogs.com/gif.latex?X_%7B1%7D%2CX_%7B2%7D%2C%5Ccdots%20%2CX_%7Bn%7D"/>이 평균 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/>, 분산 <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2"/>인 모집단에서 추출된 확률표본이라고 하면, n이 증가하면서 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">의 분포는 평균 <img src="https://latex.codecogs.com/gif.latex?%5Cmu"/>, 분산 <img src="https://latex.codecogs.com/gif.latex?%5Csigma%5E2/n"/>인 정규분포에 근사하므로 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Z%3D%5Cfrac%7B%5Cbar%7BX%7D-%5Cmu%7D%7B%5Csigma/%5Csqrt%7Bn%7D%7D%5Csimeq%20N%280%2C1%29"/>
+ 
+ - 가 되는데 이를 통계학적으로 'Z의 **점근적 분포(asymptotic distribution)** 는 N(0,1)이다.' 또는 'Z는 점근적으로 N(0,1)을 따른다.' 라고 함
+ - 확률표본의 합을 <img src="https://latex.codecogs.com/gif.latex?Y%3DX_%7B1%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D"/>이라고 할 때, 위의 Z에 분자와 분모에 n을 곱하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?Z%3D%5Cfrac%7Bn%28%5Cbar%7BX%7D-%5Cmu%29%7D%7Bn%28%5Csigma/%5Csqrt%7Bn%7D%29%7D%3D%5Cfrac%7BY-n%5Cmu%7D%7B%5Csqrt%7Bn%7D%5Csigma%7D"/>
+ 
+ - 위 내용은 표본평균 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">뿐만 아니라 표본합 Y에 대해서도 중심극한정리가 적용될 수 있음을 의미
+ - 중심극한정리는 평균과 분산만 주어진다면 모집단의 형태를 몰라도 적용할 수 있는 유용한 이론
+
+ <p align="center">
+ <img height="320" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Somme_tirage_1_a_6d6_et_loi_normale.svg/550px-Somme_tirage_1_a_6d6_et_loi_normale.svg.png"/>
+ 
+ 
+ - 표본크기가 작은 경우네는 모집단의 형태에 따라 영향을 받으나 n이 커지면서 모집단의 형태와 관계없이 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D">의 표집분포가 위와 같이 정규분포의 형태로 근사해 감
+ - 일반적으로 n>=30 이면 중심극한정리를 적용할 수 있다고 하는데 모집단이 어떤 형태를 가지는가에 따라 n에 차이가 있을 수 있음
+ 
+ 
+### 예제
+ - 어떤 모집단에 대해 그 형태는 모르지만 평균은 82이고 표준편차는 12라고 가정. 이 모집단에서 64개의 확률표본을 추출하였을 때, <img src="https://latex.codecogs.com/gif.latex?P%2880.8%5Cleq%20P%5Cleq%2083.2%29"/>의 근사확률은
+ - 분포 형태에 대한 특별한 정보는 없지만 n=64로 중심극한정리를 적용할 수 있음
+ - 그러므로 <img src="https://latex.codecogs.com/gif.latex?%5Cbar%7BX%7D%5Csimeq%20N%2882%2C12%5E2/64%29"/>라고 할 수 있으며
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%2880.8%5Cleq%20%5Cbar%7BX%7D%5Cleq%2083.2%29%3DP%5Cleft%20%28%20%5Cfrac%7B80.8-82%7D%7B12/8%7D%20%5Cleq%20%5Cfrac%7B%5Cbar%7BX%7D-82%7D%7B12/8%7D%20%5Cleq%20%5Cfrac%7B83.2-82%7D%7B12/8%7D%20%5Cright%20%29%5C%5C%5C%5C%20%5Ccong%20P%28-0.8%5Cleq%20Z%5Cleq%200.8%29%3D0.7881-0.2119%3D0.5672"/>
+ 
+
