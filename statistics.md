@@ -1194,3 +1194,45 @@
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%2880.8%5Cleq%20%5Cbar%7BX%7D%5Cleq%2083.2%29%3DP%5Cleft%20%28%20%5Cfrac%7B80.8-82%7D%7B12/8%7D%20%5Cleq%20%5Cfrac%7B%5Cbar%7BX%7D-82%7D%7B12/8%7D%20%5Cleq%20%5Cfrac%7B83.2-82%7D%7B12/8%7D%20%5Cright%20%29%5C%5C%5C%5C%20%5Ccong%20P%28-0.8%5Cleq%20Z%5Cleq%200.8%29%3D0.7881-0.2119%3D0.5672"/>
  
 
+### 이항분포의 정규근사
+ - 여론조사의 문항이 찬반인 형태인 경우 기본적인 통계모형은 이항분포
+ - 언론에 공개되고 있는 대부분의 여론조사에서 표본크기는 n=1000 정도
+ - 이와 같이 n이 큰 경우에 이항분포의 확률계산은 컴퓨터를 이용하지 않으면 어려울 수 있음
+ - 이 때 앞 절에서 배운 중심극한정리를 이용하여 이항분포에 대한 근사확률을 구할 수 있음
+ 
+ 
+ - 모수가 p인 베르누이시행을 n번 할 때, 이항확률변수 X는 베르누이확률변수의 합으로, 표본비율은 표본평균으로 표시할 수 있음
+ - 즉, <img src="https://latex.codecogs.com/gif.latex?X_%7Bi%7D"/>를 i번째 시행에서의 베르누이 확률변수라고 하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X%3DX_%7B1%7D&plus;X_%7B2%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%2C%5C%3A%20%5C%3A%20P%3D%5Cfrac%7BX_%7B1%7D&plus;X_%7B2%7D&plus;%5Ccdots%20&plus;X_%7Bn%7D%7D%7Bn%7D"/>
+ 
+ - 위처럼 표시 가능. 베르누이 확률변수의 평균과 분산이 각각 <img src="https://latex.codecogs.com/gif.latex?E%28X_%7Bi%7D%29%3Dp%2C%5C%3A%20%5C%3A%20Var%28X_%7Bi%7D%29%3Dp%281-p%29"/>이므로, n이 크다면 중심극한정리에 의해
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?X%5Csimeq%20N%28np%2Cnp%281-p%29%29%2C%20%5C%3A%20%5C%3A%20P%5Csimeq%20N%5Cleft%20%28%20p%2C%5Cfrac%7Bp%281-p%29%7D%7Bn%7D%20%5Cright%20%29"/>
+ 
+ - 라고 할 수 있음. 이를 표준화하면
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cfrac%7BP-p%7D%7B%5Csqrt%7Bp%281-p%29/n%7D%7D%5Csimeq%20N%280%2C1%29%2C%5C%3A%20%5C%3A%20%5Cfrac%7BX-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%5Csimeq%20N%280%2C1%29"/>
+ 
+ - 위와 같은 결과를 얻을 수 있음
+ - 이항확률변수 X의 경우, x=0,1,...,n에 대해 다음과 같은 관계가 성립
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%5Cleq%20x-1%29%3DP%28X%3Cx%29%5Cneq%20P%28X%5Cleq%20x%29%3DP%28X%3Cx&plus;1%29%5C%5C%5C%5C%20P%28X%5Cgeq%20x&plus;1%29%3DP%28X%3Ex%29%5Cneq%20P%28X%5Cgeq%20x%29%3DP%28X%3Ex-1%29"/>
+ 
+ - 이와 같이 X가 이산확률변수이면 등호 포함여부에 따라 확률이 달라짐
+ - 하지만 중심극한정리를 이용하여 정규근사하는 경우 정규분포에서 등호 포함여부는 확률에 영향을 주지 않기 때문에 X의 확률과 근사확률 간에는 다음과 같은 모순 발생 (위는 확률, 아래는 근사확률을 의미)
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%5Cleq%20x-1%29%3DP%28X%3Cx%29%5Cneq%20P%28X%5Cleq%20x%29%5C%5C%5C%5C%20P%5Cleft%20%28%20Z%5Cleq%20%5Cfrac%7Bx-1-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%20%5Cright%20%29%5Cneq%20P%5Cleft%20%28%20Z%5Cleq%20%5Cfrac%7Bx-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%20%5Cright%20%29%3DP%5Cleft%20%28%20Z%5Cleq%20%5Cfrac%7Bx-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%20%5Cright%20%29"/>
+ 
+ - 이러한 문제점을 해결하기 위해서는 X의 확률을 계산할 때 등호 포함여부에 따라 확률의 영역을 수정해야 함
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%5Cleq%20x-1%29%3DP%28X%5Cleq%20x-1/2%29%3D%20P%28X%3C%20x-1/2%29%3DP%28X%5Cleq%20x%29%5C%5C%5C%5C%20P%5Cleft%20%28%20Z%5Cleq%20%5Cfrac%7Bx-1/2-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%20%5Cright%20%29%3DP%5Cleft%20%28%20Z%3C%20%5Cfrac%7Bx-1/2-np%7D%7B%5Csqrt%7Bnp%281-p%29%7D%7D%20%5Cright%20%29"/>
+ 
+ - <img src="https://latex.codecogs.com/gif.latex?P%28X%3Cx%29"/>는 <img src="https://latex.codecogs.com/gif.latex?P%28X%3Cx&plus;1/2%29"/>, <img src="https://latex.codecogs.com/gif.latex?P%28X%5Cleq%20x%29"/>는 <img src="https://latex.codecogs.com/gif.latex?P%28X%5Cleq%20x-1/2%29"/>로 수정하여 정규근사를 시킴
+ 
