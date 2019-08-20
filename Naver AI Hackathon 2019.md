@@ -75,7 +75,7 @@
  
 
 ### 마무리
- - 음성인식에 대한 개요는 위 내용까지만 정말 간단하게 알아보고 직접 모델을 구현해보면서 필요한 내용을 추가하도록 하겠습니다. 개요를 정리하면서 음성인식에 최신 기법들을 알어보려고 논문도 훑어보고 있는데, 아직은 무슨 내용인지 잘 모르겠습니다..ㅎㅎ 하지만 처음 챗봇을 만들었던 때를 떠올려보면 그 때도 처음에는 이게 무슨 말인가 싶었는데 계속 보다보니 조금씩이나마 이해가 됐던 것 같습니다. 마찬가지로 일단은 계속 반복해서 볼 생각입니다. 아무래도 음성인식에 대한 사전지식이 많이 부족한 상태에서는 종단 간(end to end) 방식을 우선순위에 두어야 할 것 같습니다. 그래도 모델을 개선하기 위해 필요하다고 생각되는 내용은 계속 공부할 계획입니다. 지금 정리하려고 하는 은닉마르코프모델도 자연어처리 분야를 공부하면서 많이 들어봤지만 따로 정리한적이 없었는데 이번 기회에 한 번 정리해보도록 하겠습니다.
+ - 음성인식에 대한 개요는 위 내용까지만 정말 간단하게 알아보고 직접 모델을 구현해보면서 필요한 내용을 추가하도록 하겠습니다. 개요를 정리하면서 음성인식에 최신 기법들을 알어보려고 논문도 훑어보고 있는데, 아직은 무슨 내용인지 잘 모르겠습니다..ㅎㅎ 하지만 처음 챗봇을 만들었던 때를 떠올려보면 그 때도 처음에는 이게 무슨 말인가 싶었는데 계속 보다보니 조금씩이나마 이해가 됐던 것 같습니다. 마찬가지로 일단은 계속 반복해서 볼 생각입니다. 아무래도 음성인식에 대한 사전지식이 많이 부족한 상태에서는 종단 간(end to end) 방식을 우선순위에 두어야 할 것 같습니다. 그래도 모델을 개선하기 위해 필요하다고 생각되는 내용은 계속 공부할 계획입니다. 지금 정리하려고 하는 은닉마르코프모델도 자연어처리 분야를 공부하면서 많이 들어봤지만 따로 정리한적이 없었는데 이번 기회에 한 번 정리해보도록 하겠습니다. 마르코프 체인 관련 내용은 출처3을 참고하였습니다. 해당 블로그에 올라와있는 내용들이 너무 좋아서 제 깃허브에 따로 공부 용도로 정리를 해도 되냐고 물었는데 흔쾌히 허락해 주셨습니다. 다시 한 번 감사드립니다.
  
 
 ## 은닉마르코프모델(Hidden Markov Models, HMMs)
@@ -85,9 +85,64 @@
 ### 마르코프 체인(Markov chain)
  - 은닉마르코프모델은 마르코프 체인을 전제로 한 모델
  - 마르코프 체인이란 마르코프 성질(Markov Property)을 지닌 이산확률과정(discrete-time stochastic process)
- - 수학자 마코프가 1913년경에 러시아어 문헌에 나오는 글자들의 순서에 관한 모델을 구축하기 위해 제
+ - 수학자 마코프가 1913년경에 러시아어 문헌에 나오는 글자들의 순서에 관한 모델을 구축하기 위해 제안
+ - **한 상태의 확률은 단지 그 이전 상태에만 의존**한다는 것이 마르코프 체인의 핵심
+ - 한 상태에서 다른 상태로의 전이(transition)는 그동안 상태 전이에 대한 긴 이력(history)을 필요로 하지 않고 바로 직전 상태에서의 전이로 추정할 수 있음
+ - 아래와 같이 도식화 가능
  
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?P%28q_%7Bi%7D%7Cq_%7Bi-1%7D%2C%5Ccdots%20%2Cq_%7B1%7D%29%3DP%28q_%7Bi%7D%7Cq_%7Bi-1%7D%29"/>
  
  
+### 마르코프 체인 예시
+ - 날씨를 마르코프 체인으로 모델링한 예시는 아래 그림과 같음
+ - 각 노드는 상태, 엣지는 전이를 가리킴
+ - <img src="https://latex.codecogs.com/gif.latex?a_%7Bij%7D"/>는 i번째 상태에서 j번째 상태로 전이될 확률
+ - 각 노드별로 전이확률의 합은 1 ( 예, <img src="https://latex.codecogs.com/gif.latex?a_%7B01%7D&plus;a_%7B02%7D&plus;a_%7B03%7D%3D1"/> )
+ - 상태는 일반적인 상태(HOT, COLD, WARM) 외에 시작(start) 끝(end) 상태도 있음
+ 
+ <p align="center">
+ <img height="300px" src="https://i.imgur.com/iCPKPWz.png"/>
+ 
+ 
+### 은닉 마르코프 모델
+ - 은닉마르코프모델은 각 상태가 마르코프체인을 따르되 은닉(hidden)되어 있다고 가정
+ - 예를들면, 100년 전 기후를 연구하는데 주어진 정보는 당시 아이스크림 소비 기록뿐일 때, 이 정보만으로 날씨가 추웠는지, 더웠는지, 따듯했는지를 알고싶은 것
+ - 아이스크림 소비 기록은 연쇄를 관찰할 수 있지만, 해당 날씨가 어땠는지는 직접적으로 관측하기 어려움
+ - 은닉마르코프모델은 이처럼 관측치 뒤에 은닉되어 있는 상태(state)를 추정
+ - 날씨를 예시로 은닉마르코프모델을 도식화한 그림은 아래와 같음
+
+
+ <p align="center">
+ <img height="300px" src="https://i.imgur.com/lEMDGBC.png"/>
+
+
+ - 위 그림에서 <img src="https://latex.codecogs.com/gif.latex?B_%7B1%7D"/>은 날씨가 더울 때 아이스크림을 1개 소비할 확률이 0.2, 2개 소비할 확률이 0.4, 3개 소비할 확률이 0.4 라는 것을 나타냄
+ - <img src="https://latex.codecogs.com/gif.latex?B_%7B1%7D"/>은 날씨가 더울 때 조건부확률이므로 HOT이라는 은닉상태과 연관이 있음
+ - B는 방출확률(emission probability)이라고도 불림
+ 
+
+### Likehood
+ - 우도(likehood)는 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 주어졌을 때 관측치 <img src="https://latex.codecogs.com/gif.latex?O"/>가 나타날 확률 <img src="https://latex.codecogs.com/gif.latex?P%28O%7C%5Clambda%29"/>를 가르킴 => 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 관측치 하나를 뽑았는데 그 관측치가 <img src="https://latex.codecogs.com/gif.latex?O"/>일 확률
+ - 위의 경우에서 관측된 <img src="https://latex.codecogs.com/gif.latex?O"/>가 아이스크림 [3개, 1개, 3개]라고 가정
+ - 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 위 그림일 때 이 <img src="https://latex.codecogs.com/gif.latex?O"/>가 뽑힐 확률은? => 이 것을 계산해보자는 것
+ 
+ 
+ <p align="center">
+ <img src="https://i.imgur.com/syZWL5E.png"/>
+ 
+ 
+ - 위 그림에서 두번째 날짜를 중심으로 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>를 보면 날씨가 더울 때(hot) 아이스크림을 1개 먹을 확률은 0.2
+ - 두번째 날이 전날에 이어 계속 더울 확률은 0.6이므로 이를 곱해주어야 둘째날의 상태확률 계산 가능
+ - 마르코프체인을 따른다고 가정하므로 상태확률을 계산할 때는 직전 상태만을 고려
+ - 위 그림을 식으로 나타내면 다음과 같음
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%283%5C%3B%201%5C%3B%203%2C%5C%3B%20hot%2C%5C%3B%20hot%2C%5C%3B%20cold%29%5C%5C%5C%5C%20%3DP%28hot%7Cstart%29%5Ctimes%20P%28hot%7Chot%29%5Ctimes%20P%28cold%7Chot%29%5Ctimes%20P%283%7Chot%29%5Ctimes%20P%281%7Chot%29%5Ctimes%20P%283%7Ccold%29%5C%5C%5C%5C%20%3D0.8%5Ctimes%200.6%5Ctimes%200.3%5Ctimes%200.4%5Ctimes%200.2%5Ctimes%200.1"/>
+ 
+ 
+
+
  
