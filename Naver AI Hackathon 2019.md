@@ -123,7 +123,7 @@
  - B는 방출확률(emission probability)이라고도 불림
  
 
-### Likehood
+### Likelihood
  - 우도(likehood)는 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 주어졌을 때 관측치 <img src="https://latex.codecogs.com/gif.latex?O"/>가 나타날 확률 <img src="https://latex.codecogs.com/gif.latex?P%28O%7C%5Clambda%29"/>를 가르킴 => 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 관측치 하나를 뽑았는데 그 관측치가 <img src="https://latex.codecogs.com/gif.latex?O"/>일 확률
  - 위의 경우에서 관측된 <img src="https://latex.codecogs.com/gif.latex?O"/>가 아이스크림 [3개, 1개, 3개]라고 가정
  - 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 위 그림일 때 이 <img src="https://latex.codecogs.com/gif.latex?O"/>가 뽑힐 확률은? => 이 것을 계산해보자는 것
@@ -143,6 +143,97 @@
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%283%5C%3B%201%5C%3B%203%2C%5C%3B%20hot%2C%5C%3B%20hot%2C%5C%3B%20cold%29%5C%5C%5C%5C%20%3DP%28hot%7Cstart%29%5Ctimes%20P%28hot%7Chot%29%5Ctimes%20P%28cold%7Chot%29%5Ctimes%20P%283%7Chot%29%5Ctimes%20P%281%7Chot%29%5Ctimes%20P%283%7Ccold%29%5C%5C%5C%5C%20%3D0.8%5Ctimes%200.6%5Ctimes%200.3%5Ctimes%200.4%5Ctimes%200.2%5Ctimes%200.1"/>
  
  
+ - 각 날짜별로 날씨가 더울 수도 있고 추울 수도 있기 때문에 <img src="https://latex.codecogs.com/gif.latex?2%5E3"/> 가지의 경우의 수 존재
+ 
+ | 상태1 | 상태2 | 상태3 |
+ | - | - | - |
+ | cold | cold | cold |
+ | cold | cold | hot |
+ | cold | hot | cold |
+ | hot | cold | cold |
+ | hot | hot | cold |
+ | cold | hot | hot |
+ | hot | cold | hot |
+ | hot | hot | hot |
+ 
+ - 따라서 관측치 [3,1,3]에 대한 우도는 다음과 같이 구함
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%283%5C%3B%201%5C%3B%203%5C%29%5C%5C%5C%5C%20%3DP%283%5C%3B%201%5C%3B%203%2C%5C%3B%20cold%2C%5C%3B%20cold%2C%5C%3B%20cold%29&plus;%5C%5C%5C%5C%20%3DP%283%5C%3B%201%5C%3B%203%2C%5C%3B%20cold%2C%5C%3B%20cold%2C%5C%3B%20hot%29&plus;%5Ccdots%20%5C%5C%5C%5C%20%3DP%283%5C%3B%201%5C%3B%203%2C%5C%3B%20hot%2C%5C%3B%20hot%2C%5C%3B%20hot%29"/>
+ 
+ 
+### Notation (표기법) 정리
+ - <img src="https://latex.codecogs.com/gif.latex?Q%3Dq_%7B0%7D%2Cq_%7B1%7D%2C%5Ccdots%20%2Cq_%7Bn%7D%2Cq_%7BF%7D"/> : 상태(state)의 집합(set), <img src="https://latex.codecogs.com/gif.latex?q_%7B0%7D"/>는 시작상태, <img src="https://latex.codecogs.com/gif.latex?q_%7BF%7D"/>는 종료상태, n은 상태의 개수
+ - A:전이확률 행렬(n X n), <img src="https://latex.codecogs.com/gif.latex?a_%7Bij%7D"/>는 i번째 상태에서 j번째 상태로 전이할 확률 ( <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bj%3D1%7D%5E%7Bn%7Da_%7Bij%7D"/> )
+ - <img src="https://latex.codecogs.com/gif.latex?B%3Db_%7Bi%7D%28o_%7Bt%7D%29"/> : i번째 상태에서 관측치 <img src="https://latex.codecogs.com/gif.latex?o_%7Bt%7D"/>가 나타날 방출확률
+ - <img src="https://latex.codecogs.com/gif.latex?O%3D%5Bo_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%2Co_%7Bt%7D%2C%5Ccdots%20%2Co_%7BT%7D%5D"/> : 길이가 T인 관측치의 시퀀스
+ - <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7Bt%7D%28j%29%3DP%28o_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%20%2Co_%7Bt%7D%2Cq_%7Bt%7D%7C%5Clambda%29"/> : 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 주어졌을 때 j번째 상태와 <img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D%2C%5Ccdots%20%2Co_%7Bt%7D"/>가 나타날 확률. 전방확률(Forward Probability)
+ - <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7Bt%7D%28j%29%3DP%28o_%7Bt&plus;1%7D%2Co_%7Bt&plus;2%7D%2C%5Ccdots%20%2Co_%7BT%7D%2Cq_%7Bt%7D%3Dj%7C%5Clambda%29"/> 모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>가 주어졌을 때 j번째 상태와 <img src="https://latex.codecogs.com/gif.latex?o_%7Bt&plus;1%7D%2C%5Ccdots%20%2Co_%7BT%7D"/>가 나타날 확률. 후방확률(Backward Probability)
+ 
+ 
+### Compute Likelihood : Foward Algorithm
+ - 앞서 예시에서 살펴보았듯이 계산해야 할 경우의 수가 정말 많음
+ - N개의 은닉상태가 있고, 관측치의 길이가 T라면 우도 계산시 고려해야 할 가지수는 <img src="https://latex.codecogs.com/gif.latex?N%5ET"/>가지
+ - 이런 비효율성을 완화하기 위해 다이내믹 프로그래밍(dynamic programming) 기법을 사용
+ - 다이내믹 프로그래밍은 중복되는 계산을 저장해두었다가 푸는 것이 핵심 원리
 
+
+ <p align="center"/>
+ <img height="400px" src="https://i.imgur.com/UcXttLx.png"/>
+ 
+
+ - 예를 들어, 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)와 1개(<img src="https://latex.codecogs.com/gif.latex?o_%7B2%7D"/>)가 연속으로 관측됐고 두 번째 시점(t=2)의 날씨가 추웠을(<img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>) 확률은 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B2%7D%281%29"/>
+ - 마찬가지로 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)가 관측됐고 첫 번째 시점(t=1)의 날씨가 추웠을(<img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>) 확률은 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B1%7D%281%29"/>
+ - 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)가 관측됐고 첫 번째 시점(t=1)의 날씨가 더웠을(img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B1%7D%282%29"/>) 
+ - 각각을 구하는 식은
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Calpha_%7B1%7D%281%29%3DP%28cold%7Cstart%29%5Ctimes%20P%283%7Ccold%29%5C%5C%5C%5C%20%5Calpha_%7B1%7D%282%29%3DP%28hot%7Cstart%29%5Ctimes%20P%283%7Chot%29%5C%5C%5C%5C%20%5Calpha_%7B2%7D%281%29%3D%5Calpha_%7B1%7D%281%29%5Ctimes%20P%28cold%7Ccold%29%5Ctimes%20p%283%7Ccold%29&plus;%5Calpha_%7B1%7D%282%29%5Ctimes%20P%28cold%7Chot%29%5Ctimes%20p%283%7Ccold%29"/>
+ 
+ 
+ - Foward Algorithm의 핵심 아이디어는 **중복되는 계산은 그 결과를 어딘가에 저장해 두었다가 필요할 때 불러서 사용**하자는 것
+ - 예시여서 지금은 계산량 감소가 도드라져 보이지는 않지만 데이터가 조금만 커져도 그 효율성은 명백해짐
+ - j번째 상태에서 <img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D%2C%5Ccdots%20%2Co_%7Bt%7D"/>가 나타날 전방확률 <img src="https://latex.codecogs.com/gif.latex?%5Calpha"/>는 다음과 같이 정의
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7Bt%7D%28j%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Calpha_%7Bt-1%7D%28i%29%5Ctimes%20a_%7Bij%7D%5Ctimes%20b_%7Bj%7D%28o_%7Bt%7D%29"/>
+ 
+ - 전방확률을 관측치 시퀀스 끝까지 계산하면 우도와 동치가 됨
+ 
+ 
+### Decoding : Viterbi Algorithm
+ - 우리의 두 번째 관심은 **모델 <img src="https://latex.codecogs.com/gif.latex?%5Clambda"/>와 관측치 시퀀스 O가 주어졌을 때 가장 확률이 높은 은닉상태의 시퀀스 Q를 찾는 일**
+ - 이를 디코딩(decoding)이라고 함
+ - 은닉마르코프모델을 만드려는 근본 목적에 닿아 있는 문제
+ - 은닉마르코프모델의 디코딩 과정에는 비터비 알고리즘(Viterbi Algorithm)이 주로 사용
+ - 비터비 알고리즘의 계산 대상인 비터비 확률(Viterbi Probability) v는 다음과 같이 정의(<img src="https://latex.codecogs.com/gif.latex?v_%7Bt%7D%28j%29"/>는 t번째 시점의 j번째 은닉상태의 비터비 확률을 가리킴)
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?v_%7Bt%7D%28j%29%3D%5Coverset%7Bn%7D%7B%5Cunderset%7Bi%7D%7Bmax%7D%7D%5Bv_%7Bt-1%7D%28i%29%20%5Ctimes%20a_%7Bij%7D%20%5Ctimes%20b_%7Bj%7D%28o_%7Bt%7D%29%5D"/>
+ 
+ 
+ - Foward Algorithm에서 구하는 전방확률 <img src="https://latex.codecogs.com/gif.latex?%5Calpha"/>와 디코딩 과정에서 구하는 비터비 확률 <img src="https://latex.codecogs.com/gif.latex?v"/>를 계산하는 과정이 거의 유사
+ - Foward Algorithm은 각 상태에서의 <img src="https://latex.codecogs.com/gif.latex?%5Calpha"/>를 구하기 위해 가능한 모든 경의의 수를 고려해 그 확률을 더해줬다면(sum), 디코딩은 그 확률들 가운데 최대값(max)에 관심이 있음
+ 
+ 
+ <p align="center">
+ <img height="400px" src="https://i.imgur.com/MXxxdo7.png"/>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
  
