@@ -222,18 +222,51 @@
  <p align="center">
  <img height="400px" src="https://i.imgur.com/MXxxdo7.png"/>
  
+ - 각 상태에서 비터비 확률 v를 구하는 식은 다음과 같음
  
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5Cv_%7B1%7D%281%29%3Dmax%5BP%28cold%7Cstart%29%5Ctimes%20P%283%7Ccold%29%5D%3DP%28cold%7Cstart%29%5Ctimes%20P%283%7Ccold%29%5C%5C%5C%5C%20v_%7B1%7D%282%29%3Dmax%5BP%28hot%7Cstart%29%5Ctimes%20P%283%7Chot%29%5D%3DP%28hot%7Cstart%29%5Ctimes%20P%283%7Chot%29%5C%5C%5C%5C%20v_%7B2%7D%281%29%3Dmax%5Bv_%7B1%7D%281%29%5Ctimes%20P%28cold%7Ccold%29%5Ctimes%20P%281%7Ccold%29%2Cv_%7B1%7D%282%29%5Ctimes%20P%28cold%7Chot%29%5Ctimes%20P%281%7Ccold%29%5D"/>
  
  
+ - Foward Algorithm과 비터비 알고리즘 사이의 가장 큰 차이점은 역추적(backtracking) 과정이 있다는 점
+ - **디코딩의 목적은 비터비 확률이 얼마인지보다 최적 상태열이 무엇**인지에 대해 관심
+ - 위 그림에서 파란색 점선으로 된 역방향 화살표가 역추적을 나타냄
+ - 예를 들어, 2번째 시점 2번째 상태 <img src="https://latex.codecogs.com/gif.latex?q_%7B2%7D"/>(=HOT)의 backtrace <img src="https://latex.codecogs.com/gif.latex?b_%7Bt_%7B2%7D%7D%282%29%3Dq_%7B2%7D"/>는 <img src="https://latex.codecogs.com/gif.latex?q_%7B2%7D"/>
+ - <img src="https://latex.codecogs.com/gif.latex?q_%7B2%7D"/>를 거쳐 들어온 값이 <img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>을 거쳐 들어온 값보다 크기 때문
+ - 2번째 시점의 첫번째 상태 <img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>(=COLD)의 backtrace <img src="https://latex.codecogs.com/gif.latex?b_%7Bt_%7B2%7D%7D%281%29"/>는 <img src="https://latex.codecogs.com/gif.latex?q_%7B2%7D"/>
+ - 최적상태열은 이렇게 구한 backtrace들이 리스트에 저장된 결과
+ - 위 그림에서 아이스크림 [3개, 1개가 관측 됐을 때 가장 확률이 높은 은닉상태의 시퀀스는 [HOT, COLD]
+ - t번째 시점 j번째 상태의 backtrace는 다음과 같이 정의 ( 아래 이미지와 함께 이해할 것 )
  
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?arg%5Coverset%7Bn%7D%7B%5Cunderset%7Bi%3D1%7D%7Bmax%7D%7D%5Bv_%7Bt-1%7D%28i%29%5Ctimes%20%5Calpha_%7Bij%7D%20%5Ctimes%20b_%7Bj%7D%28o_%7Bt%7D%29%5D"/>
  
  
+### 전방확률과 후방확률
+ - 은닉마르코프 모델의 파라메터 학습을 위해서는 후방확률 <img src="https://latex.codecogs.com/gif.latex?%5Cbeta"/> 개념을 짚고 넘어가야 함
+ - 전방확률 <img src="https://latex.codecogs.com/gif.latex?%5Calpha"/>와 반대 방향으로 계산한 것이 후방확률
  
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Calpha_%7Bt%7D%28j%29%3D%5Csum_%7Bi%3D1%7D%5E%7B4%7D%5Calpha_%7Bt-1%7D%28i%29%5Ctimes%20%5Calpha_%7Bij%7D%20%5Ctimes%20b_%7Bj%7D%28o_%7Bt%7D%29%5C%5C%5C%5C%20%5Cbeta_%7Bt%7D%28j%29%3D%5Csum_%7Bj%3D1%7D%5E%7Bn%7D%5Calpha_%7Bij%7D%5Ctimes%20b_%7Bj%7D%28o_%7Bt&plus;1%7D%29%5Ctimes%20%5Cbeta_%7Bt&plus;1%7D%28j%29"/>
  
+ - 전방확률 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B3%7D%284%29"/>는 다음과 같이 구함
  
+ <p align="center">
+ <img height="400px" src="https://i.imgur.com/mbBaTch.png"/>
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B3%7D%284%29%3D%5Csum_%7Bi%3D1%7D%5E%7B4%7D%5Calpha_%7B2%7D%28i%29%20%5Ctimes%20%5Calpha_%7Bi4%7D%20%5Ctimes%20b_%7B4%7D%28o_%7B3%7D%29"/>
+ 
+ - 후방확률 <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7B3%7D%284%29"/>는 다음과 같이 구함
+ 
+ <p align="center">
+ <img height="400px" src="https://i.imgur.com/bP9BdJy.png"/>
 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7B3%7D%284%29%3D%5Csum_%7Bj%3D1%7D%5E%7B4%7D%5Calpha_%7B4j%7D%20%5Ctimes%20b_%7Bj%7D%28o_%7B4%7D%29%5Ctimes%20%5Cbeta_%7B4%7D%28j%29"/>
+ 
+ 
  
