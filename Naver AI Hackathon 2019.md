@@ -269,4 +269,25 @@
  <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7B3%7D%284%29%3D%5Csum_%7Bj%3D1%7D%5E%7B4%7D%5Calpha_%7B4j%7D%20%5Ctimes%20b_%7Bj%7D%28o_%7B4%7D%29%5Ctimes%20%5Cbeta_%7B4%7D%28j%29"/>
  
  
+ - 따라서 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B3%7D%284%29"/>와 <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7B3%7D%284%29"/>를 곱하면 **3번째 시점에 4번째 상태일 확률**을 의미
+ - 바꿔 말하면 3번째 시점에 4번째 상태를 지나는 모든 경로에 해당하는 확률의 합을 가르키고 도식적으로는 아래와 같음
+
+
+ <p align="center">
+ <img height="300px" src="https://i.imgur.com/3SQDk3b.png"/>
  
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7Bt%7D%28j%29%5Ctimes%20%5Cbeta_%7Bt%7D%28j%29%3DP%28q_%7Bt%7D%3Dj%2C%20O%7C%5Clambda%29"/>
+ 
+ 
+ - 따라서 특정 시점 t의 전방확률과 후방확률을 곱한 모든 상태에 대해 더해 주면 앞서 계산한 우도와 동치가 됨
+ - 후방확률을 관측치 시퀀스 맨 끝부터 처음까지 계산하면 이 또한 앞서 계산한 우도와 같음
+
+
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28O%7C%5Clambda%29%3DP%28o_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%20%2Co_%7BT%7D%7C%5Clambda%29%5C%5C%5C%5C%20%3DP%28o_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%20o_%7Bt%7D%2Cq_%7Bt%7D%3Dq_%7B0%7D%7C%5Clambda%29%3D%5Cbeta_%7B0%7D%28q_%7Bo%7D%29%5C%5C%5C%5C%20%3D%5Csum_%7Bs%3D1%7D%5E%7Bn%7D%5Calpha_%7Bt%7D%28s%29%5Ctimes%20%5Cbeta_%7Bt%7D%28s%29"/>
+
+
+
+
