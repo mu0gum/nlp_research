@@ -289,5 +289,53 @@
  <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28O%7C%5Clambda%29%3DP%28o_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%20%2Co_%7BT%7D%7C%5Clambda%29%5C%5C%5C%5C%20%3DP%28o_%7B1%7D%2Co_%7B2%7D%2C%5Ccdots%20o_%7Bt%7D%2Cq_%7Bt%7D%3Dq_%7B0%7D%7C%5Clambda%29%3D%5Cbeta_%7B0%7D%28q_%7Bo%7D%29%5C%5C%5C%5C%20%3D%5Csum_%7Bs%3D1%7D%5E%7Bn%7D%5Calpha_%7Bt%7D%28s%29%5Ctimes%20%5Cbeta_%7Bt%7D%28s%29"/>
 
 
+### 베이즈 정리
+ - 베이즈 정리에 의해 다음과 같은 식이 성립
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5CP%28X%7CY%2CZ%29%3D%5Cfrac%7BP%28X%2CY%2CZ%29%7D%7BP%28Y%2CZ%29%7D%5C%5C%5C%5C%20%3D%5Cfrac%7BP%28X%2CY%29/P%28Z%29%7D%7BP%28Y%2CZ%29/P%28Z%29%7D%5C%5C%5C%5C%20%3D%5Cfrac%7BP%28X%2CY%7CZ%29%7D%7BP%28Y%7CZ%29%7D"/>
+ 
 
+### 방출확률 업데이트와 <img src="https://latex.codecogs.com/gif.latex?%5Cgamma"/>
+ - 방출확률 b를 업데이트 하기 위해 <img src="https://latex.codecogs.com/gif.latex?%5Cgamma"/>의 개념을 살펴보면
+ - t시점에 j번째 상태일 확률 <img src="https://latex.codecogs.com/gif.latex?%5Cgamma_%7Bt%7D%28j%29"/>는 다음과 같이 정의
+ - 이미 정의된 식과 베이즈 정리에 의해 다음와 같이 다시 쓸 수 있음
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Cgamma_%7Bt%7D%28j%29%3DP%28q_%7Bt%7D%3Dj%7CO%2C%5Clambda%29%5C%5C%5C%5C%20%3D%5Cfrac%7BP%28q_%7Bt%7D%3Dj%2CO%7C%5Clambda%29%7D%7BP%28O%7C%5Clambda%29%7D%5C%5C%5C%5C%20%3D%5Cfrac%7B%5Calpha_%7Bt%7D%28j%29%20%5Ctimes%20%5Cbeta_%7Bt%7D%28j%29%7D%7B%5Csum_%7Bs%3D1%7D%5E%7Bn%7D%20%5Calpha_%7Bt%7D%28s%29%20%5Ctimes%20%5Cbeta_%7Bt%7D%28s%29%7D"/>
+ 
+ 
+ - j번째 상태에서 관측치 <img src="https://latex.codecogs.com/gif.latex?v_%7Bk%7D"/>가 나타날 방출확률 <img src="https://latex.codecogs.com/gif.latex?%5Chat%7Bb%7D_%7Bj%7D%28v_%7Bk%7D%29"/>는 다음과 같이 정의
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Chat%7Bb%7D_%7Bj%7D%28v_%7Bk%7D%29%3D%5Cfrac%7B%5Csum_%7Bt%3D1%2Cs.t.o_%7Bt%7D%3Dv_%7Bk%7D%7D%5E%7BT%7D%5Cgamma_%7Bt%7D%28j%29%7D%7B%5Csum_%7Bt%3D1%7D%5E%7BT%7D%5Cgamma_%7Bt%7D%28j%29%7D"/>
+ 
+ 
+ - 방출확률 <img src="https://latex.codecogs.com/gif.latex?%5Chat%7Bb%7D_%7Bj%7D%28v_%7Bk%7D%29"/>의 분모는 j번째 상태가 나타날 확률
+ - 분자는 j번째 상태이면서 그 때 관측치(<img src="https://latex.codecogs.com/gif.latex?o_%7Bt%7D"/>)가 <img src="https://latex.codecogs.com/gif.latex?v_%7Bk%7D"/>일 확률(<img src="https://latex.codecogs.com/gif.latex?v_%7Bk%7D"/>가 나타나지 않는 <img src="https://latex.codecogs.com/gif.latex?%5Cgamma"/>는 0으로 무시)
+ - 분자와 분모에 모두 시그마가 적용된 이유는 방출확률은 시점 t와 무관한 값이기 때문
+ 
+ 
+### 전이확률 업데이트와 <img src="https://latex.codecogs.com/gif.latex?%5Cxi"/> 
+ - 전이확률 a를 업데이트하기 위해 <img src="https://latex.codecogs.com/gif.latex?%5Cxi"/>의 개념을 살펴보면
+ - t시점에 i번째 상태이고, t+1시점에 j번째 상태일 확률 <img src="https://latex.codecogs.com/gif.latex?%5Cxi"/>는 다음과 같이 정의
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Cxi_%7Bt%7D%28i%2Cj%29%3DP%28q_%7Bt%7D%3Di%2Cq_%7Bt&plus;1%7D%3Dj%7CO%2C%5Clambda%29%5C%5C%5C%5C%20%3D%5Cfrac%7BP%28q_%7Bt%7D%3Di%2Cq_%7Bt&plus;1%7D%3Dj%2CO%7C%5Clambda%29%7D%7BP%28O%7C%5Clambda%29%7D"/>
+ 
+ 
+ - 위 식의 분자를 도식화 하면 아래와 같음
+ 
+ 
+ <p align="center">
+ <img height="300px" src="https://i.imgur.com/0QxMZTa.png"/>
+ 
+ 
+ 
+ 
+ 
 
