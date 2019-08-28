@@ -184,7 +184,7 @@
 
  - 예를 들어, 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)와 1개(<img src="https://latex.codecogs.com/gif.latex?o_%7B2%7D"/>)가 연속으로 관측됐고 두 번째 시점(t=2)의 날씨가 추웠을(<img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>) 확률은 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B2%7D%281%29"/>
  - 마찬가지로 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)가 관측됐고 첫 번째 시점(t=1)의 날씨가 추웠을(<img src="https://latex.codecogs.com/gif.latex?q_%7B1%7D"/>) 확률은 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B1%7D%281%29"/>
- - 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)가 관측됐고 첫 번째 시점(t=1)의 날씨가 더웠을(img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B1%7D%282%29"/>) 
+ - 아이스크림 3개(<img src="https://latex.codecogs.com/gif.latex?o_%7B1%7D"/>)가 관측됐고 첫 번째 시점(t=1)의 날씨가 더웠을(<img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7B1%7D%282%29"/>) 
  - 각각을 구하는 식은
  
  
@@ -335,7 +335,44 @@
  <img height="300px" src="https://i.imgur.com/0QxMZTa.png"/>
  
  
+ - 지금까지 정의로 볼 때 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7Bt%7D%28i%29"/>는 i번째 상태 좌측의 모든 path에 해당하는 확률의 합
+ - <img src="https://latex.codecogs.com/gif.latex?%5Cbeta_%7Bt&plus;1%7D%28j%29"/>는 j번째 상태 우측의 모든 path에 해당하는 확률의 합
+ - 이 두 가지 곱만으로는 i번째 상태와 j번째 상태를 이어주는 path가 존재하지 않음
+ - i번째 상태에서 j번째 상태로 전이할 확률 <img src="https://latex.codecogs.com/gif.latex?%5Calpha_%7Bij%7D"/>와 j번째 상태에서 관측치 <img src="https://latex.codecogs.com/gif.latex?o_%7Bt&plus;1%7D"/>를 관측할 방출확률 <img src="https://latex.codecogs.com/gif.latex?b_%7Bj%7D%28o_%7Bt&plus;1%7D%29"/>까지 곱해주어야 함
+ - 따라서 시점 t에서 i번째 상태이고 t+1시점에 j번째 상태일 확률 <img src="https://latex.codecogs.com/gif.latex?%5Cxi"/>는 아래와 같이 쓸 수 있음
  
  
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5C%5C%5Cxi_%7Bt%7D%28i%2Cj%29%3D%5Cfrac%7BP%28q_%7Bt%7D%3Di%2Cq_%7Bt&plus;1%7D%3Dj%2CO%7C%5Clambda%29%7D%7BP%28O%7C%5Clambda%29%7D%5C%5C%5C%5C%20%3D%5Cfrac%7B%5Calpha_%7Bt%7D%5Ctimes%20%5Calpha_%7Bij%7D%5Ctimes%20b_%7Bj%7D%28o_%7Bt&plus;1%7D%29%5Ctimes%20%5Cbeta_%7Bt&plus;1%7D%28j%29%20%7D%7B%5Csum_%7Bs%3D1%7D%5E%7Bn%7D%5Calpha_%7Bt%7D%28s%29%5Ctimes%20%5Cbeta_%7Bt%7D%28s%29%7D"/>
  
+ 
+ - i번재 상태에서 j번째 상태로 전이될 확률 <img src="https://latex.codecogs.com/gif.latex?%5Chat%7B%5Calpha%7D_%7Bij%7D"/>는 아래와 같이 정의
+ 
+ 
+ <p align="cener"/>
+ <img src="https://latex.codecogs.com/gif.latex?%5Chat%7B%5Calpha%7D_%7Bij%7D%3D%5Cfrac%7B%5Csum_%7Bt%3D1%7D%5E%7BT-1%7D%5Cxi_%7Bt%7D%28i%2Cj%29%7D%7B%5Csum_%7Bt%3D1%7D%5E%7BT-1%7D%5Csum_%7Bk%3D1%7D%5E%7BN%7D%5Cxi_%7Bt%7D%28i%2Ck%29%7D"/>
+ 
+ 
+ - 위 식의 의미는, i번째 상태에서 전이할 수 있는 모든 path들의 확률을 더한 값
+ - 분자는 i번째 상태에서 j번째 상태로 전이할 확률
+ - 분모와 분자 모두에 <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bt%3D1%7D%5E%7BT-1%7D"/>가 적용된 이유는 방출확률은 시점 t와는 무관한 값이기 때문
+ - 어떤 시점이든 i번째 상태에서 다른 상태로 전이할 확률 <img src="https://latex.codecogs.com/gif.latex?%5Cxi_%7Bt%7D"/>가 존재하므로 관측치 시퀀스 전체에 걸쳐 <img src="https://latex.codecogs.com/gif.latex?%5Cxi_%7Bt%7D"/>를 더해주는 것
+ - 다만 시퀀스 마지막 T번째 시점에선 종료상태로 전이될 확률이 1이 되므로 t에 대해 1에서 T-1까지 더해 줌
+ - 위 식을 도식화하면 아래와 같음
 
+
+ <p align="center">
+ <img height="300px" src="https://i.imgur.com/G0FUlgo.png"/>
+
+ 
+### Training : EM Algorithm
+ - 은닉마르코프 모델의 파라미터는 전이확률 A와 방출확률 B
+ - 하지만 위 두 파라미터를 동시에 추정하기 어려움
+ - 지금까지 설명한 날씨 예제를 기준으로 하면, 우리가 관측가능한 것은 아이스크림의 개수뿐이고 궁극적으로 알고 싶은 날씨는 숨겨져 있음
+ - 따라서 HOT에서 COLD로 전이할 확률은 물론 날씨가 더울때 아이스크림을 1개 먹을 방출확률 등을 모두 한 번에 알 수 없음
+ - 이럴 때 주로 EM 알고리즘이 사용됨
+ 
+ 
+### 마무리
+ - 앞서 마무리에서 호기롭게 종단 간(end to end) 방식을 우선순위에 두어야다는 등의 이야기를 했었습니다. 그런데 음성인식에 대해 찾아보다 보니 제가 너무 안일하게 생각했던 것 같습니다ㅎㅎ.해커톤에 참여하는게 첫번째 목표지만 그렇지 못하더라도 한번 처음부터 끝까지 논문을 참고해서 실제 동작하는 모델을 만들어 보는걸 두번째 목표로 하고 계속해 보겠습니다. 일단 논문은 크게 두 편을 찾아보았습니다. Fully Convolutional Speech Recognition과 End-to-End Speech Recognition From the Raw Waveform 두 가지입니다. 첫번째 논문을 읽어본 이유는 CNN을 기존에 한 번 정리한적이 있어 그나마 내용이 익숙하지 않을까 싶어 선택했고, 두번째 논문은 첫번째 논문에서 음성 특징 추출을 하는 방법으로 소개가 되어서 찾아보았습니다. 아직 음성인식에 대해 제대로 알지 못하기 때문에 영어 해석도 힘든데, 그 의미를 파악하는 것은 더 힘든 것 같습니다. 일단은 음성의 특징을 추출해내는 음성분석 방법에 대해 조금 더 정리해보고 논문도 이해할 수 있도록 그리고 코드화 시킬 수 있도록 해보겠습니다.
+ 
