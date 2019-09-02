@@ -333,10 +333,82 @@ CNN에 대한 기본적인 내용 정리는 이쯤하도록 하고 다음은 자
  
  - 약 만 건의 데이터로 위의 과정으로 학습을 진행해서 샘플 모델을 만들어보았습니다. 결과는 그다지 훌륭하지 않았지만 한 번 문제를 하나씩 해결해보고 과연 실제로 쓸만한지 자체적으로 판단을 해보도록 하겠습니다.
  - 일단 그 전에 단어를 벡터화하는 임베딩에 대해 간단히 정리하고 넘어가도록 하겠습니다.
- 
- 
- 
- 
- 
+ - 앞서 많이 언급했던 이기창 님의 블로그 내용을 정리하였습니다.
  
 
+### Word2Vec 개요
+ - Word2Vec은 단어를 벡터로 바꾸는(임베딩) 방법론
+ - 크게 CBOW(Continuous  Bag of Words)와 Skip-Gram 두 가지 방식이 있음
+ - CBOW는 주변에 있는 단어들을 가지고 중심에 있는 단어를 맞추는 방식
+ ```
+ 나는 ___에 간다
+ ```
+ - 위 문장에는 '학교', '집', '회사' 등 다양한 단어가 들어갈 수 있음
+ - Skip-Gram은 단어의 앞뒤로 어떤 단어가 올지를 예측하는 방식
+ ```
+ __외나무다리__ 
+ ```
+ - 위 문장에서 '외나무다리' 앞에는 '는' 그 앞에는 '원수' 뒤에는 '에서', '만난다'가 올 확률이 높음
+ - 학습시킨 말뭉치에서 '외나무다리' 뒤에 '-에서' '만난다' 는 표현이 나온다면 Word2Vec은 '외나무다리'가 '-에서', '만난다'와 연관이 있다고 보고 벡터를 구성
+ - 여기서 고민해볼 부분은 '외나무다리'와 '원수'가 비슷한 표현(단어)라고 볼 수 있는가?
+ 
+
+### Word2Vec의 목적함수와 코사인 유사도
+ - Word2Vec은 Distributional Hypothesis에 근거한 방법론
+ - Distributional Hypothesis : 비슷한 맥락에 등장하는 단어들은 유사한 의미를 지니는 경향이 있다. (words that occur in similar contexts tend to have similar meanings) => NLP의 기본 가정 중 하나(https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/03/10/frequency/)
+ - Word2Vec(Skip-Gram)은 아래식을 최대화하는 걸 목표로 함
+ 
+ <p align="center"/>
+ <img src="https://latex.codecogs.com/gif.latex?p%28o%7Cc%29%3D%5Cfrac%7Bexp%28u_%7Bo%7D%5ETv_%7Bc%7D%29%7D%7B%5Csum_%7Bw%3D1%7D%5E%7BW%7Dexp%28u_%7Bw%7D%5ETv_%7Bc%7D%29%7D"/>
+
+
+ - o는 주변단어(context word), c는 중심단어(center word)
+ - P(o|c)는 중심단어 c가 주어졌을 때, 주변단어 o가 등장할 조건부확률
+ - 이 식을 최대화한다는 것은 **중심단어로부터 주변 단어를 잘 맞춘다는 의미**
+ - Word2Vec의 저자들은 P(o|c)를 우변과 같이 정의
+ - u와 v는 단어 벡터들 => 예를 들어 '외나무다리'라는 중심단어 벡터가 <img src="https://latex.codecogs.com/gif.latex?v_%7Bc%7D"/>, '원수'라는 주변단어 벡터가 <img src="https://latex.codecogs.com/gif.latex?u_%7Bo%7D"/>
+ - 엄밀히 이야기하면 u와 v는 다른 벡터들이지만 임베딩이 잘 되어 있다면 학습의 결과로 도출된 u와 v 가운데 어떤걸 써도 상관없다고 함
+ 
+ 
+#### 코사인 유사도
+ - 2차원 평면 위에 단위원(반지름이 1)이 있다고 할 때, 코사인 정의에 의해 <img src="https://latex.codecogs.com/gif.latex?cos%28%5Ctheta%29"/>는 아래 그림의 녹색 선의 길이와 같음
+ 
+ 
+ <p align="center">
+ <img height="400px" src="http://i.imgur.com/zCFB0mS.png"/>
+ 
+ 
+ - A가 B에 정확히 포개져 있을 때(Θ=0도), <img src="https://latex.codecogs.com/gif.latex?cos%28%5Ctheta%29"/>는 1
+ - 아래 그림의 경우 빨간색 직선이 x축과 만나는 점이 바로 <img src="https://latex.codecogs.com/gif.latex?cos%28%5Ctheta%29"/>
+
+
+ <p align="center">
+ <img height="400px" src="http://i.imgur.com/H8WvWMB.gif"/>
+ 
+ 
+ - <img src="https://latex.codecogs.com/gif.latex?cos%28%5Ctheta%29"/>는 단위원 내 벡터들끼리의 **내적(inner product)** 과 같음
+ - 내적값이 커진다는 것은 두 벡터가 이루는 Θ가 작아진다(유사도가 높아진다)라는 것을 의미
+ - 위 내용을 고차원의 벡터공간으로 확대할 수 있음
+ - 위의 식에서 우변을 최대화한다는 말은 분자를 키우고, 분모를 줄인다는 의미
+ - 우선 분자 부분을 보면
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?exp%28u_%7Bo%7D%5ETv_%7Bc%7D%29"/>
+ 
+ 
+ - 분자를 증가시킨다는 건 exp의 지수를 크게 한다는 걸 뜻함
+ - exp의 지수는 두 벡터의 내적값 => 이 값이 커진다는건 앞서 언급한 것처럼 벡터들 사이의 Θ를 줄인다(유사도를 높인다는 의미)
+ - 다시 말해 중심단어(c)와 주변단어(o)를 벡터공간에 위치시킬 때, 인근에 위치시킨다는 의미로 해석될 수 있음
+ - 분모를 줄인다는 건 아래 작게 해야 함
+ 
+ 
+ <p align="center">
+ <img src="https://latex.codecogs.com/gif.latex?%5Csum_%7Bw%3D1%7D%5E%7BW%7Dexp%28u_%7Bw%7D%5ETv_%7Bc%7D%29"/>
+ 
+ 
+ - 분모는 중심단어(c)와 학습 말뭉치 내 모든 단어를 각각 내적한 것의 총합
+ - 분모를 줄이려면 주변에 등장하지 않은 단어와 중심단어의 내적값이 작아져야 함
+ - 즉 중심단어 주변에 등장하지 않는 단어와 중심단어 벡터 사이의 Θ를 키운다(코사인 유사도를 줄인다)는 의미
+
+ 
