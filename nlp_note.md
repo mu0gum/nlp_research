@@ -400,7 +400,7 @@ CNN에 대한 기본적인 내용 정리는 이쯤하도록 하고 다음은 자
  - 분자를 증가시킨다는 건 exp의 지수를 크게 한다는 걸 뜻함
  - exp의 지수는 두 벡터의 내적값 => 이 값이 커진다는건 앞서 언급한 것처럼 벡터들 사이의 Θ를 줄인다(유사도를 높인다는 의미)
  - 다시 말해 중심단어(c)와 주변단어(o)를 벡터공간에 위치시킬 때, 인근에 위치시킨다는 의미로 해석될 수 있음
- - 분모를 줄인다는 건 아래 작게 해야 함
+ - 분모를 줄인다는 건 아래를 작게 해야 함
  
  
  <p align="center">
@@ -411,4 +411,75 @@ CNN에 대한 기본적인 내용 정리는 이쯤하도록 하고 다음은 자
  - 분모를 줄이려면 주변에 등장하지 않은 단어와 중심단어의 내적값이 작아져야 함
  - 즉 중심단어 주변에 등장하지 않는 단어와 중심단어 벡터 사이의 Θ를 키운다(코사인 유사도를 줄인다)는 의미
 
+
+### Word2Vec의 학습 방식
+ - Word2Vec은 Neural Network Language Model(NNLM)을 계승하면서 학습 속도와 성능을 비약적으로 끌어올려 주목을 받고 있음
+
+
+#### Word2Vec 학습 파라미터
+ - Word2Vec의 아키텍처(Skip-Gram)을 도식화 하면 아래와 같음
+ - 은닉층이 하나인 간단한 뉴럴네트워크 구조
+ 
+ 
+ <p align="center">
+ <img height="400px" src="http://i.imgur.com/TupGxMl.png"/>
+ 
+ 
+ - 위 구조에서 핵심은 가중치행렬 <img src="https://latex.codecogs.com/gif.latex?W%2C%7BW%7D%27"/> => **Word2Vec의 학습 결과**기 때문
+ - 입력층-은닉층, 은닉층-출력층을 잇는 가중치행렬의 모양이 서로 전치(transpose)
+ - 전치하면 모양이 같다고 해서 완벽히 동일한 행렬은 아님
+ - 입력층와 은닉층을 잇는 가중치행렬 W를 좀더 살펴보면, V는 임베딩하려는 단어의 수, N은 은닉층의 노드 개수(사용자 지정)
+ - Word2Vec은 최초 입력으로 one-hot-vector를 받음
+ - 1 X V 크기의 one-hot-vector의 각 요소와 은닉층의 N개 노드는 각 1대1 대응이 이뤄져야 하므로 가중치행렬 W의 크기는 V X N
+ - 예를들어 학습 말뭉치에 단어 1만개가 있고 은닉층 노드를 300개로 지정했다고 하면, 가중치행렬 W는 좌측하단 오렌지색 행렬 형태가 됨
+ 
+ 
+ <p align="center">
+ <img height="400px" src="http://i.imgur.com/NHUCNXq.png">
+ 
+ - Word2Vec 아키텍처는 중심단어로 주변단어를 맞추거나, 주변단어로 중심단어를 더 잘 맞추기 위해 가중치행렬인 <img src="https://latex.codecogs.com/gif.latex?W%2C%7BW%7D%27"/>을 조금씩 업데이트하면서 학습이 이뤄지는 구조
+ - 여기서 흥미로운 점은 W가 one-hot-encoding된 입력벡터와 은닉층을 이어주는 가중치행렬임과 동시에 Word2Vec의 최종 결과물인 **임베딩 단어 벡터 모음** 이라는 점
+ - 아래와 같이 단어가 5개뿐인 말뭉치에서 Word2Vec을 수행한다고 가정해보면
+ - 사전 등장 순서 기준으로 네 번째 단어를 입력으로 하는 은닉층의 값은 아래처럼 계산
+ - Word2Vec의 은닉층을 계산하는 작업은 사실상 가중치행렬 W에서 해당 단어에 해당하는 행벡터를 참조(lookup) 해 오는 방식과 동일
+ - 학습이 마무리되면 W의 행벡터들이 각 단어에 해당하는 임베딩 단어벡터가 됨
+ 
+ 
+ <p align="center">
+ <img height=100px" src="http://i.imgur.com/zuSZWdL.png"/> 
+ 
+
+#### Word2Vec 입력과 Skip-Gram
+ - Word2Vec의 Skip-Gram(중심 단어로 주변단어 예측)이 말뭉치로부터 어떻게 입력값과 정답을 만들어내는지 살펴보면,
+ -  ‘The quick brown fox jumps over the lazy dog.’ 문장으로 시작하는 학습말뭉치가 있다고 가정
+ - 윈도우(한번에 학습할 단어 개수) 크기가 2인 경우 아키텍처가 받는 입력과 정답은 아래와 같음
+ 
+ 
+ <p align="center">
+ <img height="400px" src="http://i.imgur.com/8zNRwsn.png"/>
+ 
+ 
+ - 첫번째 스텝 => 중심단어는 처음 등장하는 단어인 'The', 윈도우 크기가 2기 때문에 중심단어 앞뒤로 두개씩 봐야하지만 'The'를 기준으로 이전 단어가 존재하지 않으므로 뒤에 등장하는 두 개 단어 사용
+ - 여기서 주의할 점은 'quick'과 'brown'을 따로 떼어서 각각 학습한다는 점 (the, quick), (the, brown)
+ - 두번째 스텝에서는 중심단어를 오른쪽으로 한 칸 옮겨 'quick'를 중심단어로 하고, 'The', 'brown', 'fox'를 주변단어 정답으로 진행
+ - 이런식으로 말뭉치 내에 존재하는 모든 단어를 윈도우 크기로 슬라이딩해가며 학습을 하면 iteration 1회 마무리
+ - 주변단어로 중심단어를 예측하는 CBOW에 비해 Skip-Gram의 성능이 좋은 이유는 CBOW의 경우 중심단어는 한 번의 업데이트 기회를 가질 때, Skip-Gram의 경우 중심단어는 4번의 업데이트 기회를 가짐 => 요즘은 Word2Vec을 할 때, Skip-Gram을 주로 사용
+ 
+ 
+#### Word2Vec의 학습
+ - 앞서 Word2Vec의 Skip-Gram은 아래 식을 최대화하는 방향으로 학습을 진행한다고 했음
+ 
+ 
+ <p align="center"/>
+ <img src="https://latex.codecogs.com/gif.latex?p%28o%7Cc%29%3D%5Cfrac%7Bexp%28u_%7Bo%7D%5ETv_%7Bc%7D%29%7D%7B%5Csum_%7Bw%3D1%7D%5E%7BW%7Dexp%28u_%7Bw%7D%5ETv_%7Bc%7D%29%7D"/>
+ 
+ 
+ - 우변의 v는 입력층-은닉층을 잇는 가중치행렬 <img src="https://latex.codecogs.com/gif.latex?W">의 행벡터, u는 은닉층-출력층을 잇는 가중치행렬 <img src="https://latex.codecogs.com/gif.latex?%7BW%7D%27"/>의 열벡터
+ - 우선 분자의 지수를 키우는 건 중심단어(c)에 해당하는 벡터와 주변단어(o)에 해당하는 벡터의 내적값을 높인다는 뜻
+ - 분모를 줄이는 건 윈도우 크기 내에 등장하지 않는 단어들은 중심단어와의 유사도를 높인다는 의미
+ - 아래는 Word2Vec의 학습 파라미터인 중심단어 벡터 업데이트 과정을 수식으로 정리한 내용
+
+
+ 
+ 
  
