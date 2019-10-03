@@ -539,7 +539,7 @@ def precoess_data():
  ```
  - 명사 추출 후의 결과를 보니 수정해야할 부분이 좀 있어 보이지만 일단 계속 진행해보겠습니다.
  - 위의 결과를 가지고 모델을 학습시켜 보겠습니다.
- - 
+ 
  
 ```python
 def train_word2vec():
@@ -792,8 +792,62 @@ def isvalid_data(result_str):
  
 
 ### 개선 시도 - 2. 하이퍼파라미터 변경
+ - Word2Vec을 가지고 이것저것 해보거나 엄밀한 수학적 증명을 해보지 않아서 파라미터 설정을 어떻게 해야하는지 고민이 많았습니다. 따로 논문을 보면서 조사를 하기에는 시간이 부족하다고 생각되어 How do I determine Word2Vec parameters?(https://www.quora.com/How-do-I-determine-Word2Vec-parameters)의 내용을 참고해서 진행해보겠습니다. 위 포스팅에서 Word2Vec 하이퍼파라미터 관련 내용은 아래와 같습니다.
  
  
+
+1. The model type (continuous bag of words - surrounding words predicting to word they flank. Skipgram - flanked word predicting all its surrounding words) skipgram typically is favored for large corpus
+
+2. Sampling method ( hierarchical or negative ) again latter typically preferred for large corpus
+
+3. Iterations - 5 or even as low as 3 for large corpus of 30 million unique words or more
+4. Dimensions - 300 works for corpus of upto 60 million unique words
+5. Subsampling - determines how often frequently occurring words like “the” are trained. Could be anywhere from 1e-3 to 1e-5. Values lower than 1e-5 tends to influence vector quality
+6. Window size - smaller window size gives results that are more syntactic in nature. Larger window ( size > 5 ) gives results that are more semantic - this takes more training time given larger window size.
+
  
  
-  
+ - 모델을 개선하기 위해 하이퍼파라미터를 조금씩 변경해 보도록 하겠습니다. 일단 초기에 설정한 파라미터들은 100차원으로 단어를 임베딩하고, 윈도우크기는 5, 최소 반복 횟수는 3번, 학습은 1번 반복하고 Skip-gram을 사용했습니다. 일단 나온 데이터와 여러가지 상황을 종합해봤을 때 가장 먼저 변경해야 하는 건 학습의 반복 횟수처럼 보입니다. 학습하는 말뭉치의 양이 반복의 효과를 낼만큼 충분히 크지 않고, 오히려 지금은 학습하는 양 자체가 너무 부족하기 때문에 올바르게 임베딩을 한건지 의구심이 드는 것 같습니다. 그럼 나머지는 동일하게 하고 학습 횟수만 30회로 늘려서 모델을 비교해보겠습니다.
+ - 그 전에 유사한 단어를 찾을 때 사용하는 단어에서 선물은 빼도록 하겠습니다. 선물은 여러 사람과 여러 목적에 포함되기 때문에 결과가 좀 더 일반적이지 않을까 생각됩니다. 앞으로는 학습한 모델에 검색할 때, [대상 + 목적] 위주로 하겠습습니다.
+ - 아래는 동일한 파라미터에서 학습 횟수만 30회로 늘린 후, ["엄마", "생일"]로 검색했을 때, 코사인유사도가 높은 30개 단어입니다.
+ 
+```
+[('금일봉', 0.7177060842514038),
+('웬수', 0.7129011750221252),
+('다미', 0.7102757692337036),
+('상차림', 0.7091253995895386),
+('박서방', 0.7072010636329651),
+('딸아', 0.705172061920166),
+('다인', 0.7049171924591064),
+('시아버님', 0.698712944984436),
+('휴게소', 0.6978402137756348),
+('권선민', 0.6975885629653931),
+('다현', 0.6972560882568359),
+('뽀뽀', 0.6970055103302002),
+('수빈', 0.6966238021850586),
+('와준', 0.6934833526611328),
+('전야제', 0.6933735609054565),
+('쳔', 0.691278874874115),
+('주장', 0.6895673274993896),
+('리온', 0.6883091330528259),
+('서진', 0.6867287158966064),
+('건우', 0.6847959756851196),
+('함박웃음', 0.6844520568847656),
+('아빠딸', 0.6826141476631165),
+('생일상', 0.6817907094955444),
+('오마니', 0.6804355978965759),
+('대성공', 0.6786865592002869),
+('형편', 0.6777249574661255),
+('딱지', 0.6758014559745789),
+('음력', 0.6754621267318726),
+('하린', 0.6744040250778198),
+('바라기', 0.6674615144729614)]
+```
+
+ - 가장 첫번째로 금일봉이라는 단어가 나왔는데 느낌에 신빙성이 좀 있어보이는 것 같습니다ㅎㅎ.300개 단어는 어떤지 확인해 보겠습니다.
+ 
+ <p align="center">
+ <image src="https://github.com/mu0gum/nlp_research/blob/master/images/Figure_0925_100_5_3.png">
+ 
+ - 금일봉, 현금, 생활한복, 생일상, 사진첩 등이 보입니다. 괜찮아 보이기도 하고 아닌 것 같기도 하고 잘은 모르겠습니다.ㅎㅎ지금은 엄마, 생일로만 검색하는데 다른 단어들에 대해서도 확인을 해봐야 할 것 같습니다. 그 전에 앞으로 이런 작업이 계속 반복될 것 같은데 검증하는 로직을 좀 따로 만들어야 할 것 같습니다. 매번 일일이 확인하기는 힘들 것 같네요ㅎㅎ.다음에는 검증을 할 수 있는 프로그램을 만들어보고 다시 개선해보도록 하겠습니다.
+ 
